@@ -1,8 +1,9 @@
 package MainClassesPackage;
 import java.util.Scanner;
-//import java.util.ArrayList;
-
-import Days;
+import animalExtend.*;
+import cropExtend.*;
+import supportClasses.Days;
+import GUIPackage.*;
 import GUIPackage.ChooseFarmer;
 
 public class PaddockParadiseManager {

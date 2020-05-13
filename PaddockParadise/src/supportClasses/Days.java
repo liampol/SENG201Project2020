@@ -1,3 +1,4 @@
+package supportClasses;
 /*
  * The "Days" Class is used to keep track of the operations of the days that are initialised using the "PaddockParadiseManager"
  * 

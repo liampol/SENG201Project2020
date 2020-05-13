@@ -1,5 +1,10 @@
 package MainClassesPackage;
 import java.util.ArrayList;
+import java.util.Scanner;
+import animalExtend.*;
+import cropExtend.*;
+import GUIPackage.*;
+
 public class Farm {
 	
 	String name;
