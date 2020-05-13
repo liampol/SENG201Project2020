@@ -1,7 +1,6 @@
 package MainClassesPackage;
 import java.util.Scanner;
-import animalExtend.*;
-import cropExtend.*;
+import baseutility.GameEnvironment;
 import supportClasses.Days;
 import GUIPackage.*;
 import GUIPackage.ChooseFarmer;
@@ -80,7 +79,7 @@ public class PaddockParadiseManager {
 			newType = "Discunt Store";
 		}else {
 			System.out.println("Sorry that was an invalid option, so I have choosen the default Farm for you\n"
-					+ "You now own a MoneyTree Farm ,\n");
+					+ "You now own a MoneyTree Farm\n");
 			newType = "Money Tree";
 		}
 		
@@ -144,10 +143,28 @@ public class PaddockParadiseManager {
 	public String toString(String message) {
 		return message;
 	}
+	
+	public Farmer getFarmer() {
+		return newFarmer;
+	}
+	
+	public Farm getFarm() {
+		return newFarm;
+	}
+	
+	
+	public void startGame(PaddockParadiseManager manager) {
+		
+		GameEnvironment environment = new GameEnvironment(manager);
+		
+		
+	}
+	
 	public static void main(String[] args) {
 		//PaddockParadiseManager manager = new PaddockParadiseManager();
 		//manager.launchWelcomeWindow();
 		launchWelcomeWindow();
+		
 		
 		
 	}
