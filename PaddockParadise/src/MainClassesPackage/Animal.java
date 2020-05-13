@@ -1,6 +1,8 @@
 package MainClassesPackage;
 import animalExtend.*;
-
+import GUIPackage.*;
+import cropExtend.*;
+import baseutility.*;
 
 /**
  * 
@@ -11,7 +13,7 @@ import animalExtend.*;
 public class Animal {
 	
 	String name;               // Name of animal
-    String type;               // Types will be Cows, Sheep, Pigs
+        String type;               // Types will be Cows, Sheep, Pigs
 	float price;               // Cost of animal
 	float moneyBonus;          // Bonus received from each animal
 	String healthState;        // Current health state of animal
