@@ -1,6 +1,10 @@
 package GUIPackage;
-import java.awt.EventQueue;
 
+import animalExtend.*;
+import cropExtend.*;
+import MainClassesPackage.*;
+
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
