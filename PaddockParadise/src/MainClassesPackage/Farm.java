@@ -87,6 +87,19 @@ public class Farm {
 		toString(returnString);
 		
 	}
+	
+	public void viewAnimals() {
+		String returnString = "The current animals that are in the farm are:\n";
+		for (Animal animal: currentAnimals) {
+			returnString += animal.getType();
+			returnString += "\n";
+		}
+		toString(returnString);
+	}
+	
+	public void viewFarmStatus() {
+		viewCrops();
+	}
 
 	public static void toString(String message) {
 		System.out.println(message);
