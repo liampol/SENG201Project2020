@@ -1,9 +1,11 @@
 package cropExtend;
 import MainClassesPackage.Crop;
+import supportClasses.*;
+
 
 public class Avocado extends Crop {
-
 	public Avocado() {
-		super("Avocado", (float) 500.00, (float) 100.00, 4);
+		
+		super("Avocado", 60.00, 30.00, 4);
 	}
 }

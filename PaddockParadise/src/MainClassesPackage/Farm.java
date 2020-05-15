@@ -7,31 +7,42 @@ import GUIPackage.*;
 
 public class Farm {
 	
+<<<<<<< Updated upstream
 	private String name;
 	private String type;
 	private Farmer currentFarmer;
 	private ArrayList<Crop> currentCrops;
 	private ArrayList<Animal> currentAnimals;
 	private float money;
+=======
+	String name;
+	String type;
+	Farmer currentFarmer;
+	ArrayList<Crop> currentCrops;
+	ArrayList<Animal> currentAnimals;
+	ArrayList<Supplies> currentSupplies;
+	String bonus;
+	double money;
+>>>>>>> Stashed changes
 	
 	public Farm(String farmName, Farmer newFarmer, String farmType) {
 		
 		name = farmName;
 		currentFarmer = newFarmer;
-		type = chooseFarmType(farmType);
+		type = farmType;
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
-		money = (float) 500.00; 
+		money = 500.00; 
 	}
 	
 	public Farm(Farmer newFarmer) {
 		
 		name = currentFarmer.getName() + "'s Farm";
 		currentFarmer = newFarmer;
-		type = chooseFarmType("Money Tree");
+		type = "Money Tree";
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
-		money = (float) 500.00; 
+		money =  500.00; 
 	}
 
 	/**
@@ -40,16 +51,8 @@ public class Farm {
 	 * @param farmType
 	 * @return
 	 */
-	public String chooseFarmType(String farmType) {
-		if (farmType == "Faster Crop Growth") { // Need to implement crop growth method in Crop class
-			return "Faster Crop Growth";
-		}else if (farmType == "Happy Animal") { // Need to implement Animal class
-			return "Happy Animal";
-		}else if (farmType == "Discount Store"){
-			return "Discount Store"; // Need to implement Market Class
-		}else {
-			return "Money Tree"; // Need to implement some type of Income class
-		}
+	public void applyFarmBonus(String newBonus) {
+		bonus = newBonus;
 	}
 	
 	public String getName() {
@@ -60,7 +63,7 @@ public class Farm {
 		return type;
 	}
 	
-	public float getMoney() {
+	public double getMoney() {
 		return money;
 	}
 	
@@ -77,15 +80,58 @@ public class Farm {
 			return false;
 	}
 	
-	public void viewCrops() {
+	public String viewCrops() {
 		String returnString = "The current crops you have are:\n";
+		int numCarrots = 0;
+		int numBroccoli = 0;
+		int numCapsicum = 0;
+		int numPotato = 0;
+		int numAvocado = 0;
+		int numCauliflower = 0;
+		
+		
 		for (Crop vegetable: currentCrops) {
-			returnString += vegetable.getType();
-			returnString += "\n";
+			if (vegetable.getType() == "Carrot") {
+				numCarrots ++;
+				
+			}else if (vegetable.getType() == "Cauliflower"){
+				numCauliflower ++;
+				
+			}else if (vegetable.getType() == "Capsicum"){
+				numCapsicum ++;
+				
+			}else if (vegetable.getType() == "Potato"){
+				numPotato ++;
+				
+			}else if (vegetable.getType() == "Broccoli"){
+				numBroccoli ++;
+				
+			}else if(vegetable.getType() == "Avocado"){
+				numAvocado ++;
+				}
+			returnString = ("Carrots: " + numCarrots + "\n" 
+			        + "Capsicum: " + numCapsicum + "\n" 
+					+ "Potatoes: " + numPotato + "\n" 
+			        + "Cauliflower: " + numCauliflower + "\n" 
+					+ "Avocado: " + numAvocado + "\n" 
+			        + "Broccoli: " + numBroccoli + "\n") ;
+			}
+		
+		String message = returnString;
+		return message;
+		
+	}
+	
+	public String viewCropsStatus() {
+		String status = "";
+		if (currentCrops.isEmpty()) {
+			status = "Sorry but you have no crops to view";
+		}else {
+			for (Crop vegetable: currentCrops) {
+				status += vegetable.getType() + " Days to harvest: " + vegetable.getDaysToHarvest() + "\n";
+			}
 		}
-		
-		toString(returnString);
-		
+		return status;
 	}
 	
 	public void viewAnimals() {
@@ -96,6 +142,20 @@ public class Farm {
 		}
 		toString(returnString);
 	}
+	
+	public String viewAnimalsStatus() {
+		String status = "";
+		if (currentAnimals.isEmpty()) {
+			status = "Sorry but you have no Animals to view";
+		}else {
+			for (Animal animal: currentAnimals) {
+				status += animal.getName() + "the " + animal.getType() + "is " + animal.getState() + "\n";
+			}
+		}
+		return status;
+	}
+	
+	
 	
 	public void viewFarmStatus() {
 		viewCrops();
@@ -123,14 +183,15 @@ public class Farm {
 		newFarm.addCrop(carrot3);
 		newFarm.addCrop(broc);
 		newFarm.addCrop(potato);
-		System.out.printf("You have $%.2f money left\n",newFarm.getMoney());  // Print to 2 d.p
+		System.out.printf("You have $%.2f left\n", newFarm.getMoney());  // Print to 2 d.p
 		newFarm.viewCrops();
 		
 		newFarm.removeCrop(carrot2);
 		System.out.println(carrot3.getDaysToHarvest());
 		newFarm.removeCrop(broc);
-		
 		newFarm.viewCrops();
+		newFarm.viewAnimalsStatus();
+		newFarm.viewCropsStatus();
 		
 		
 		

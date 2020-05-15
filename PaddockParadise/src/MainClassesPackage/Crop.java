@@ -1,13 +1,15 @@
 package MainClassesPackage;
 import cropExtend.*;
+import supportClasses.*;
 
 
 public class Crop {
 	
-	String type;                   // Carrots, Potatos, Capsicum, Broccoli, Cauliflower, Avocado
-	float sellPrice;               // Price to sell vegetable
-	float buyPrice;                // Price to buy vegetable
-	int daysToHarvest;           // Amount of days to harvest
+	String type;                    // Carrots, Potatos, Capsicum, Broccoli, Cauliflower, Avocado
+	double sellPrice;               // Price to sell vegetable
+	double buyPrice;                // Price to buy vegetable
+	int daysToHarvest;              // Amount of days to harvest
+	String state;                   // Plants current state (Sprout or Harvest)
 	boolean farmBonus;
 	int amountCarrots;
 	int amountCapsicum;
@@ -23,19 +25,13 @@ public class Crop {
 	 * @param buyCost
 	 * @param harvestTime
 	 */
-	public Crop(String currentVegetable, float sellCost, float buyCost, int harvestTime) {
+	public Crop(String currentVegetable, double sellCost, double buyCost, int harvestTime) {
 		
 		type = currentVegetable;
 		sellPrice = sellCost;
 		buyPrice = buyCost;
-		
-		if (farmBonus == true) {
-			daysToHarvest -= harvestTime%2;   // Applies a 20% less time to grow to all crops if farmBonus is true
-		}else {
-			daysToHarvest = harvestTime;
-		}
-		
 		daysToHarvest = harvestTime;
+		state = "Sprout";
 		cropTracker(currentVegetable); // Need to implement some way to keep track of all 
 	}
 	
@@ -47,14 +43,33 @@ public class Crop {
 		return type;
 	}
 	
+	/**
+	 * Gets the amount of days left to harvest crop
+	 * @return
+	 */
 	public int getDaysToHarvest() {
 		return daysToHarvest;
 	}
+	
 	/**
-	 * Method used to confirm if farmBonus has been applied
+	 * Gets the cost to purchase crop
+	 * @return
 	 */
-	public void applyFarmBonus() {
-		farmBonus = true;
+	public double getPrice() {
+		return buyPrice;
+	}
+	
+	public double getSellPrice() {
+		return sellPrice;
+	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	public void setState() {
+		state = "Harvest";
+		
 	}
 	
 	/**
@@ -78,7 +93,7 @@ public class Crop {
 		
 	}
 	public void alterCropTime(int bonus) {
-		daysToHarvest = (daysToHarvest*bonus);
+		daysToHarvest -= bonus;
 	}
 	
 	public static void main(String[] args) {
@@ -86,6 +101,9 @@ public class Crop {
 		
 		//Implemented for testing
 		Carrot carrot = new Carrot();
+		Avocado avo = new Avocado();
+		avo.alterCropTime(2);
+		System.out.println(avo.getDaysToHarvest());
 		
 		
 		

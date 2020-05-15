@@ -1,14 +1,28 @@
 package MainClassesPackage;
 import java.util.ArrayList;
+import extendSupplies.*;
 
 public class Supplies {
 	
-	String name;
-	float price;
-	String bonus;
-	
-	public void useItem(Supply item) {
+	String bonus;                    // The bonus describes what the item does in the game environment
+	String name;                     // The name of the Item
+	double buyPrice;                  // The cost of the Item
 		
+	public Supplies(String newName, String newBonus, double cost) {
+		
+		bonus = newBonus;
+		name = newName;
+		buyPrice = cost;
 	}
+	
+	public double getPrice() {
+		return buyPrice;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 
+	
 }

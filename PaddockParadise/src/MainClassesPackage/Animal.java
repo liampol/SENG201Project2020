@@ -13,15 +13,15 @@ import baseutility.*;
 public class Animal {
 	
 	String name;               // Name of animal
-        String type;               // Types will be Cows, Sheep, Pigs
-	float price;               // Cost of animal
-	float moneyBonus;          // Bonus received from each animal
+    String type;               // Types will be Cows, Sheep, Pigs
+	double price;               // Cost of animal
+	double moneyBonus;          // Bonus received from each animal
 	String healthState;        // Current health state of animal
 	String emotionalState;     // Emotional state of animal
 	
 	
 	
-	public Animal(String newName, String newType, float newPrice, float newBonus, String newHealthState, String newEmotionalState) {
+	public Animal(String newName, String newType, double newPrice, double newBonus, String newHealthState, String newEmotionalState) {
 		name = newName;
 		type = newType;
 		price = newPrice;
@@ -38,11 +38,11 @@ public class Animal {
 		return type;
 	}
 	
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 	
-	public float getMoneyBonus() {
+	public double getMoneyBonus() {
 		return moneyBonus;
 	}
 	
@@ -50,6 +50,9 @@ public class Animal {
 		return healthState;
 	}
 	
+	public void setName(String newName) {
+		name = newName;
+	}
 	//private void toString() {
 		
 	
