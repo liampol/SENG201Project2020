@@ -5,7 +5,7 @@ package supportClasses;
  */
 public class Days {
 	
-	int days;
+	private int days;
 	
 	public void setDay(int day) {
 		days = day;

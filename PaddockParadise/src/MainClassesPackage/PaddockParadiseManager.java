@@ -7,9 +7,9 @@ import GUIPackage.ChooseFarmer;
 
 public class PaddockParadiseManager {
 	
-	static Farmer newFarmer;
-	static Farm newFarm;
-	Days currentDay;
+	private static Farmer newFarmer;
+	private static Farm newFarm;
+	private Days currentDay;
 	
 	
 	public static void getFarmerDetails() {
@@ -153,17 +153,21 @@ public class PaddockParadiseManager {
 	}
 	
 	
-	public void startGame(PaddockParadiseManager manager) {
+	private void startGame() {
 		
-		GameEnvironment environment = new GameEnvironment(manager);
+//		Create a new game environment here, passing in manager
 		
 		
 	}
 	
 	public static void main(String[] args) {
-		//PaddockParadiseManager manager = new PaddockParadiseManager();
-		//manager.launchWelcomeWindow();
+//		PaddockParadiseManager manager = new PaddockParadiseManager();
+//		manager.launchWelcomeWindow();
 		launchWelcomeWindow();
+		
+//		need to make it so that the variables we set for farm, farmer etc. are passed
+//		into a PaddockParadiseManager instance, and are handed over to GameEnvironment to 
+//		play
 		
 		
 		

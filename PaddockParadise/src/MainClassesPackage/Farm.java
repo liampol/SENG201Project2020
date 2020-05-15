@@ -7,12 +7,12 @@ import GUIPackage.*;
 
 public class Farm {
 	
-	String name;
-	String type;
-	Farmer currentFarmer;
-	ArrayList<Crop> currentCrops;
-	ArrayList<Animal> currentAnimals;
-	float money;
+	private String name;
+	private String type;
+	private Farmer currentFarmer;
+	private ArrayList<Crop> currentCrops;
+	private ArrayList<Animal> currentAnimals;
+	private float money;
 	
 	public Farm(String farmName, Farmer newFarmer, String farmType) {
 		
@@ -26,7 +26,7 @@ public class Farm {
 	
 	public Farm(Farmer newFarmer) {
 		
-		name = "Farmer Bob";
+		name = currentFarmer.getName() + "'s Farm";
 		currentFarmer = newFarmer;
 		type = chooseFarmType("Money Tree");
 		currentCrops = new ArrayList<Crop>();
