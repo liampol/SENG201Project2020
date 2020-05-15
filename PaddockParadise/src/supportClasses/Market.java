@@ -12,11 +12,11 @@ import GUIPackage.*;
 
 public class Market {
 	
-	private ArrayList<Crop> cropCart;            // This variable is used to keep track of Crops added to cart
-	private ArrayList<Animal> animalCart;        // This variable is used to keep track of Crops added to cart
-	private ArrayList<Supplies> suppliesCart;    // This variable is used to keep track of Crops added to cart
-	private double cartCost;
-	private Farm farmOwner;
+	ArrayList<Crop> cropCart;            // This variable is used to keep track of Crops added to cart
+	private static ArrayList<Animal> animalCart;        // This variable is used to keep track of Crops added to cart
+	private static ArrayList<Supplies> suppliesCart;    // This variable is used to keep track of Crops added to cart
+	private static double cartCost;
+	private static Farm farmOwner;
 	
 	/**
 	 * Instantiates a Market to purchase supplies, Crops, and Animals for your farm
@@ -50,7 +50,7 @@ public class Market {
 				+ "Sheep: Cost = $20.00, yield = $200.00,\n"
 				+ "Pig: Cost = $10.00, yield = $100.00\n"
 				+ "Supplies:\n"
-				+ "(For Crops)"
+				+ "(For Crops)\n"
 				+ "Root Boost: Cost = $55.00, Attribute = Boosts chosen crop by 3 days\n"
 				+ "Fertiliser:Cost = $20.00, Attribute = Boosts chosen crop by 2 days\n"
 				+ "Horse-Dung: Cost = $10.00, Attribute = Boosts chosen crop by 1 days\n"
@@ -70,17 +70,144 @@ public class Market {
 					+ "[3] Buy Farm Supplies\n"
 					+ "[4] Sell Crops\n");
 			firstOption = frontDesk.nextInt();
-			if (firstOption <= 4 && firstOption >=1) {
+			if (firstOption == 1) {
+				buyCrops();
 				correct = true;
+				break;
+			}else if (firstOption == 2) {
+				buyAnimals();
+				correct = true;
+				break;
+			}else if (firstOption == 3) {
+				buySupplies();
+				correct = true;
+				break;
 				}else {
 					System.out.println("Invalid option please choose again");
 				}
 			}while (!(correct));
+		frontDesk.close();
 	}
 	
 	/**
 	 * Adds Fertiliser to cart as well as adds the cost to cartCost
 	 */
+	
+	public void buyCrops() {
+		
+		Scanner cropToBuy = new Scanner(System.in);
+		int added = 0;
+		boolean end = false;
+		System.out.println("What crops would you like to add to cart?\n"
+				+ "[1] Carrot $10.00\n"
+				+ "[2] Broccoli $15.00\n"
+				+ "[3] Capsicum $20.00\n"
+				+ "[4] Avocado $30.00\n"
+				+ "[5] Potato $15.00\n"
+				+ "[6] Cauliflower$30.00\n"
+				+ "[7] Return to previous window");
+		added = cropToBuy.nextInt();
+		switch(added) {
+		case 1:
+			addCarrots();
+			break;
+		case 2:
+			addBroccoli();
+			break;
+		case 3:
+			addCapsicum();
+			break;
+		case 4:
+			addAvocado();
+			break;
+		case 5:
+			addPotato();
+			break;
+		case 6:
+			addCauliflower();
+			break;
+		case 7:
+			end = true;
+			break;
+		}while(!(end));
+		
+		cropToBuy.close();
+		viewMarketOptions();
+		
+	}
+	
+	public void buyAnimals() {
+		
+		Scanner animalToBuy = new Scanner(System.in);
+		int added = 0;
+		boolean end = false;
+		System.out.println("What animals would you like to add to cart?\n"
+				+ "[1] Sheep $20.00\n"
+				+ "[2] Cow $50.00\n"
+				+ "[3] Pig $10.00\n"
+				+ "[4] Return to previous window");
+		added = animalToBuy.nextInt();
+		switch(added) {
+		case 1:
+			addSheep();
+			break;
+		case 2:
+			addCow();
+			break;
+		case 3:
+			addPig();
+			break;
+		case 4:
+			end = true;
+			break;
+		}while(!(end));
+		
+		animalToBuy.close();
+		viewMarketOptions();
+		
+	}
+	
+	public void buySupplies() {
+		
+		Scanner suppliesToBuy = new Scanner(System.in);
+		int added = 0;
+		boolean end = false;
+		System.out.println("What supplies would you like to add to cart?\n"
+				+ "[1] Grains: Cost = $100.00, Attribute = Keeps animal healthier for 2 days\n"
+				+ "[2] Vitamins: Cost = $300.00, Attribute = Keeps animal happy and healthier for 3 days\n"
+				+ "[3] Hay: Cost = $100.00, Attribute = Keeps animal happy for 1 day\n"
+				+ "[4] Root Boost: Cost = $55.00, Attribute = Boosts chosen crop by 3 days\n"
+				+ "[5] Fertiliser:Cost = $20.00, Attribute = Boosts chosen crop by 2 days\n"
+				+ "[6] Horse-Dung: Cost = $10.00, Attribute = Boosts chosen crop by 1 days\n"
+				+ "[7] Return to previous window");
+		added = suppliesToBuy.nextInt();
+		switch(added) {
+		case 1:
+			addGrains();
+			break;
+		case 2:
+			addVitamins();
+			break;
+		case 3:
+			addHay();
+			break;
+		case 4:
+			addRootBoost();
+			break;
+		case 5:
+			addFertiliser();
+			break;
+		case 6:
+			addHorseDung();
+			break;
+		case 7:
+			end = true;
+			break;
+		}while(!(end));
+		
+		suppliesToBuy.close();
+		viewMarketOptions();
+	}
 	private void addFertiliser() {
 			Fertiliser addedFertiliser = new Fertiliser();
 			cartCost += addedFertiliser.getPrice(); 
@@ -340,38 +467,38 @@ public class Market {
 		openMarket.printCartCost();              // Test printCartCost() with no items added
 		openMarket.printCart();                  // Test printCart() with no items
 		
-		// Test for adding Animals
-		openMarket.addCow();                     // Test addCow() 
-		openMarket.addSheep();                   // Test addSheep()
-		openMarket.addPig();                     // Test addPig()
-		openMarket.printCart();                  // Test printCart() with multiple items
-		openMarket.printCartCost();              // Test printCartCost() with multiple items in cart
-		
-		// Test for adding Crops
-		openMarket.addCarrots();                 // Test addCarrots
-		openMarket.addPotato();                  // Test addCarrots
-		openMarket.addBroccoli();                // Test addBroccoli
-		openMarket.addCapsicum();                // Test addCapsicum
-		openMarket.addCauliflower();             // Test addCauliflower
-		openMarket.addAvocado();                 // Test addAvocado
-		openMarket.printCart();                  // Test printCart() with multiple items
-		openMarket.printCartCost();              // Test printCartCost() with multiple items in cart
-		
-		//Test for adding Supplies
-		openMarket.addFertiliser();
-		openMarket.addGrains();
-		openMarket.addHorseDung();
-		openMarket.addRootBoost();
-		openMarket.addHay();
-		openMarket.addVitamins();
-		
-		//Test remove items
-		openMarket.removeAnimal("Cow");
-		openMarket.removeCrop("Carrot");
-		openMarket.removeCrop("Carrot");
-		openMarket.removeSupply("Fertiliser");
-		openMarket.removeSupply("Vitamins");
-		
+//		// Test for adding Animals
+//		openMarket.addCow();                     // Test addCow() 
+//		openMarket.addSheep();                   // Test addSheep()
+//		openMarket.addPig();                     // Test addPig()
+//		openMarket.printCart();                  // Test printCart() with multiple items
+//		openMarket.printCartCost();              // Test printCartCost() with multiple items in cart
+//		
+//		// Test for adding Crops
+//		openMarket.addCarrots();                 // Test addCarrots
+//		openMarket.addPotato();                  // Test addCarrots
+//		openMarket.addBroccoli();                // Test addBroccoli
+//		openMarket.addCapsicum();                // Test addCapsicum
+//		openMarket.addCauliflower();             // Test addCauliflower
+//		openMarket.addAvocado();                 // Test addAvocado
+//		openMarket.printCart();                  // Test printCart() with multiple items
+//		openMarket.printCartCost();              // Test printCartCost() with multiple items in cart
+//		
+//		//Test for adding Supplies
+//		openMarket.addFertiliser();
+//		openMarket.addGrains();
+//		openMarket.addHorseDung();
+//		openMarket.addRootBoost();
+//		openMarket.addHay();
+//		openMarket.addVitamins();
+//		
+//		//Test remove items
+//		openMarket.removeAnimal("Cow");
+//		openMarket.removeCrop("Carrot");
+//		openMarket.removeCrop("Carrot");
+//		openMarket.removeSupply("Fertiliser");
+//		openMarket.removeSupply("Vitamins");
+		openMarket.viewMarketOptions();
 		
 	}
 }
