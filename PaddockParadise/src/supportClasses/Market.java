@@ -82,6 +82,17 @@ public class Market {
 				buySupplies();
 				correct = true;
 				break;
+<<<<<<< Updated upstream
+=======
+			}else if (option == 4){
+				//Need to implement Sell crops
+			}else if (option == 5) {
+				removeFromCart();
+			}else if(option == 6) {
+				// need to implement checkout
+			}else if (option == 7) {
+				// need to implement
+>>>>>>> Stashed changes
 				}else {
 					System.out.println("Invalid option please choose again");
 				}
