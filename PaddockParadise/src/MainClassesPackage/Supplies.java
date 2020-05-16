@@ -23,6 +23,20 @@ public class Supplies {
 		return name;
 	}
 	
+	public String getBonus() {
+		return bonus;
+	}
+	
+	public String getDetails() {
+		String details = "[Name] " + name + ", "
+	+ "[Buy price] $" + buyPrice + ", "
+	+ "[Bonus] $" + bonus + ", \n";
+		
+		return details;
+		//System.out.println(details);
+	}
+		
+	
 
 	
 }

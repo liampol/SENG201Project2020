@@ -7,23 +7,14 @@ import GUIPackage.*;
 
 public class Farm {
 	
-<<<<<<< Updated upstream
+
 	private String name;
 	private String type;
 	private Farmer currentFarmer;
 	private ArrayList<Crop> currentCrops;
 	private ArrayList<Animal> currentAnimals;
-	private float money;
-=======
-	String name;
-	String type;
-	Farmer currentFarmer;
-	ArrayList<Crop> currentCrops;
-	ArrayList<Animal> currentAnimals;
-	ArrayList<Supplies> currentSupplies;
-	String bonus;
-	double money;
->>>>>>> Stashed changes
+	private static double money;
+	private String bonus;
 	
 	public Farm(String farmName, Farmer newFarmer, String farmType) {
 		
@@ -37,7 +28,7 @@ public class Farm {
 	
 	public Farm(Farmer newFarmer) {
 		
-		name = currentFarmer.getName() + "'s Farm";
+		name = newFarmer.getName();
 		currentFarmer = newFarmer;
 		type = "Money Tree";
 		currentCrops = new ArrayList<Crop>();
@@ -117,8 +108,8 @@ public class Farm {
 			        + "Broccoli: " + numBroccoli + "\n") ;
 			}
 		
-		String message = returnString;
-		return message;
+		
+		return returnString;
 		
 	}
 	
@@ -132,6 +123,10 @@ public class Farm {
 			}
 		}
 		return status;
+	}
+	
+	public static void viewWallet() {
+		System.out.printf("Current cash balance: $%.2f\n", money);
 	}
 	
 	public void viewAnimals() {
@@ -159,6 +154,7 @@ public class Farm {
 	
 	public void viewFarmStatus() {
 		viewCrops();
+		viewWallet();
 	}
 
 	public static void toString(String message) {
@@ -170,6 +166,7 @@ public class Farm {
 		// Implemented for testing
 		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
 		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
+		newFarm.viewFarmStatus();
 		Carrot carrot = new Carrot();
 		Carrot carrot1 = new Carrot();
 		Carrot carrot2 = new Carrot();

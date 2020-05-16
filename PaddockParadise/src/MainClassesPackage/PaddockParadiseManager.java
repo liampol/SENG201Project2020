@@ -2,6 +2,7 @@ package MainClassesPackage;
 import java.util.Scanner;
 import baseutility.GameEnvironment;
 import supportClasses.Days;
+import supportClasses.Market;
 import GUIPackage.*;
 import GUIPackage.ChooseFarmer;
 import java.util.regex.Matcher;
@@ -11,17 +12,17 @@ import java.util.regex.Pattern;
 
 public class PaddockParadiseManager {
 	
-<<<<<<< Updated upstream
-	private static Farmer newFarmer;
-	private static Farm newFarm;
-	private Days currentDay;
-=======
+
 	static Farmer newFarmer;
 	static Farm newFarm;
 	static int currentDay;
->>>>>>> Stashed changes
+
 	
-	
+	/*
+	 * This Method is used to get players Farmer details through input then calls the createFarmer()
+	 * while passing players details as  parameters
+	 * At the end, the getFarmDetails() is called
+	 */
 	public static void getFarmerDetails() {
 		
 		// Used to check input details
@@ -112,6 +113,19 @@ public class PaddockParadiseManager {
 		
 	}
 	
+	/**
+	 * Creates a new Farmer using the details provided by the user
+	 * @param newName
+	 * @param newAge
+	 * @param newType
+	 */
+	public static void createFarmer(String newName,int newAge,String newType) {
+		newFarmer = new Farmer(newName, newAge, newType);
+	}
+	
+	/*
+	 * Asks the user to input Farm details which are then passed as parameters when createFarm()is called
+	 */
 	public static void getFarmDetails() {
 		
 		Scanner name = new Scanner(System.in);
@@ -154,22 +168,21 @@ public class PaddockParadiseManager {
 						+ "Farm Type: " + newType + "\n");
 		createFarm(newName, newType);
 		System.out.println("Lets Play!");
+		startGame();
 		name.close();
 		type.close();
 		
 	}
 	
-	
-	public static void createFarmer(String newName,int newAge,String newType) {
-		newFarmer = new Farmer(newName, newAge, newType);
-	}
-	
+	/*
+	 * Constructor that can be called with default parameters for creating Farmer
+	 */
 	public static void createFarmer() {
 		newFarmer = new Farmer();
 	}
 	
 	/**
-	 * Overloaded constructor for creating the farm
+	 * Overloaded constructor for creating the farm which is called with users input
 	 * @param farmName
 	 * @param farmType
 	 */
@@ -178,11 +191,12 @@ public class PaddockParadiseManager {
 	}
 	
 	/**
-	 * Default constructor for creating the farm
+	 * Default constructor for creating the farm with default parameters
 	 */
 	public static void createFarm() {
 		newFarm = new Farm(newFarmer);
 	}
+	
 	/**
 	 * Launches the WelcomeScreen that welcomes the user to the game
 	 *      and gets the amount of days the user would like to play for
@@ -205,22 +219,35 @@ public class PaddockParadiseManager {
 		
 		getFarmerDetails();
 		currentDay = days;
+		daysToPlay.close();
 		
 	}
 	
+	/*
+	 * Used for G.U.I intentions to close the welcome window and then open chooseFarmeWindow()
+	 */
 	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
 		//welcomeWindow.closeWindow();
 		//launchChooseFarmer();
 	}
-	
+	/*
+	 * Allows the user to choose avatar with G.U.I
+	 */
 	public void launchChooseFarmer() {
 		//ChooseFarmer chooseFarmerScreen = new ChooseFarmer(this);
 	}
 		
+	/*
+	 * Closes the launchChooseFarmer() once avatar is choosen, then calls launchFarmType()
+	 * which is to allow the user to choose the farmType
+	 */
 	public void closeChooseFarmerScreen(ChooseFarmer chooseFarmerScreen) {
 		//chooseFarmerScreen.closeWindow();
 		//launchChooseFarmType();
 	}
+	/*
+	 * Launches the main window for playing the game
+	 */
 	public void launchMainWindow() {
 		String currentCrops = newFarm.viewCrops();
 	}
@@ -243,32 +270,35 @@ public class PaddockParadiseManager {
 	}
 	
 	
-	private void startGame() {
+	private static void startGame() {
+//      This method should call mainWindow which should show a list of things to do,
+		
 		
 //		Create a new game environment here, passing in manager
+//      Call has been made from at the end of getFarmDetails to start game()
+//      
 		
 		
 	}
 	
 	public static void main(String[] args) {
-<<<<<<< Updated upstream
 //		PaddockParadiseManager manager = new PaddockParadiseManager();
 //		manager.launchWelcomeWindow();
-		launchWelcomeWindow();
-=======
+		//launchWelcomeWindow();
+
 		//PaddockParadiseManager manager = new PaddockParadiseManager();
 		//manager.launchWelcomeWindow();
 		//launchWelcomeWindow();
-		Farmer Jack = new Farmer();
-		Farm Johnson = new Farm(Jack);
-		
-		
->>>>>>> Stashed changes
-		
+		Farmer jack = new Farmer();
+		Farm johnson = new Farm(jack);
+		Market openShop = new Market(johnson);
+
 //		need to make it so that the variables we set for farm, farmer etc. are passed
 //		into a PaddockParadiseManager instance, and are handed over to GameEnvironment to 
 //		play
+
 		
+		// Run PaddockParadiseManager for test
 		
 		
 	}
