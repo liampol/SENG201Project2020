@@ -9,12 +9,6 @@ public class Crop {
 	float buyPrice;                // Price to buy vegetable
 	int daysToHarvest;           // Amount of days to harvest
 	boolean farmBonus;
-	int amountCarrots;
-	int amountCapsicum;
-	int amountPotato;
-	int amountBroccoli;
-	int amountAvocado;
-	int amountCauliflower;
 	
 	/**
 	 * Constructor of Crop with parameters passed in from the class of vegetable being created 
@@ -36,7 +30,11 @@ public class Crop {
 		}
 		
 		daysToHarvest = harvestTime;
+<<<<<<< Updated upstream
 		cropTracker(currentVegetable); // Need to implement some way to keep track of all 
+=======
+		state = "Sprout";
+>>>>>>> Stashed changes
 	}
 	
 	/**
@@ -53,30 +51,40 @@ public class Crop {
 	/**
 	 * Method used to confirm if farmBonus has been applied
 	 */
+<<<<<<< Updated upstream
 	public void applyFarmBonus() {
 		farmBonus = true;
+=======
+	public double getPrice() {
+		return buyPrice;
 	}
 	
-	/**
-	 * cropTracker increases the tracking value of the corresponding vegetable
-	 * @param vegetable
-	 */
-	public void cropTracker(String vegetable) {
-		if (vegetable == "Carrot") {
-			amountCarrots ++;
-		}else if (vegetable == "Capsicum") {
-			amountCapsicum ++;
-		}else if (vegetable == "Avocado"){
-			amountAvocado ++;
-		}else if (vegetable == "Broccoli") {
-			amountBroccoli ++;
-		}else if (vegetable == "Cauliflower") {
-			amountCauliflower ++;
-		}else {
-			amountPotato ++;
-		}
-		
+	public double getSellPrice() {
+		return sellPrice;
 	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	// When state is called when days of crop is 0, which changes state of Crop to Harvest to allow the Crops to be sold
+	public void setState() {
+		state = "Harvest";
+>>>>>>> Stashed changes
+	}
+	
+	// Returns,days left till harvest, Current State, Crop type, 
+	public String getDetails() {
+		String details = type + ": " 
+	+ "[State] " + state + ", " 
+	+ "[Buy price] $" + buyPrice +", "
+	+ "[Sell price (Only when harvested)] $" + sellPrice + ", " 
+	+ "[Days till harvest] " + daysToHarvest+ ", \n" ;
+		
+		return details;
+		//System.out.println(details);
+	}
+
 	public void alterCropTime(int bonus) {
 		daysToHarvest = (daysToHarvest*bonus);
 	}
@@ -86,6 +94,13 @@ public class Crop {
 		
 		//Implemented for testing
 		Carrot carrot = new Carrot();
+<<<<<<< Updated upstream
+=======
+		Avocado avo = new Avocado();
+		avo.alterCropTime(2);
+		System.out.println(avo.getDaysToHarvest());
+		carrot.getDetails();
+>>>>>>> Stashed changes
 		
 		
 		

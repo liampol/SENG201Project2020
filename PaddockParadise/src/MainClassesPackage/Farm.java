@@ -7,12 +7,23 @@ import GUIPackage.*;
 
 public class Farm {
 	
+<<<<<<< Updated upstream
 	String name;
 	String type;
 	Farmer currentFarmer;
 	ArrayList<Crop> currentCrops;
 	ArrayList<Animal> currentAnimals;
 	float money;
+=======
+
+	private String name;
+	private String type;
+	private Farmer currentFarmer;
+	private ArrayList<Crop> currentCrops;
+	private ArrayList<Animal> currentAnimals;
+	private static double money;
+	private String bonus;
+>>>>>>> Stashed changes
 	
 	public Farm(String farmName, Farmer newFarmer, String farmType) {
 		
@@ -26,7 +37,11 @@ public class Farm {
 	
 	public Farm(Farmer newFarmer) {
 		
+<<<<<<< Updated upstream
 		name = "Farmer Bob";
+=======
+		name = newFarmer.getName();
+>>>>>>> Stashed changes
 		currentFarmer = newFarmer;
 		type = chooseFarmType("Money Tree");
 		currentCrops = new ArrayList<Crop>();
@@ -84,10 +99,34 @@ public class Farm {
 			returnString += "\n";
 		}
 		
+<<<<<<< Updated upstream
 		toString(returnString);
 		
 	}
 	
+=======
+		
+		System.out.println(returnString);
+		
+	}
+	
+	public String viewCropsStatus() {
+		String status = "";
+		if (currentCrops.isEmpty()) {
+			status = "Sorry but you have no crops to view";
+		}else {
+			for (Crop vegetable: currentCrops) {
+				status += vegetable.getType() + " Days to harvest: " + vegetable.getDaysToHarvest() + "\n";
+			}
+		}
+		return status;
+	}
+	
+	public static void viewWallet() {
+		System.out.printf("Current cash balance: $%.2f\n", money);
+	}
+	
+>>>>>>> Stashed changes
 	public void viewAnimals() {
 		String returnString = "The current animals that are in the farm are:\n";
 		for (Animal animal: currentAnimals) {
@@ -99,6 +138,7 @@ public class Farm {
 	
 	public void viewFarmStatus() {
 		viewCrops();
+		viewWallet();
 	}
 
 	public static void toString(String message) {
@@ -108,8 +148,9 @@ public class Farm {
 	public static void main(String[] args) {
 		
 		// Implemented for testing
-		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
-		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
+		Farmer newFarmer = new Farmer();
+		Farm newFarm = new Farm(newFarmer) ;
+		newFarm.viewFarmStatus();
 		Carrot carrot = new Carrot();
 		Carrot carrot1 = new Carrot();
 		Carrot carrot2 = new Carrot();

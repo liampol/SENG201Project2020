@@ -2,9 +2,15 @@ package MainClassesPackage;
 
 public class Farmer {
 	
+<<<<<<< Updated upstream
 	String name;
 	int age;
 	String type;  // Different types: "Male Farmer", "Female Farmer", "Alien farmer", the types are used to differentiate between avatars.
+=======
+	public String name;
+	private int age;
+	private String type;  // Different types: "Male Farmer", "Female Farmer", "Alien farmer", the types are used to differentiate between avatars.
+>>>>>>> Stashed changes
 	
 	
 	public Farmer(String newName, int newAge, String newType) {

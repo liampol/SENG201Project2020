@@ -12,12 +12,21 @@ import baseutility.*;
  */
 public class Animal {
 	
+<<<<<<< Updated upstream
 	String name;               // Name of animal
         String type;               // Types will be Cows, Sheep, Pigs
 	float price;               // Cost of animal
 	float moneyBonus;          // Bonus received from each animal
 	String healthState;        // Current health state of animal
 	String emotionalState;     // Emotional state of animal
+=======
+	String name;                // Name of animal
+    String type;                // Types will be Cows, Sheep, Pigs
+	double price;               // Cost of animal
+	double moneyBonus;          // Bonus received from each animal
+	String healthState;         // Current health state of animal
+	String emotionalState;      // Emotional state of animal
+>>>>>>> Stashed changes
 	
 	
 	
@@ -50,7 +59,25 @@ public class Animal {
 		return healthState;
 	}
 	
+<<<<<<< Updated upstream
 	//private void toString() {
+=======
+	public void setName(String newName) {
+		name = newName;
+	}
+	
+	public String getDetails() {
+		String details = type + ": "
+	+ "[Name] " + name + ", "
+	+ "[Health State] " + healthState + ", "
+	+ "[Emotional State] " + emotionalState + ", "
+	+ "[Buy price] $" + price + ", "
+	+ "[Money Bonus] $" + moneyBonus + ", \n";
+		
+		return details;
+		//System.out.println(details);
+	}
+>>>>>>> Stashed changes
 		
 	
 	public static void main(String[] args) {
