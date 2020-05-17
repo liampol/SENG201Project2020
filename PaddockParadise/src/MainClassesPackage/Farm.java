@@ -13,6 +13,7 @@ public class Farm {
 	private Farmer currentFarmer;
 	private ArrayList<Crop> currentCrops;
 	private ArrayList<Animal> currentAnimals;
+	private ArrayList<Supplies> currentSupplies;
 	private static double money;
 	private String bonus;
 	
@@ -23,6 +24,7 @@ public class Farm {
 		type = farmType;
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
+		currentSupplies =new ArrayList<Supplies>();
 		money = 500.00; 
 	}
 	
@@ -58,6 +60,14 @@ public class Farm {
 		return money;
 	}
 	
+	/**
+	 * Adds the amount of profit from selling crops to Farms money 
+	 * @param profit
+	 */
+	public void addToWallet(double profit) {
+		money += profit;
+	}
+	
 	public void addCrop(Crop vegetable) {
 		currentCrops.add(vegetable);
 	}
@@ -69,6 +79,22 @@ public class Farm {
 			}
 		else
 			return false;
+	}
+	
+	public void addSupply(Supplies item) {
+		currentSupplies.add(item);
+	}
+	
+	public void removeSupply(Supplies item) {
+		currentSupplies.remove(item);
+	}
+	
+	public void addAnimal(Animal animal) {
+		currentAnimals.add(animal);
+	}
+	
+	public ArrayList<Crop> getCrops() {
+		return currentCrops;
 	}
 	
 	public String viewCrops() {

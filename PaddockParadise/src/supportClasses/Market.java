@@ -12,6 +12,7 @@ import GUIPackage.*;
 
 public class Market {
 	
+	PaddockParadiseManager manager;
 	private ArrayList<Crop> cropCart;            // This variable is used to keep track of Crops added to cart
 	private ArrayList<Animal> animalCart;        // This variable is used to keep track of Crops added to cart
 	private ArrayList<Supplies> suppliesCart;    // This variable is used to keep track of Crops added to cart
@@ -39,7 +40,7 @@ public class Market {
 	Hay hay = new Hay();
 	Vitamins vitamin = new Vitamins();
 	
-	// track number of each item added to cart
+	// track amount of each item added to cart
 	int carrotCount = 0;
 	int broccoliCount = 0;
 	int cauliCount = 0;
@@ -61,14 +62,15 @@ public class Market {
 	 * Instantiates a Market to purchase supplies, Crops, and Animals for your farm
 	 * @param currentFarmOwner
 	 */
-	public Market(Farm currentFarmOwner) {
+	public Market(PaddockParadiseManager incoming) {
 		
 		
-		farmOwner = currentFarmOwner;
+		farmOwner = incoming.getFarm();
 		animalCart = new ArrayList<Animal>();
 		cropCart = new ArrayList<Crop>();
 		suppliesCart = new ArrayList<Supplies>();
 		cartCost = 0.00;
+		manager = incoming;
 		viewMarketOptions();
 	}
 	
@@ -112,15 +114,17 @@ public class Market {
 				+ grain.getDetails()
 				+ vitamin.getDetails()
 				+ hay.getDetails() + "\n");
-		System.out.printf("Your CURRENT BALANCE: $" + farmOwner.getMoney()+ "\n");
+		System.out.printf("YOUR CURRENT BALANCE: $" + farmOwner.getMoney()+ "\n");
 		System.out.println("CURRENT CART COST: $" + cartCost);
+		System.out.println("Your Current Cart:");
 		printCart();
+		
 		Scanner frontDesk = new Scanner(System.in);
 		int option = 0;
 		boolean correct = false; 
 		
 		do {
-			System.out.println("Please choose option by typing the corresponding number");
+			System.out.println("Please choose option by typing the corresponding number,");
 			System.out.println("Would you like to:\n"
 					+ "[1] Buy Crops\n"
 					+ "[2] Buy Animals\n"
@@ -130,28 +134,36 @@ public class Market {
 					+ "[6] Checkout\n"
 					+ "[7] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
 			option = frontDesk.nextInt();
-			if (option == 1) {
+			switch(option) {
+			case 1:
 				buyCrops();
 				correct = true;
 				break;
-			}else if (option == 2) {
+			case 2:
 				buyAnimals();
 				correct = true;
 				break;
-			}else if (option == 3) {
+			case 3:
 				buySupplies();
 				correct = true;
 				break;
-			}else if (option == 4){
-				//Need to implement Sell crops
-			}else if (option == 5) {
+			case 4:
+				sellCrops();
+				correct = true;
+				break;
+			case 5:
 				removeFromCart();
-			}else if(option == 6) {
-				// need to implement checkout
-				}else {
-					System.out.println("Invalid option please choose again");
+				correct = true;
+				break;
+			case 6:
+				checkout();
+				correct = true;
+				break;
+			case 7:
+				exit();
 				}
 			}while (!(correct));
+		
 		frontDesk.close();
 	}
 	
@@ -166,13 +178,16 @@ public class Market {
 		boolean endSwitch = true; // Should always be true to end switch
 		boolean endDo = false;     // Only true when Do-while ends and returns to previous menu
 		do {
+		System.out.println("\nPlease choose option by typing the corresponding number, and adding one item at a time, \n"
+			             + "(EXAMPLE : press 1, then enter, for carrot, then press 2, then enter to also add broccoli)\n ");
+
 		System.out.println("What crops would you like to add to cart?\n"
-				+ "[1] Carrot $10.00\n"
-				+ "[2] Broccoli $15.00\n"
-				+ "[3] Capsicum $20.00\n"
-				+ "[4] Avocado $30.00\n"
-				+ "[5] Potato $15.00\n"
-				+ "[6] Cauliflower$30.00\n"
+				+ "[1] Carrot      $10.00\n"
+				+ "[2] Broccoli    $15.00\n"
+				+ "[3] Capsicum    $20.00\n"
+				+ "[4] Avocado     $30.00\n"
+				+ "[5] Potato      $15.00\n"
+				+ "[6] Cauliflower $30.00\n"
 				+ "[7] Return to 'FRONT DESK'");
 		added = cropToBuy.nextInt();
 		switch(added) {
@@ -214,8 +229,8 @@ public class Market {
 		do {
 			System.out.println("What animals would you like to add to cart?\n"
 					+ "[1] Sheep $20.00\n"
-					+ "[2] Cow $50.00\n"
-					+ "[3] Pig $10.00\n"
+					+ "[2] Cow   $50.00\n"
+					+ "[3] Pig  $10.00\n"
 					+ "[4] Return to 'FRONT DESK'");
 			added = animalToBuy.nextInt();
 			switch(added) {
@@ -248,13 +263,14 @@ public class Market {
 		do {
 				
 			System.out.println("What supplies would you like to add to cart?\n"
-					+ "[1] Grains: Cost = $100.00, Attribute = Keeps animal healthier for 2 days\n"
-					+ "[2] Vitamins: Cost = $300.00, Attribute = Keeps animal happy and healthier for 3 days\n"
-					+ "[3] Hay: Cost = $100.00, Attribute = Keeps animal happy for 1 day\n"
-					+ "[4] Root Boost: Cost = $55.00, Attribute = Boosts chosen crop by 3 days\n"
-					+ "[5] Fertiliser:Cost = $20.00, Attribute = Boosts chosen crop by 2 days\n"
-					+ "[6] Horse-Dung: Cost = $10.00, Attribute = Boosts chosen crop by 1 days\n"
+					+ "[1] Grains:     [Cost] $100.00, [Attribute] Keeps animal healthier for 2 days,\n"
+					+ "[2] Vitamins:   [Cost] $300.00, [Attribute] Keeps animal happy and healthier for 3 days,\n"
+					+ "[3] Hay:        [Cost] $100.00, [Attribute] Keeps animal happy for 1 day,\n"
+					+ "[4] Root Boost: [Cost] $55.00,  [Attribute] Boosts chosen crop by 3 days,\n"
+					+ "[5] Fertiliser: [Cost] $20.00,  [Attribute] Boosts chosen crop by 2 days,\n"
+					+ "[6] Horse-Dung: [Cost] $10.00,  [Attribute] Boosts chosen crop by 1 days,\n"
 					+ "[7] Return to 'FRONT DESK'");
+			
 			added = suppliesToBuy.nextInt();
 			switch(added) {
 			case 1:
@@ -454,94 +470,135 @@ public class Market {
 		return cartCost;
 	}
 	
-	/**
-	 * Calls the toString() method to print a the current cart cost as a dollar
-	 */
-	public void printCartCost() {
-		toString("cart cost");
-	}
 	
 	/*
 	 * Calls the toString() method to print the current items in the cart
 	 */
 	private void printCart() {
-		ArrayList<Integer> intItems = new ArrayList<Integer>();
-		
-		intItems.add(broccoliCount);
-		intItems.add(carrotCount);
-		intItems.add(cauliCount);
-		intItems.add(avoCount);
-		intItems.add(potaCount);
-		intItems.add(capsCount);
-		intItems.add(rootBoostCount);
-		intItems.add(fertCount);
-		intItems.add(grainCount);
-		intItems.add(dungCount);
-		intItems.add(hayCount);
-		intItems.add(vitCount);
-		intItems.add(cowCount);
-		intItems.add(sheepCount);
-		intItems.add(pigCount);
 
     // Prints only what items have incremented which is done only when added to cart
 		if (cropCart.isEmpty() && animalCart.isEmpty() && suppliesCart.isEmpty()) {
 			System.out.println("Cart is currently empty!");
-			boolean end = true;
+			
 		}else {
-			for (int item : intItems) {
-				if (item > 0 && item == carrotCount) {
-					System.out.println("Carrot: " + carrotCount);
-					}else if (item > 0 && item == cauliCount) {
-						System.out.println("Cauliflower: " + cauliCount);
-					}else if (item > 0 && item == avoCount) { 
-						System.out.println("Avocado: " + avoCount);
-					}else if (item > 0 && item == potaCount) {
-						System.out.println("Potato: " + potaCount);
-					}else if (item > 0 && item == capsCount) {
-						System.out.println("Capsicum: " + capsCount);
-					}else if (item > 0 && item == broccoliCount) {
-						System.out.println("Broccoli: " + broccoliCount);
-					}else if (item > 0 && item == cowCount) {
-						System.out.println("Cow: " + cowCount);
-					}else if (item > 0 && item == pigCount) {
-						System.out.println("Pig: " + pigCount);
-					}else if (item > 0 && item == sheepCount) {
-						System.out.println("Sheep: " + sheepCount);
-					}else if (item > 0 && item == fertCount) {
-						System.out.println("Fertiliser: " + fertCount);
-					}else if (item > 0 && item == rootBoostCount) {
-						System.out.println("Root Boost: " + rootBoostCount);
-					}else if (item > 0 && item == dungCount) {
-						System.out.println("Horse Dung: " + dungCount);
-					}else if (item > 0 && item == hayCount) {
-						System.out.println("Hay: " + hayCount);
-					}else if (item > 0 && item == rootBoostCount) {
-						System.out.println("Root Boost: " + rootBoostCount);
-					}else if (item > 0 && item == grainCount){
-						System.out.println("Grains: " + grainCount);
-					}else {
-						//Do Nothing
-					}
+			if (carrotCount > 0) {
+				System.out.println("Carrot: " + carrotCount);
 			}
-		}
-	
+			if (cauliCount > 0) {
+					System.out.println("Cauliflower: " + cauliCount);
+			}if (avoCount > 0) { 
+					System.out.println("Avocado: " + avoCount);
+			}if (potaCount > 0) {
+					System.out.println("Potato: " + potaCount);
+			}if (capsCount > 0) {
+					System.out.println("Capsicum: " + capsCount);
+			}if (broccoliCount > 0) {
+					System.out.println("Broccoli: " + broccoliCount);
+			}if (cowCount > 0) {
+					System.out.println("Cow: " + cowCount);
+			}if (pigCount > 0) {
+					System.out.println("Pig: " + pigCount);
+			}if (sheepCount > 0) {
+					System.out.println("Sheep: " + sheepCount);
+			}if (fertCount > 0) {
+				System.out.println("Fertiliser: " + fertCount);
+			}if (rootBoostCount > 0) {
+				System.out.println("Root Boost: " + rootBoostCount);
+			}if (dungCount > 0) {
+				System.out.println("Horse Dung: " + dungCount);
+			}if (hayCount > 0) {
+				System.out.println("Hay: " + hayCount);
+			}if (vitCount > 0) {
+				System.out.println("Vitamins: " + vitCount);
+			}if (grainCount > 0){
+				System.out.println("Grains: " + grainCount);
+			}
+		}System.out.println("");
 	}
 	
-	
+	/*
+	 * Interface for user to decide which item to remove
+	 */
 	private void removeFromCart() {
 		
 		Scanner removeItem = new Scanner(System.in);
-		
+
+		int option =0;            // tracks the option chosen
+		boolean endDo = false;    // Ends the do-while loop only when a suitable optional has been chosen 
+		boolean endSwitch = true; // Switch ends after every iteration
+		do {
 		System.out.println("What would you like to remove?");
 		System.out.println("[1] Crops\n"
 				+ "[2] Animals\n"
 				+ "[3] Supplies\n"
 				+ "[4] Return to 'FRONT DESK'");
+		option = removeItem.nextInt();
 		
+		switch(option) {
+			case 1:
+				removeCropFromCart();
+				break;
+			case 2:
+				removeAnimalFromCart();
+				break;
+			case 3:
+				removeSuppliesFromCart();
+				break;
+			case 4:
+				endDo = true;
+				break;
+				}while(!endSwitch);
+		}while(!endDo);
+		viewMarketOptions();
+		removeItem.close();
 	}
 	
+	/*
+	 * Interface for user to decide which crop to remove
+	 */
 	private void removeCropFromCart() {
 		
+		Scanner removeCrop = new Scanner(System.in);
+		int option = 0;            // tracks the option chosen
+		boolean endDo = false;    // Ends the do-while loop only when a suitable optional has been chosen 
+		boolean endSwitch = true; // Switch ends after every iteration
+		do {
+		System.out.println("What Crop would you like to remove?");
+		System.out.println("[1] Carrot\n"
+				+ "[2] Capsicum\n"
+				+ "[3] Broccoli\n"
+				+ "[4] Potato\n"
+				+ "[5] Avocado\n"
+				+ "[6] Cauliflower\n"
+				+ "[7] Return to 'REMOVE ITEM MENU'");
+		option = removeCrop.nextInt();
+		
+			switch(option) {
+			case 1:
+				removeCrop("Carrot");
+				break;
+			case 2:
+				removeCrop("Capsicum");
+				break;
+			case 3:
+				removeCrop("Broccoli");
+				break;
+			case 4:
+				removeCrop("Potato");
+				break;
+			case 5:
+				removeCrop("Avocado");
+				break;
+			case 6:
+				removeCrop("Cauliflower");
+				break;
+			case 7:
+				endDo = true;
+				break;
+			}while(!endSwitch);
+		}while(!endDo);
+		removeFromCart();
+		removeCrop.close();
 	}
 	
 	/**
@@ -549,15 +606,15 @@ public class Market {
 	 * @param item
 	 */
 	private void removeCrop(String item) {
-		boolean empty = true;   // If item is not in cart
-		for (Crop toRemove : cropCart) {
-			if (toRemove.getType() == item) {
-				double cost = toRemove.getPrice();
-				cropCart.remove(toRemove);
-				cartCost -= cost;
+		boolean invalid = true;                      // If item is not in cart the invalid is true
+		for (Crop toRemove : cropCart) {         
+			if (toRemove.getType() == item) {        // Compares each type to the item parameter to ensure the correct item is removed
+				double cost = toRemove.getPrice();   // Gets the price of item to remove
+				cropCart.remove(toRemove);           // removes item object from cart
+				cartCost -= cost;                    // Decrements the cost of the item from cart cost
 				System.out.println(item + " has been removed\n");
-				empty = false;
-				break;
+				invalid = false;                     // Item was in cart,invalid is false
+				break;                               // End loop
 				}
 		}
 
@@ -574,15 +631,68 @@ public class Market {
 			avoCount --;
 		}else if ( item == "Potato" && potaCount > 0){
 			potaCount --;
-		}else {
-			// Pass
 		}
-		if (empty) {
-		System.out.println("Sorry that item is not in your cart");
+		if (invalid) {                                // If item is not in cart
+		System.out.println("Sorry " + item +" is not in your cart");
 		}
 	}
 	
+	/*
+	 * Interface for user to decide which crop to remove
+	 */
+	private void removeSuppliesFromCart() {
+		
+		Scanner removeSupplies = new Scanner(System.in);
+		int option = 0;            // tracks the option chosen
+		boolean endDo = false;     // Ends the do-while loop only when a suitable optional has been chosen 
+		boolean endSwitch = true;  // Switch ends after every iteration
+		do {
+		System.out.println("What Supply would you like to remove?");
+		System.out.println("[1] RootBoost\n"
+				+ "[2] Horse-Dung\n"
+				+ "[3] Fertiliser\n"
+				+ "[4] Grains\n"
+				+ "[5] Hay\n"
+				+ "[6] Vitamin\n"
+				+ "[7] Return to 'REMOVE ITEM MENU'");
+		option = removeSupplies.nextInt();
+		
+			switch(option) {
+			case 1:
+				removeSupply("Root Boost");
+				break;
+			case 2:
+				removeSupply("Horse Dung");
+				break;
+			case 3:
+				removeSupply("Fertiliser");
+				break;
+			case 4:
+				removeSupply("Grains");
+				break;
+			case 5:
+				removeSupply("Hay");
+				break;
+			case 6:
+				removeSupply("Vitamin");
+				break;
+			case 7:
+				endDo = true;
+				break;
+			}while(!endSwitch);
+		}while(!endDo);
+		
+		removeFromCart();
+		removeSupplies.close();
+		
+	}
+	
+	/**
+	 * Removes the specified supply,
+	 * @param
+	 */
 	private void removeSupply(String item) {
+		
 		boolean empty = true; 
 		for (Supplies toRemove : suppliesCart) {
 			if (toRemove.getName() == item) {
@@ -608,8 +718,6 @@ public class Market {
 			vitCount --;
 		}else if ( item == "Fertiliser" && fertCount > 0){
 			fertCount --;
-		}else {
-			// Pass
 		}
 		
 		if (empty) {
@@ -617,6 +725,47 @@ public class Market {
 		}
 	}
 	
+	/**
+	 * User interface to ask what 'Animal' they would like to remove
+	 */
+	private void removeAnimalFromCart() {
+		
+		Scanner removeAnimal = new Scanner(System.in);
+		int option = 0;            // tracks the option chosen
+		boolean endDo = false;     // Ends the do-while loop only when a suitable optional has been chosen 
+		boolean endSwitch = true;  // Switch ends after every iteration
+		do {
+		System.out.println("What 'Animal' would you like to remove?");
+		System.out.println("[1] Pig\n"
+				+ "[2] Sheep\n"
+				+ "[3] Cow\n"
+				+ "[7] Return to 'REMOVE ITEM MENU'");
+		option = removeAnimal.nextInt();
+		
+			switch(option) {
+			case 1:
+				removeAnimal("Pig");
+				break;
+			case 2:
+				removeAnimal("Sheep");
+				break;
+			case 3:
+				removeAnimal("Cow");
+				break;
+			case 7:
+				endDo = true;
+				break;
+			}while(!endSwitch);
+		}while(!endDo);
+		
+		removeFromCart();
+		removeAnimal.close();
+		
+	}
+	/**
+	 * Removes the 'Animal' chosen from 'removeAnimalFromCart() interface
+	 * @param item
+	 */
 	private void removeAnimal(String item) {
 		boolean empty = true;
 
@@ -637,46 +786,200 @@ public class Market {
 			sheepCount --;
 		}else if ( item == "Pig" && pigCount > 0) {
 			pigCount --;
-		}else {
-			// Pass
 		}
 		if (empty) {
 			System.out.println("Sorry " + item + " is not in your cart");
 			}
 	}
 	
-	private void toString(String messageReceived) {
+	/**
+	 * User interface to get inputs for what 'Crop' to sell
+	 */
+	private void sellCrops() {
 		
-		if (messageReceived == "cart cost") {
-			System.out.format("CART TOTAL: \n$%.2f \n", cartCost);
-		}else if (messageReceived == "current cart") {
-			if (suppliesCart.isEmpty() && cropCart.isEmpty() && animalCart.isEmpty()) {
-				System.out.println("The cart is currently empty \n");
-			}else {
-				System.out.println("CART CONTENTS: \n");
-				for (Crop item : cropCart) {
-					System.out.println(item.getType());
+		Scanner cropToSell = new Scanner(System.in);
+		int sell = 0;
+		boolean endDo = false;    // Ends the do-while loop only when a suitable optional has been chosen 
+		boolean endSwitch = true; // Switch ends after every iteration
+		
+		do {
+		System.out.println("What Crop would you like to sell?");
+		System.out.println("[1] Carrot\n"
+				         + "[2] Capsicum\n"
+				         + "[3] Broccoli\n"
+				         + "[4] Potato\n"
+			           	 + "[5] Avocado\n"
+				         + "[6] Cauliflower\n"
+				         + "[7] Return to 'REMOVE ITEM MENU'");
+		sell = cropToSell.nextInt();
+		
+			switch(sell) {
+			case 1:
+				exchangeCrop("Carrot");
+				break;
+			case 2:
+				exchangeCrop("Capsicum");
+				break;
+			case 3:
+				exchangeCrop("Broccoli");
+				break;
+			case 4:
+				exchangeCrop("Potato");
+				break;
+			case 5:
+				exchangeCrop("Avocado");
+				break;
+			case 6:
+				exchangeCrop("Cauliflower");
+				break;
+			case 7:
+				endDo = true;
+				break;
+			}while(!endSwitch);
+		}while(!endDo);
+		
+		removeFromCart();
+		cropToSell.close();
+	}
+	
+	/**
+	 * Removes the specified crop from the cart
+	 * @param item
+	 */
+	private void exchangeCrop(String item) {
+		boolean invalid = true;           // If item is not in farmsCrops the invalid is true
+		double profit = 0.00;             // Initialize cost
+		
+		for (Crop toSell : farmOwner.getCrops()) {         
+			if (toSell.getType() == item && toSell.getState() == "Harvest") {   // Finds 'Crop' to sell, once found it checks if the 'State' is 'Harvest'
+				profit = toSell.getSellPrice();                                     // Gets the price of item to remove
+				farmOwner.removeCrop(toSell);                                   // removes item object from cart
+				System.out.println(item + " has been SOLD\n");
+				invalid = false;                                                // Item was in cart,invalid is false
+				break;                                                          // End loop
 				}
-				for (Supplies item : suppliesCart) {
-					System.out.println(item.getName());
-				}
-				for (Animal item : animalCart) {
-					System.out.println(item.getType());
-				}
-			}
+		}
+		farmOwner.addToWallet(profit);                                          // Increases profit of farm by 'sellPrice'
+
+		// Decrements the corresponding Crop counter
+		if (item == "Carrot" && carrotCount > 0) {
+			carrotCount --;
+		}else if ( item == "Broccoli"  && broccoliCount > 0) {
+			broccoliCount --;
+		}else if ( item == "Cauliflower" && cauliCount > 0) {
+			cauliCount --;
+		}else if ( item == "Capsicum"  && capsCount > 0) {
+			capsCount --;
+		}else if ( item == "Avocado" && avoCount > 0) {
+			avoCount --;
+		}else if ( item == "Potato" && potaCount > 0){
+			potaCount --;
+		}
+		if (invalid) {    // If item is not in cart
+		System.out.println("Sorry " + item +" is not in your cart");
 		}
 	}
 	
+	/**
+	 * User interface to get input for checkout
+	 */
+	private void checkout() {
+		
+		Scanner getOption = new Scanner(System.in);
+		int option = 0;
+		
+		//Check to see if farmOwner can afford the items in the cart
+		if (farmOwner.getMoney() > cartCost){
+		}else {
+			System.out.println("Sorry you do not have enough money, "
+					         + "Please remove some items from the cart");
+			viewMarketOptions();
+		}
+		
+		// Can afford items, so continue
+		boolean endDo = false;     // Ends the do-while loop only when a suitable optional has been chosen 
+		boolean endSwitch = true;  // Switch ends after every iteration
+		do {
+		System.out.println("What would you like to do?");
+		System.out.println("[1] Pay for cart\n"
+				         + "[2] Return to 'FRONT DESK'");
+		option = getOption.nextInt();
+		
+		switch(option) {
+			case 1:
+				completeCheckout();
+				endDo = true;
+				break;
+			case 7:
+				endDo = true;
+				break;
+			}while(!endSwitch);
+		}while(!endDo);
+		
+		viewMarketOptions();
+		getOption.close();
+	}
+	
+	
+	private void completeCheckout() {
+		
+		Scanner nameAnimal = new Scanner(System.in);
+		boolean end = true;
+		int option = 0;
+		String newName = "";
+		farmOwner.addToWallet((-1)*cartCost); // Removes the amount of cartCost from the farmOwners wallet
+		cartCost = 0;
+		
+		if (!(cropCart.isEmpty())) {
+			for (Crop vegetable : cropCart) {
+				farmOwner.addCrop(vegetable);
+			}
+			cropCart.clear();
+		}
+		if (!(suppliesCart.isEmpty())) {
+			for (Supplies item : suppliesCart) {
+				farmOwner.addSupply(item);
+			}
+			suppliesCart.clear();
+		}
+		if (!(animalCart.isEmpty())) {
+			for (Animal animal : animalCart) {
+				System.out.println("Would you like to name your " + animal.getType() + "?\n");
+				System.out.println("[1] Yes i would like to name my " + animal.getType() + ",\n"
+						         + "[2] No thank you im fine with " + animal.getName() + ",\n");
+				option = nameAnimal.nextInt();
+				switch(option) {
+					case 1:
+						System.out.println("Please Enter new name,");
+						newName = nameAnimal.nextLine();
+						animal.setName(newName);
+						break;
+					case 2:
+						break;
+				}while(!(end));
+				farmOwner.addAnimal(animal);
+			}
+			animalCart.clear();
+		}
+		viewMarketOptions();
+		nameAnimal.close();
+		
+	}
+	
+	private void exit() {
+		manager.leaveMarket(manager);
+	}
 	
 	public static void main(String[] args) {
 		
 		//Implemented for testing
-		Farmer newFarmer = new Farmer();
-		Farm newFarm = new Farm(newFarmer);
+		PaddockParadiseManager manager = new PaddockParadiseManager();
+		manager.createFarmer();
+		manager.createFarm();
 		
-		Market openMarket = new Market(newFarm); // Test Market()
-		openMarket.printCartCost();              // Test printCartCost() with no items added
-		openMarket.printCart();                  // Test printCart() with no items
+		
+//		Market openMarket = new Market(newFarm); // Test Market()
+//		openMarket.printCart();                  // Test printCart() with no items
 		
 //		// Test for adding Animals
 //		openMarket.addCow();                     // Test addCow() 
@@ -709,7 +1012,7 @@ public class Market {
 //		openMarket.removeCrop("Carrot");
 //		openMarket.removeSupply("Fertiliser");
 //		openMarket.removeSupply("Vitamins");
-		openMarket.viewMarketOptions();
+//		openMarket.viewMarketOptions();
 		
 	}
 }
