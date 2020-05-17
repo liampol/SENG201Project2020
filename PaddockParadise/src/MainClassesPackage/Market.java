@@ -980,7 +980,8 @@ public class Market {
 	}
 	
 	private void exit() {
-		System.out.print("You left the market");
+		System.out.print("You left the market\n");
+		
 		//manager.leaveMarket();
 	}
 	

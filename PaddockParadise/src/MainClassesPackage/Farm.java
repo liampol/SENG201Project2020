@@ -154,11 +154,16 @@ public class Farm {
 	}
 	
 	public String viewAnimals() {
-		String returnString = "The current animals that are in the farm are:\n";
+		String returnString = "";
+		if (currentAnimals.isEmpty()) {
+			return "Sorry but you have no animals to view";
+		}else {
+		returnString = "The current animals that are in the farm are:\n";
 		for (Animal animal: currentAnimals) {
 			returnString += animal.getType();
 			returnString += "\n";
 		}
+	}
 		return returnString;
 	}
 	
@@ -193,7 +198,7 @@ public class Farm {
 				+ "Money: " + viewWallet() + ",\n"
 				+ "Supplies: " + viewSupplies() + ",\n";
 	}
-
+	
 	public static void toString(String message) {
 		System.out.println(message);
 	}

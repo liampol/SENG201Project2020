@@ -95,7 +95,7 @@ public class GameEnvironment {
 	}
 	
 	public void viewFarmStatus() {
-		farm.viewFarmStatus();
+		System.out.println(farm.viewFarmStatus());
 		playGame(scanner);
 	}
 	
@@ -103,6 +103,10 @@ public class GameEnvironment {
 		Market openMarket = new Market(manager);
 		playGame(scanner);
 		
+	}
+	
+	public void leaveMarket(PaddockParadiseManager manager) {
+		new GameEnvironment(manager);
 	}
 	
 	public void performActivity() {

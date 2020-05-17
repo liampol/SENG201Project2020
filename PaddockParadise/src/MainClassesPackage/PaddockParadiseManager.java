@@ -242,7 +242,7 @@ public class PaddockParadiseManager {
 		return newFarm;
 	}
 	
-	public String getDetails() {
+	public String viewDetails() {
 		return newFarmer.viewDetails()
 				+ newFarm.viewFarmStatus()
 				+"Days left to play: " + currentDay + ",\n"; 
@@ -259,7 +259,7 @@ public class PaddockParadiseManager {
 		PaddockParadiseManager manager = new PaddockParadiseManager();
 		launchWelcomeWindow(manager);
 		manager.getFarm();
-		manager.getDetails();
+		manager.viewDetails();
 //		Farmer Jack = new Farmer();
 //		Farm Johnson = new Farm(Jack);
 //		newFarmer = Jack;
