@@ -31,6 +31,12 @@ public class Farmer {
 		return type;
 	}
 	
+	
+	public String viewDetails() {
+		return "Name: " + name + ",\n"
+				+ "Age: " + age + ",\n"
+				+ "Type: " + type + ",\n";
+	}
 	public static void main(String[] args) {
 		
 		// Implemented for testing

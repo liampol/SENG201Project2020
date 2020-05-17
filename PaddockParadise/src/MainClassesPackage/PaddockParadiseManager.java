@@ -1,7 +1,6 @@
 package MainClassesPackage;
 import java.util.Scanner;
 import baseutility.GameEnvironment;
-import supportClasses.Days;
 import GUIPackage.*;
 import GUIPackage.ChooseFarmer;
 import java.util.regex.Matcher;
@@ -163,7 +162,7 @@ public class PaddockParadiseManager {
 					+ "[3] Happy Animal\n"
 					+ "Animals are happier longer\n"
 					+ "[4] Discount Store\n"
-					+ "30% Discount added to carton checkout!");
+					+ "40% Discount added to carton checkout!");
 			newInt = input.nextInt();
 			if (newInt == 1) {
 				newType = "Money Tree";
@@ -244,7 +243,9 @@ public class PaddockParadiseManager {
 	}
 	
 	public String getDetails() {
-		return newFarmer.getDetails() + ",\n"
+		return newFarmer.viewDetails()
+				+ newFarm.viewFarmStatus()
+				+"Days left to play: " + currentDay + ",\n"; 
 		
 	}
 	

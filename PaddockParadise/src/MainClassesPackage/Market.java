@@ -927,20 +927,33 @@ public class Market {
 		boolean end = true;
 		int option = 0;
 		String newName = "";
-		farmOwner.addToWallet((-1)*cartCost); // Removes the amount of cartCost from the farmOwners wallet
+		
+		// Checks for Farm Bonus "DISCOUNT STORE"
+		if (farmOwner.getType() == "Discount Store") {
+			cartCost = cartCost-(cartCost*0.4);
+			System.out.println("Your 'Discount Store Bonus has been applied, \n"
+					+ "The amount you paid was $" + cartCost + ",\n");
+		}
+		farmOwner.addToWallet((-1)*cartCost);     // Removes the amount of cartCost from the farmOwners wallet
+		
+		// Resets cartCost back to zero
 		cartCost = 0;
 		
 		if (!(cropCart.isEmpty())) {
 			for (Crop vegetable : cropCart) {
-				farmOwner.addCrop(vegetable);
+				// Checks to see if Farmer has 
+				if (farmOwner.getType() == "Faster Crop Growth") {
+					vegetable.alterCropTime(1);
+				}		
+				farmOwner.addCrop(vegetable);    // Adds crop to farm
 			}
-			cropCart.clear();
+			cropCart.clear();                    // Clears the ccropCart
 		}
 		if (!(suppliesCart.isEmpty())) {
 			for (Supplies item : suppliesCart) {
 				farmOwner.addSupply(item);
 			}
-			suppliesCart.clear();
+			suppliesCart.clear();                // Clears the suppliesCart
 		}
 		if (!(animalCart.isEmpty())) {
 			for (Animal animal : animalCart) {
@@ -967,7 +980,8 @@ public class Market {
 	}
 	
 	private void exit() {
-		manager.leaveMarket(manager);
+		System.out.print("You left the market");
+		//manager.leaveMarket();
 	}
 	
 	public static void main(String[] args) {

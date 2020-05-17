@@ -1,6 +1,6 @@
 package MainClassesPackage;
 import cropExtend.*;
-import supportClasses.*;
+
 
 
 public class Crop {
@@ -71,7 +71,7 @@ public class Crop {
 	+ " [State] " + state + ", " 
 	+ " [Buy price] $" + buyPrice
 	+ " [Sell price (Only when harvested)] $" + sellPrice + ", " 
-	+ " [Days till harvest] " + daysToHarvest+ ", \n" ;
+	+ " [Days till harvest] " + daysToHarvest + ", \n" ;
 		
 		return details;
 		//System.out.println(details);
@@ -79,6 +79,9 @@ public class Crop {
 
 	public void alterCropTime(int bonus) {
 		daysToHarvest -= bonus;
+		if (daysToHarvest <= 0) {
+			state = "Harvest";
+		}
 	}
 	
 	public static void main(String[] args) {
