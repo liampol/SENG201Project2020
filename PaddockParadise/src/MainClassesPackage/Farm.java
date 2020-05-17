@@ -5,6 +5,20 @@ import animalExtend.*;
 import cropExtend.*;
 import GUIPackage.*;
 
+/**
+ * The Farm class that is called from the PaddockParadiseManager to initialise a farm, 
+ * The Attributes of the Farm:
+ *        -name            (String)
+ *        -type            (String)
+ *        -currentFarmer   (Farmer)
+ *        -currentCrops    (ArrayList<Crops>)
+ *        -currentAnimals  (ArrayList<Animal>)
+ *        -currentSupplies (ArrayList<Supplies>)   
+ *        -money           (double)
+ *
+ * @author Te wehenga Johnson
+ *
+ */
 public class Farm {
 	
 
@@ -15,7 +29,7 @@ public class Farm {
 	private ArrayList<Animal> currentAnimals;
 	private ArrayList<Supplies> currentSupplies;
 	private static double money;
-	private String bonus;
+
 	
 	public Farm(String farmName, Farmer newFarmer, String farmType) {
 		
@@ -39,23 +53,24 @@ public class Farm {
 	}
 
 	/**
-	 * Method used to allocate the bonus associated with the chosen farmType
-	 * 
-	 * @param farmType
+	 * retuns the name of the Farm
 	 * @return
 	 */
-	public void applyFarmBonus(String newBonus) {
-		bonus = newBonus;
-	}
-	
 	public String getName() {
 		return name;
 	}
-	
+	/**
+	 * returns the Type of farm
+	 * @return
+	 */
 	public String getType() {
 		return type;
 	}
 	
+	/**
+	 * returns the amount of money the farm currently has
+	 * @return
+	 */
 	public double getMoney() {
 		return money;
 	}
@@ -68,10 +83,19 @@ public class Farm {
 		money += profit;
 	}
 	
+	/**
+	 * adds crop to list of crops
+	 * @param vegetable
+	 */
 	public void addCrop(Crop vegetable) {
 		currentCrops.add(vegetable);
 	}
 	
+	/**
+	 * removes a crop from the crop list
+	 * @param vegetable
+	 * @return
+	 */
 	public boolean removeCrop(Crop vegetable) {
 		if (currentCrops.contains(vegetable)) {
 			currentCrops.remove(vegetable);
@@ -81,18 +105,34 @@ public class Farm {
 			return false;
 	}
 	
+	/**
+	 * Adds supply to list of supplies
+	 * @param item
+	 */
 	public void addSupply(Supplies item) {
 		currentSupplies.add(item);
 	}
 	
+	/**
+	 * removes a supply from list of supplies
+	 * @param item
+	 */
 	public void removeSupply(Supplies item) {
 		currentSupplies.remove(item);
 	}
 	
+	/**
+	 * adds animal to list of animals
+	 * @param animal
+	 */
 	public void addAnimal(Animal animal) {
 		currentAnimals.add(animal);
 	}
 	
+	/**
+	 *returns the ArrayList of crops the farm has
+	 * @return
+	 */
 	public ArrayList<Crop> getCrops() {
 		return currentCrops;
 	}
@@ -137,6 +177,10 @@ public class Farm {
 		
 	}
 	
+	/**
+	 * returns a String representation of the status of the crops
+	 * @return
+	 */
 	public String viewCropsStatus() {
 		String status = "";
 		if (currentCrops.isEmpty()) {
@@ -149,10 +193,18 @@ public class Farm {
 		return status;
 	}
 	
+	/**
+	 * returns a string representation of the amount of money the farm current has
+	 * @return
+	 */
 	public String viewWallet() {
 		return "Current cash balance: $" + money + ",\n";
 	}
 	
+	/**
+	 * returns a string representation of what animals the farm currently has
+	 * @return
+	 */
 	public String viewAnimals() {
 		String returnString = "";
 		if (currentAnimals.isEmpty()) {
@@ -167,6 +219,12 @@ public class Farm {
 		return returnString;
 	}
 	
+	/**
+	 * returns the current state the animals are in:
+	 * -Emotional
+	 * -Health
+	 * @return
+	 */
 	public String viewAnimalsStatus() {
 		String status = "";
 		if (currentAnimals.isEmpty()) {
@@ -179,6 +237,10 @@ public class Farm {
 		return status;
 	}
 	
+	/**
+	 * Returns a string of Supplies that the Farm owns
+	 * @return
+	 */
 	public String viewSupplies() {
 		String status = "";
 		if (currentSupplies.isEmpty()) {
@@ -191,7 +253,11 @@ public class Farm {
 		return status;
 	}
 	
-	
+	/**
+	 * Returns the status of 'Crops', 'Animals' and Supplies
+	 *  as well as the amount of money the farm has
+	 * @return
+	 */
 	public String viewFarmStatus() {
 		return "Crops: " + viewCropsStatus() + ",\n" 
 				+ "Animals: " + viewAnimals() + ",\n"

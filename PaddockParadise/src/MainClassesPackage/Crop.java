@@ -2,7 +2,12 @@ package MainClassesPackage;
 import cropExtend.*;
 
 
-
+/**
+ * The Crop class
+ * 
+ * @author Te Wehenga Johnson
+ *
+ */
 public class Crop {
 	
 	String type;                    // Carrots, Potatos, Capsicum, Broccoli, Cauliflower, Avocado

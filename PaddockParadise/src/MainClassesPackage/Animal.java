@@ -5,9 +5,10 @@ import cropExtend.*;
 import baseutility.*;
 
 /**
+ * The animal class
  * 
  * @author Te Wehenga Johnson
- * @author Liam Pol
+ * 
  *
  */
 public class Animal {

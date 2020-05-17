@@ -9,7 +9,12 @@ import java.util.Scanner;
 import GUIPackage.*;
 
 
-
+/**
+ * The Market Class that implements the shop that allows the player to purchase 'SUPPLIES', 'ANIMALS', and 'CROPS',
+ * The player is also able to Sell crops that have a 'HARVESTED" State
+ * @author Te Wehenga Johnson
+ *
+ */
 public class Market {
 	
 	PaddockParadiseManager manager;
