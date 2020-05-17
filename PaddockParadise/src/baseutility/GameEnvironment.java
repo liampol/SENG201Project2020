@@ -94,7 +94,7 @@ public class GameEnvironment {
 	}
 	
 	public void viewFarmStatus() {
-		System.out.println(farm.viewFarmStatus());
+		System.out.println(farm.getFarmStatus());
 		playGame(scanner);
 	}
 	

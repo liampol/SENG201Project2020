@@ -20,7 +20,7 @@ public class PaddockParadiseManager {
 	 *      and gets the amount of days the user would like to play for
 	 * 
 	 */
-	public static void launchWelcomeWindow() {
+	public static void launchWelcomeWindow(PaddockParadiseManager manager) {
 		//WelcomeScreen welcomeWindow = new WelcomeScreen(this);
 		System.out.println("Welcome to Paddock Paradise");
 		Scanner daysToPlay = new Scanner(System.in);
@@ -36,7 +36,7 @@ public class PaddockParadiseManager {
 		}while(days < 5 || days > 10);
 		
 		currentDay = days; 
-		getFarmerDetails();
+		getFarmerDetails(manager);
 		daysToPlay.close();
 		
 	}
@@ -46,7 +46,7 @@ public class PaddockParadiseManager {
 	 * while passing players details as  parameters
 	 * At the end, the getFarmDetails() is called
 	 */
-	public static void getFarmerDetails() {
+	public static void getFarmerDetails(PaddockParadiseManager manager) {
 		
 		// Used to check input details
 		boolean correct = false;
@@ -76,7 +76,6 @@ public class PaddockParadiseManager {
 		}while (!correct);
 		
 		// Gets the age of the farmer age must be between 10 and 100
-	//	Scanner age = new Scanner(System.in);
 		int newIntAge = 0;
 		correct = false;
 		String newStringAge = "";
@@ -99,7 +98,6 @@ public class PaddockParadiseManager {
 		correct = false;
 		int newInt = 0;
 		String newType = "";
-		//Scanner type = new Scanner(System.in);
 		do {
 			System.out.print("Choose Type by typing corresponding number only!:\n"
 					+ " [1] Male Farmer\n "
@@ -126,9 +124,7 @@ public class PaddockParadiseManager {
 						+ "Type: " + newType + "\n");
 		
 		createFarmer(newName, newIntAge, newType);
-		getFarmDetails();
-		//.close();
-		//type.close();
+		getFarmDetails(manager);
 		input.close();
 		
 	}
@@ -147,14 +143,13 @@ public class PaddockParadiseManager {
 		newFarmer = new Farmer();
 	}
 	
-	public static void getFarmDetails() {
+	public static void getFarmDetails(PaddockParadiseManager manager) {
 		
-		Scanner name = new Scanner(System.in);
+		Scanner input = new Scanner(System.in);
 		System.out.print("Enter Farm Name:\n");
-		String newName = name.nextLine();
+		String newName = input.nextLine();
 		
 		
-		Scanner type = new Scanner(System.in);
 		int newInt = 0;
 		String newType = "";
 		boolean correct = false;
@@ -168,8 +163,8 @@ public class PaddockParadiseManager {
 					+ "[3] Happy Animal\n"
 					+ "Animals are happier longer\n"
 					+ "[4] Discount Store\n"
-					+ "30% Discount added to carton checkout!\n");
-			newInt = type.nextInt();
+					+ "30% Discount added to carton checkout!");
+			newInt = input.nextInt();
 			if (newInt == 1) {
 				newType = "Money Tree";
 				correct = true;
@@ -192,8 +187,8 @@ public class PaddockParadiseManager {
 						+ "Farm Type: " + newType + "\n");
 		createFarm(newName, newType);
 		System.out.println("Lets Play!");
-		name.close();
-		type.close();
+		startGame(manager);
+		input.close();
 		
 	}
 	
@@ -248,9 +243,12 @@ public class PaddockParadiseManager {
 		return newFarm;
 	}
 	
+	public String getDetails() {
+		return newFarmer.getDetails() + ",\n"
+		
+	}
 	
 	private static void startGame(PaddockParadiseManager manager) {
-		
 //		Create a new game environment here, passing in manager
 		GameEnvironment environment = new GameEnvironment(manager);
 		
@@ -258,8 +256,9 @@ public class PaddockParadiseManager {
 	
 	public static void main(String[] args) {
 		PaddockParadiseManager manager = new PaddockParadiseManager();
-		manager.launchWelcomeWindow();
-		
+		launchWelcomeWindow(manager);
+		manager.getFarm();
+		manager.getDetails();
 //		Farmer Jack = new Farmer();
 //		Farm Johnson = new Farm(Jack);
 //		newFarmer = Jack;
