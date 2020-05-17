@@ -23,6 +23,7 @@ public class GameEnvironment {
 	private ArrayList<Integer> options = new ArrayList<Integer>(3);
 	private String optionString;
 	private Scanner scanner = new Scanner(System.in);
+	private PaddockParadiseManager manager;
 	
 	/*
 	 * This is the game environment. Here the user can 
@@ -33,9 +34,11 @@ public class GameEnvironment {
 	 * 
 	 */
 	
-	public GameEnvironment(Farmer farmer, Farm farm) {
-		this.farmer = farmer;
-		this.farm = farm;
+	public GameEnvironment(PaddockParadiseManager incoming) {
+		
+		manager = incoming;
+		this.farmer = incoming.getFarmer();
+		this.farm = incoming.getFarm();
 		activitiesLeft = 2;
 		for (int i = 1; i < 4; i++) {
 			options.add(i);
