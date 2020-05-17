@@ -2,13 +2,14 @@
  * 
  */
 package baseutility;
-
+import MainClassesPackage.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
 import MainClassesPackage.Farm;
 import MainClassesPackage.Farmer;
 import MainClassesPackage.PaddockParadiseManager;
+
 
 
 /**
@@ -68,7 +69,7 @@ public class GameEnvironment {
 			performActivity();
 			break;
 		case 3:
-			visitGeneralStore();
+			visitMarket();
 			break;
 		}	
 
@@ -94,15 +95,12 @@ public class GameEnvironment {
 	}
 	
 	public void viewFarmStatus() {
-		System.out.println(farm.getFarmStatus());
+		farm.viewFarmStatus();
 		playGame(scanner);
 	}
 	
-	public void visitGeneralStore() {
-		/*
-		 *  Do stuff
-		 * 
-		 */
+	public void visitMarket() {
+		Market openMarket = new Market(manager);
 		playGame(scanner);
 		
 	}

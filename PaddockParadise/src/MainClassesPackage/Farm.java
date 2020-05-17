@@ -133,8 +133,6 @@ public class Farm {
 					+ "Avocado: " + numAvocado + "\n" 
 			        + "Broccoli: " + numBroccoli + "\n") ;
 			}
-		
-		
 		return returnString;
 		
 	}
@@ -151,17 +149,17 @@ public class Farm {
 		return status;
 	}
 	
-	public static void viewWallet() {
-		System.out.printf("Current cash balance: $%.2f\n", money);
+	public String viewWallet() {
+		return "Current cash balance: $" + money + ",\n";
 	}
 	
-	public void viewAnimals() {
+	public String viewAnimals() {
 		String returnString = "The current animals that are in the farm are:\n";
 		for (Animal animal: currentAnimals) {
 			returnString += animal.getType();
 			returnString += "\n";
 		}
-		toString(returnString);
+		return returnString;
 	}
 	
 	public String viewAnimalsStatus() {
@@ -176,11 +174,24 @@ public class Farm {
 		return status;
 	}
 	
+	public String viewSupplies() {
+		String status = "";
+		if (currentSupplies.isEmpty()) {
+			status = "Sorry but you have no 'Supplies' to view";
+		}else {
+			for (Supplies supply: currentSupplies) {
+				status += supply.getName() + ": " + supply.getBonus() + ",\n";
+			}
+		}
+		return status;
+	}
 	
 	
-	public void viewFarmStatus() {
-		viewCrops();
-		viewWallet();
+	public String viewFarmStatus() {
+		return "Crops: " + viewCropsStatus() + ",\n" 
+				+ "Animals: " + viewAnimals() + ",\n"
+				+ "Money: " + viewWallet() + ",\n"
+				+ "Supplies: " + viewSupplies() + ",\n";
 	}
 
 	public static void toString(String message) {

@@ -1,4 +1,4 @@
-package supportClasses;
+package MainClassesPackage;
 import animalExtend.*;
 
 import cropExtend.*;
