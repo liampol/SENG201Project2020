@@ -4,6 +4,7 @@
 package baseutility;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 import MainClassesPackage.Farm;
 import MainClassesPackage.Farmer;
@@ -18,13 +19,9 @@ public class GameEnvironment {
 	
 	private Farmer farmer;
 	private Farm farm;
-	private int activitiesPerformed;
-	private PaddockParadiseManager manager;
-	private final int[] OPTIONS = {1, 2, 3};
-	private final String OPTION_STRING = "What would you like to do?\n"
-			+	"[1] View " + farm.getName()
-			+	"[2] Perform an action"
-			+	"[3] Visit the General Store";
+	private int activitiesLeft;
+	private ArrayList<Integer> options = new ArrayList<Integer>(3);
+	private String optionString;
 	
 	/*
 	 * This is the game environment. Here the user can 
@@ -35,20 +32,30 @@ public class GameEnvironment {
 	 * 
 	 */
 	
-	public GameEnvironment(PaddockParadiseManager manager) {
-		this.manager = manager;
-		farmer = manager.getFarmer();
-		farm = manager.getFarm();
-		
+	public GameEnvironment(Farmer farmer, Farm farm) {
+		this.farmer = farmer;
+		this.farm = farm;
+		activitiesLeft = 2;
+		for (int i = 1; i < 4; i++) {
+			options.add(i);
+		}
+		optionString = "What would you like to do?\n"
+					+	"[1] View " + farm.getName() + "\n"
+					+	"[2] Perform an action\n"
+					+	"[3] Visit the General Store";
+		playGame();
+
 	}
 	
 	public void playGame() {
-		System.out.println(OPTION_STRING);
+		System.out.println(optionString);
 		Scanner scanner = new Scanner(System.in);
 		int choice = getInput(scanner);
-		while (!isValidInput(OPTIONS, choice)) {
+		while (!isValidInput(options, choice)) {
+			System.out.println(optionString);
 			choice = getInput(scanner);
 		}
+		// Gets stuck in while loop? Test methods
 		scanner.close();
 		switch (choice) {
 		case 1:
@@ -67,30 +74,41 @@ public class GameEnvironment {
 	public int getInput(Scanner scanner) {
 		if (scanner.hasNextInt()) {
 			int return_val = scanner.nextInt();
-			scanner.nextLine();
 			return return_val;
 		}
-		System.out.println("You didn't pick a valid option!");
+		scanner.nextLine();
 		return -1;
 	}
 	
-	public boolean isValidInput(int[] acceptedInputs, int input) {
-			if (Arrays.asList(acceptedInputs).contains(input)) {
+	public boolean isValidInput(ArrayList<Integer> acceptedInputs, int input) {
+			if (acceptedInputs.contains(input)) {
 				return true;
+			} else {
+				System.out.println("You didn't pick a valid option!\n");
 			}
 		return false;
 	}
 	
 	public void viewFarmStatus() {
-		farm.viewFarmStatus();
+		System.out.println(farm.viewFarmStatus());
+		playGame();
 	}
 	
 	public void visitGeneralStore() {
+		/*
+		 *  Do stuff
+		 * 
+		 */
+		playGame();
 		
 	}
 	
 	public void performActivity() {
-		
+		/**
+		 *  Do stuff
+		 * 
+		 */
+		playGame();
 	}
 	
 }

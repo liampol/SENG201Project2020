@@ -7,23 +7,14 @@ import GUIPackage.*;
 
 public class Farm {
 	
-<<<<<<< Updated upstream
+
 	private String name;
 	private String type;
+	private String bonus;
 	private Farmer currentFarmer;
 	private ArrayList<Crop> currentCrops;
 	private ArrayList<Animal> currentAnimals;
-	private float money;
-=======
-	String name;
-	String type;
-	Farmer currentFarmer;
-	ArrayList<Crop> currentCrops;
-	ArrayList<Animal> currentAnimals;
-	ArrayList<Supplies> currentSupplies;
-	String bonus;
-	double money;
->>>>>>> Stashed changes
+	private double money;
 	
 	public Farm(String farmName, Farmer newFarmer, String farmType) {
 		
@@ -37,8 +28,8 @@ public class Farm {
 	
 	public Farm(Farmer newFarmer) {
 		
-		name = currentFarmer.getName() + "'s Farm";
 		currentFarmer = newFarmer;
+		name = currentFarmer.getName() + "'s Farm";
 		type = "Money Tree";
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
@@ -157,8 +148,8 @@ public class Farm {
 	
 	
 	
-	public void viewFarmStatus() {
-		viewCrops();
+	public String viewFarmStatus() {
+		return viewCrops();
 	}
 
 	public static void toString(String message) {
