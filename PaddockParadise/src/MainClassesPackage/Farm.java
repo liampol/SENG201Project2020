@@ -10,11 +10,12 @@ public class Farm {
 
 	private String name;
 	private String type;
-	private String bonus;
 	private Farmer currentFarmer;
 	private ArrayList<Crop> currentCrops;
 	private ArrayList<Animal> currentAnimals;
-	private double money;
+	private ArrayList<Supplies> currentSupplies;
+	private static double money;
+	private String bonus;
 	
 	public Farm(String farmName, Farmer newFarmer, String farmType) {
 		
@@ -23,13 +24,14 @@ public class Farm {
 		type = farmType;
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
+		currentSupplies =new ArrayList<Supplies>();
 		money = 500.00; 
 	}
 	
 	public Farm(Farmer newFarmer) {
 		
+		name = newFarmer.getName();
 		currentFarmer = newFarmer;
-		name = currentFarmer.getName() + "'s Farm";
 		type = "Money Tree";
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
@@ -58,6 +60,14 @@ public class Farm {
 		return money;
 	}
 	
+	/**
+	 * Adds the amount of profit from selling crops to Farms money 
+	 * @param profit
+	 */
+	public void addToWallet(double profit) {
+		money += profit;
+	}
+	
 	public void addCrop(Crop vegetable) {
 		currentCrops.add(vegetable);
 	}
@@ -69,6 +79,22 @@ public class Farm {
 			}
 		else
 			return false;
+	}
+	
+	public void addSupply(Supplies item) {
+		currentSupplies.add(item);
+	}
+	
+	public void removeSupply(Supplies item) {
+		currentSupplies.remove(item);
+	}
+	
+	public void addAnimal(Animal animal) {
+		currentAnimals.add(animal);
+	}
+	
+	public ArrayList<Crop> getCrops() {
+		return currentCrops;
 	}
 	
 	public String viewCrops() {
@@ -108,8 +134,8 @@ public class Farm {
 			        + "Broccoli: " + numBroccoli + "\n") ;
 			}
 		
-		String message = returnString;
-		return message;
+		
+		return returnString;
 		
 	}
 	
@@ -123,6 +149,10 @@ public class Farm {
 			}
 		}
 		return status;
+	}
+	
+	public static void viewWallet() {
+		System.out.printf("Current cash balance: $%.2f\n", money);
 	}
 	
 	public void viewAnimals() {
@@ -148,8 +178,9 @@ public class Farm {
 	
 	
 	
-	public String viewFarmStatus() {
-		return viewCrops();
+	public void viewFarmStatus() {
+		viewCrops();
+		viewWallet();
 	}
 
 	public static void toString(String message) {
@@ -161,6 +192,7 @@ public class Farm {
 		// Implemented for testing
 		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
 		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
+		newFarm.viewFarmStatus();
 		Carrot carrot = new Carrot();
 		Carrot carrot1 = new Carrot();
 		Carrot carrot2 = new Carrot();

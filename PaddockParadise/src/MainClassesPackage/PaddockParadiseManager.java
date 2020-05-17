@@ -13,7 +13,39 @@ public class PaddockParadiseManager {
 	
 	private static Farmer newFarmer;
 	private static Farm newFarm;
+	private static int currentDay;
 	
+	/**
+	 * Launches the WelcomeScreen that welcomes the user to the game
+	 *      and gets the amount of days the user would like to play for
+	 * 
+	 */
+	public static void launchWelcomeWindow() {
+		//WelcomeScreen welcomeWindow = new WelcomeScreen(this);
+		System.out.println("Welcome to Paddock Paradise");
+		Scanner daysToPlay = new Scanner(System.in);
+		int days = 0;
+		do {
+			System.out.println("How long would you like to play for? (Please type in a number between 5 and 10)");
+			days = daysToPlay.nextInt();
+			if (days < 5 || days > 10) {
+				System.out.println("sorry that input was invalid, please try again!");
+			}else {
+				System.out.println("Thank You!");
+			}
+		}while(days < 5 || days > 10);
+		
+		currentDay = days; 
+		getFarmerDetails();
+		daysToPlay.close();
+		
+	}
+	
+	/**
+	 * This Method is used to get players Farmer details through input then calls the createFarmer()
+	 * while passing players details as  parameters
+	 * At the end, the getFarmDetails() is called
+	 */
 	public static void getFarmerDetails() {
 		
 		// Used to check input details
@@ -24,13 +56,13 @@ public class PaddockParadiseManager {
 	    
 	    // Gets the name of the Farmer, (MUST BE BETWEEN 3 AND 5 CHARACTERS ND NOT HAVE SPECIAL CHARACTERS OR NUMBERS)
 		String newName = "";
-		Scanner name = new Scanner(System.in);
+		Scanner input = new Scanner(System.in);
 		
 		// Iterates through the do-while loop until the name meets specification
 		do {
 			
 			System.out.println("Please Enter Name: (Name has to be between 3 and 15 characters and must NOT contain special characters and numbers)\n");
-			newName = name.next();
+			newName = input.nextLine();
 			Matcher hasNums = nums.matcher(newName);
 			Matcher hasSpecial = special.matcher(newName);
 			
@@ -42,19 +74,16 @@ public class PaddockParadiseManager {
 				System.out.println("You thought I wouldn't notice! Please enter a VALID option");
 			}
 		}while (!correct);
-
-		
-		// THERE IS AN ERROR HERE THAT I CANT FIGURE OUT, IF A SPACE IS USED WHEN INPUTING NAME, THEN THE "ELSE" AND "IF" STATEMENT ARE EXECUTED??
 		
 		// Gets the age of the farmer age must be between 10 and 100
-		Scanner age = new Scanner(System.in);
+	//	Scanner age = new Scanner(System.in);
 		int newIntAge = 0;
 		correct = false;
 		String newStringAge = "";
 		
 		do {
 			System.out.println("Enter Age:(Please type an age between 10 and 100) \n");
-			newIntAge = age.nextInt();
+			newIntAge = input.nextInt();
 			newStringAge = Integer.toString(newIntAge);
 			Matcher hasSpecial = special.matcher(newStringAge);
 			Matcher hasLetter = letter.matcher(newStringAge);
@@ -70,13 +99,13 @@ public class PaddockParadiseManager {
 		correct = false;
 		int newInt = 0;
 		String newType = "";
-		Scanner type = new Scanner(System.in);
+		//Scanner type = new Scanner(System.in);
 		do {
 			System.out.print("Choose Type by typing corresponding number only!:\n"
 					+ " [1] Male Farmer\n "
 					+ "[2] Female Farmer\n "
 					+ "[3] Alien Farmer\n");
-			newInt = type.nextInt();
+			newInt = input.nextInt();
 			if (newInt == 1) {
 				newType = "Male Farmer";
 				correct = true;
@@ -98,10 +127,24 @@ public class PaddockParadiseManager {
 		
 		createFarmer(newName, newIntAge, newType);
 		getFarmDetails();
-		name.close();
-		type.close();
-		age.close();
+		//.close();
+		//type.close();
+		input.close();
 		
+	}
+	
+	/**
+	 * Overloaded Constructor for creating a farmer with user inputs
+	 * @param newName
+	 * @param newAge
+	 * @param newType
+	 */
+	public static void createFarmer(String newName,int newAge,String newType) {
+		newFarmer = new Farmer(newName, newAge, newType);
+	}
+	
+	public static void createFarmer() {
+		newFarmer = new Farmer();
 	}
 	
 	public static void getFarmDetails() {
@@ -121,8 +164,11 @@ public class PaddockParadiseManager {
 					+ "[1] Money Tree:\n"
 					+ "Gives 20% Extra money bonus at the start ofeach day\n"
 					+ "[2] Faster Crop Growth\n"
+					+ "Decreases the days till harvest by 1\n"
 					+ "[3] Happy Animal\n"
-					+ "[4] Discount Store\n");
+					+ "Animals are happier longer\n"
+					+ "[4] Discount Store\n"
+					+ "30% Discount added to carton checkout!\n");
 			newInt = type.nextInt();
 			if (newInt == 1) {
 				newType = "Money Tree";
@@ -152,14 +198,6 @@ public class PaddockParadiseManager {
 	}
 	
 	
-	public static void createFarmer(String newName,int newAge,String newType) {
-		newFarmer = new Farmer(newName, newAge, newType);
-	}
-	
-	public static void createFarmer() {
-		newFarmer = new Farmer();
-	}
-	
 	/**
 	 * Overloaded constructor for creating the farm
 	 * @param farmName
@@ -174,29 +212,6 @@ public class PaddockParadiseManager {
 	 */
 	public static void createFarm() {
 		newFarm = new Farm(newFarmer);
-	}
-	/**
-	 * Launches the WelcomeScreen that welcomes the user to the game
-	 *      and gets the amount of days the user would like to play for
-	 * 
-	 */
-	public static void launchWelcomeWindow() {
-		//WelcomeScreen welcomeWindow = new WelcomeScreen(this);
-		System.out.println("Welcome to Paddock Paradise");
-		Scanner daysToPlay = new Scanner(System.in);
-		int days = 0;
-		do {
-			System.out.println("How long would you like to play for? (Please type in a number between 5 and 10)");
-			days = daysToPlay.nextInt();
-			if (days < 5 || days > 10) {
-				System.out.println("sorry that input was invalid, please try again!");
-			}else {
-				System.out.println("Thank You!");
-			}
-		}while(days < 5 || days > 10);
-		daysToPlay.close();
-		getFarmerDetails();
-		
 	}
 	
 	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
@@ -234,29 +249,24 @@ public class PaddockParadiseManager {
 	}
 	
 	
-	private static void startGame() {
+	private static void startGame(PaddockParadiseManager manager) {
 		
 //		Create a new game environment here, passing in manager
-		GameEnvironment environment = new GameEnvironment(newFarmer, newFarm);
+		GameEnvironment environment = new GameEnvironment(manager);
 		
 	}
 	
 	public static void main(String[] args) {
-//		PaddockParadiseManager manager = new PaddockParadiseManager();
-//		manager.launchWelcomeWindow();
-//		launchWelcomeWindow();
-		//PaddockParadiseManager manager = new PaddockParadiseManager();
-		//manager.launchWelcomeWindow();
-//		launchWelcomeWindow();
-		Farmer Jack = new Farmer();
-		Farm Johnson = new Farm(Jack);
-		newFarmer = Jack;
-		newFarm = Johnson;
-		startGame();
+		PaddockParadiseManager manager = new PaddockParadiseManager();
+		manager.launchWelcomeWindow();
 		
-//		need to make it so that the variables we set for farm, farmer etc. are passed
-//		into a PaddockParadiseManager instance, and are handed over to GameEnvironment to 
-//		play
+//		Farmer Jack = new Farmer();
+//		Farm Johnson = new Farm(Jack);
+//		newFarmer = Jack;
+//		newFarm = Johnson;
+//		startGame();
+		
+// 
 		
 		
 		
