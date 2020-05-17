@@ -11,16 +11,8 @@ import java.util.regex.Pattern;
 
 public class PaddockParadiseManager {
 	
-<<<<<<< Updated upstream
 	private static Farmer newFarmer;
 	private static Farm newFarm;
-	private Days currentDay;
-=======
-	static Farmer newFarmer;
-	static Farm newFarm;
-	static int currentDay;
->>>>>>> Stashed changes
-	
 	
 	public static void getFarmerDetails() {
 		
@@ -202,9 +194,8 @@ public class PaddockParadiseManager {
 				System.out.println("Thank You!");
 			}
 		}while(days < 5 || days > 10);
-		
+		daysToPlay.close();
 		getFarmerDetails();
-		currentDay = days;
 		
 	}
 	
@@ -243,27 +234,25 @@ public class PaddockParadiseManager {
 	}
 	
 	
-	private void startGame() {
+	private static void startGame() {
 		
 //		Create a new game environment here, passing in manager
-		
+		GameEnvironment environment = new GameEnvironment(newFarmer, newFarm);
 		
 	}
 	
 	public static void main(String[] args) {
-<<<<<<< Updated upstream
 //		PaddockParadiseManager manager = new PaddockParadiseManager();
 //		manager.launchWelcomeWindow();
-		launchWelcomeWindow();
-=======
+//		launchWelcomeWindow();
 		//PaddockParadiseManager manager = new PaddockParadiseManager();
 		//manager.launchWelcomeWindow();
-		//launchWelcomeWindow();
+//		launchWelcomeWindow();
 		Farmer Jack = new Farmer();
 		Farm Johnson = new Farm(Jack);
-		
-		
->>>>>>> Stashed changes
+		newFarmer = Jack;
+		newFarm = Johnson;
+		startGame();
 		
 //		need to make it so that the variables we set for farm, farmer etc. are passed
 //		into a PaddockParadiseManager instance, and are handed over to GameEnvironment to 
