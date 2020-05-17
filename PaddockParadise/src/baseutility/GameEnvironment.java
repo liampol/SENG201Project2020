@@ -22,6 +22,7 @@ public class GameEnvironment {
 	private int activitiesLeft;
 	private ArrayList<Integer> options = new ArrayList<Integer>(3);
 	private String optionString;
+	private Scanner scanner = new Scanner(System.in);
 	
 	/*
 	 * This is the game environment. Here the user can 
@@ -43,20 +44,19 @@ public class GameEnvironment {
 					+	"[1] View " + farm.getName() + "\n"
 					+	"[2] Perform an action\n"
 					+	"[3] Visit the General Store";
-		playGame();
+		playGame(scanner);
+		scanner.close();
 
 	}
 	
-	public void playGame() {
+	public void playGame(Scanner scanner) {
 		System.out.println(optionString);
-		Scanner scanner = new Scanner(System.in);
 		int choice = getInput(scanner);
 		while (!isValidInput(options, choice)) {
 			System.out.println(optionString);
 			choice = getInput(scanner);
 		}
 		// Gets stuck in while loop? Test methods
-		scanner.close();
 		switch (choice) {
 		case 1:
 			viewFarmStatus();
@@ -75,9 +75,10 @@ public class GameEnvironment {
 		if (scanner.hasNextInt()) {
 			int return_val = scanner.nextInt();
 			return return_val;
-		}
-		scanner.nextLine();
+			}
+		scanner.next();
 		return -1;
+		
 	}
 	
 	public boolean isValidInput(ArrayList<Integer> acceptedInputs, int input) {
@@ -91,7 +92,7 @@ public class GameEnvironment {
 	
 	public void viewFarmStatus() {
 		System.out.println(farm.viewFarmStatus());
-		playGame();
+		playGame(scanner);
 	}
 	
 	public void visitGeneralStore() {
@@ -99,7 +100,7 @@ public class GameEnvironment {
 		 *  Do stuff
 		 * 
 		 */
-		playGame();
+		playGame(scanner);
 		
 	}
 	
@@ -108,7 +109,7 @@ public class GameEnvironment {
 		 *  Do stuff
 		 * 
 		 */
-		playGame();
+		playGame(scanner);
 	}
 	
 }

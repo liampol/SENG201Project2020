@@ -247,12 +247,12 @@ public class PaddockParadiseManager {
 //		launchWelcomeWindow();
 		//PaddockParadiseManager manager = new PaddockParadiseManager();
 		//manager.launchWelcomeWindow();
-		launchWelcomeWindow();
-//		Farmer Jack = new Farmer();
-//		Farm Johnson = new Farm(Jack);
-//		newFarmer = Jack;
-//		newFarm = Johnson;
-//		startGame();
+//		launchWelcomeWindow();
+		Farmer Jack = new Farmer();
+		Farm Johnson = new Farm(Jack);
+		newFarmer = Jack;
+		newFarm = Johnson;
+		startGame();
 		
 //		need to make it so that the variables we set for farm, farmer etc. are passed
 //		into a PaddockParadiseManager instance, and are handed over to GameEnvironment to 
