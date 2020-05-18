@@ -1,6 +1,5 @@
 package cropExtend;
 import MainClassesPackage.Crop;
-import supportClasses.*;
 
 
 public class Carrot extends Crop{

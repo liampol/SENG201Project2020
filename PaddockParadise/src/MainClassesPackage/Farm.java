@@ -193,6 +193,15 @@ public class Farm {
 		return status;
 	}
 	
+	public void growCrops() {
+		
+		for (Crop vegetable : currentCrops) {
+			if (vegetable.getState() == "Sprout"){
+			vegetable.alterCropTime(1);	
+			}
+		}
+	}
+	
 	/**
 	 * returns a string representation of the amount of money the farm current has
 	 * @return

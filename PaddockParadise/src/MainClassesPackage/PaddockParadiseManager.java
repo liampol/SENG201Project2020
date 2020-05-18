@@ -33,7 +33,8 @@ public class PaddockParadiseManager {
 		optionString = "What would you like to do?\n"
 				+	"[1] View " + newFarm.getName() + "\n"
 				+	"[2] Perform an action\n"
-				+	"[3] Visit the General Store";
+				+	"[3] Visit the General Store\n"
+				+   "[4] Skip to next day?";
 		playGame(gameScanner);
 		// Only closes once game is finished, i.e all calls of playGame() is finished.
 	}
@@ -56,6 +57,8 @@ public class PaddockParadiseManager {
 		case 3:
 			visitMarket();
 			break;
+		case 4:
+			skipDay();
 		}	
 
 	}
@@ -99,6 +102,20 @@ public class PaddockParadiseManager {
 	 *  Do stuff
 	 * 
 	 */
+		playGame(gameScanner);
+	}
+	
+	public void skipDay() {
+		System.out.println("Welcome to the new day");
+		currentDay -= 1; 
+		if (currentDay < 0) {
+			//endGame(this); need to implement end game
+		}
+		newFarm.growCrops();          // decreases the amount of days left for crops to grow
+		//newFarm.setAnimalState();   // need to implement a change of state for animal so they need to be tended too, 
+		                              // Cant forget to incorporate 'Happy Animal Bonus'
+		// Need to implement a reset for activities counts
+		// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		playGame(gameScanner);
 	}
 
