@@ -165,11 +165,14 @@ public class Market {
 				correct = true;
 				break;
 			case 7:
+				correct = true;
+				System.out.print("You left the market\n");
 				exit();
+				break;
 				}
 			}while (!(correct));
 		
-		frontDesk.close();
+		
 	}
 	
 	/**
@@ -221,7 +224,7 @@ public class Market {
 		}while(!endDo);          // End do-while loop while endDo is true
 		
 		viewMarketOptions();
-		cropToBuy.close();
+		
 	}
 	
 	public void buyAnimals() {
@@ -255,7 +258,6 @@ public class Market {
 		}while(!(endDo));
 		
 		viewMarketOptions();
-		animalToBuy.close();
 		
 	}
 	
@@ -303,7 +305,6 @@ public class Market {
 		}while(!(endDo));
 		
 		viewMarketOptions();
-		suppliesToBuy.close();
 	}
 	private void addFertiliser() {
 			Fertiliser addedFertiliser = new Fertiliser();
@@ -316,7 +317,7 @@ public class Market {
 	/**
 	 * Adds Horse-Dung to cart as well as adds the cost to cartCost
 	 */
-	public void addHorseDung() {
+	private void addHorseDung() {
 		HorseDung addedHorseDung= new HorseDung();
 		cartCost += addedHorseDung.getPrice(); 
 		suppliesCart.add(addedHorseDung);
@@ -327,7 +328,7 @@ public class Market {
 	/**
 	 * Adds Root-Boost to cart as well as adds the cost to cartCost
 	 */
-	public void addRootBoost() {
+	private void addRootBoost() {
 		RootBoost addedRootBoost= new RootBoost();
 		cartCost += addedRootBoost.getPrice(); 
 		suppliesCart.add(addedRootBoost);
@@ -338,7 +339,7 @@ public class Market {
 	/**
 	 * Adds grains to cart as well as adds the cost to cartCost
 	 */
-	public void addGrains() {
+	private void addGrains() {
 			Grains addedGrains = new Grains();
 			cartCost += addedGrains.getPrice(); 
 			suppliesCart.add(addedGrains);
@@ -349,7 +350,7 @@ public class Market {
 	/**
 	 * Adds Vitamins to cart as well as adds the cost to cartCost
 	 */
-	public void addVitamins() {
+	private void addVitamins() {
 			Vitamins addedVitamins = new Vitamins();
 			cartCost += addedVitamins.getPrice(); 
 			suppliesCart.add(addedVitamins);
@@ -360,7 +361,7 @@ public class Market {
 	/**
 	 * Adds Hay to cart as well as adds the cost to cartCost
 	 */
-	public void addHay() {
+	private void addHay() {
 		Hay addedHay = new Hay();
 		cartCost += addedHay.getPrice(); 
 		suppliesCart.add(addedHay);
@@ -555,7 +556,6 @@ public class Market {
 				}while(!endSwitch);
 		}while(!endDo);
 		viewMarketOptions();
-		removeItem.close();
 	}
 	
 	/*
@@ -603,7 +603,6 @@ public class Market {
 			}while(!endSwitch);
 		}while(!endDo);
 		removeFromCart();
-		removeCrop.close();
 	}
 	
 	/**
@@ -688,7 +687,6 @@ public class Market {
 		}while(!endDo);
 		
 		removeFromCart();
-		removeSupplies.close();
 		
 	}
 	
@@ -764,7 +762,6 @@ public class Market {
 		}while(!endDo);
 		
 		removeFromCart();
-		removeAnimal.close();
 		
 	}
 	/**
@@ -844,7 +841,6 @@ public class Market {
 		}while(!endDo);
 		
 		removeFromCart();
-		cropToSell.close();
 	}
 	
 	/**
@@ -922,7 +918,6 @@ public class Market {
 		}while(!endDo);
 		
 		viewMarketOptions();
-		getOption.close();
 	}
 	
 	
@@ -980,22 +975,20 @@ public class Market {
 			animalCart.clear();
 		}
 		viewMarketOptions();
-		nameAnimal.close();
+
 		
 	}
 	
-	private void exit() {
-		System.out.print("You left the market\n");
-		
-		//manager.leaveMarket();
+	public static void exit() {
+		return;
 	}
 	
 	public static void main(String[] args) {
 		
 		//Implemented for testing
-		PaddockParadiseManager manager = new PaddockParadiseManager();
-		manager.createFarmer();
-		manager.createFarm();
+//		PaddockParadiseManager manager = new PaddockParadiseManager();
+//		manager.createFarmer();
+//		manager.createFarm();
 		
 		
 //		Market openMarket = new Market(newFarm); // Test Market()
