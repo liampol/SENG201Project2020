@@ -2,13 +2,14 @@
  * 
  */
 package baseutility;
-
+import MainClassesPackage.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
 import MainClassesPackage.Farm;
 import MainClassesPackage.Farmer;
 import MainClassesPackage.PaddockParadiseManager;
+
 
 
 /**
@@ -23,6 +24,7 @@ public class GameEnvironment {
 	private ArrayList<Integer> options = new ArrayList<Integer>(3);
 	private String optionString;
 	private Scanner scanner = new Scanner(System.in);
+	private PaddockParadiseManager manager;
 	
 	/*
 	 * This is the game environment. Here the user can 
@@ -33,9 +35,11 @@ public class GameEnvironment {
 	 * 
 	 */
 	
-	public GameEnvironment(Farmer farmer, Farm farm) {
-		this.farmer = farmer;
-		this.farm = farm;
+	public GameEnvironment(PaddockParadiseManager incoming) {
+		
+		manager = incoming;
+		this.farmer = incoming.getFarmer();
+		this.farm = incoming.getFarm();
 		activitiesLeft = 2;
 		for (int i = 1; i < 4; i++) {
 			options.add(i);
@@ -65,7 +69,7 @@ public class GameEnvironment {
 			performActivity();
 			break;
 		case 3:
-			visitGeneralStore();
+			visitMarket();
 			break;
 		}	
 
@@ -95,13 +99,14 @@ public class GameEnvironment {
 		playGame(scanner);
 	}
 	
-	public void visitGeneralStore() {
-		/*
-		 *  Do stuff
-		 * 
-		 */
+	public void visitMarket() {
+		Market openMarket = new Market(manager);
 		playGame(scanner);
 		
+	}
+	
+	public void leaveMarket(PaddockParadiseManager manager) {
+		new GameEnvironment(manager);
 	}
 	
 	public void performActivity() {

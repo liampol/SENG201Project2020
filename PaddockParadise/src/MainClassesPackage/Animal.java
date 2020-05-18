@@ -5,19 +5,20 @@ import cropExtend.*;
 import baseutility.*;
 
 /**
+ * The animal class
  * 
  * @author Te Wehenga Johnson
- * @author Liam Pol
+ * 
  *
  */
 public class Animal {
 	
-	String name;               // Name of animal
-    String type;               // Types will be Cows, Sheep, Pigs
+	String name;                // Name of animal
+    String type;                // Types will be Cows, Sheep, Pigs
 	double price;               // Cost of animal
 	double moneyBonus;          // Bonus received from each animal
-	String healthState;        // Current health state of animal
-	String emotionalState;     // Emotional state of animal
+	String healthState;         // Current health state of animal
+	String emotionalState;      // Emotional state of animal
 	
 	
 	
@@ -53,7 +54,18 @@ public class Animal {
 	public void setName(String newName) {
 		name = newName;
 	}
-	//private void toString() {
+	
+	public String getDetails() {
+		String details = type + ": "
+	+ "[Name] " + name + ", "
+	+ "[Health State] " + healthState + ", "
+	+ "[Emotional State] " + emotionalState + ", "
+	+ "[Buy price] $" + price + ", "
+	+ "[Money Bonus] $" + moneyBonus + ", \n";
+		
+		return details;
+		//System.out.println(details);
+	}
 		
 	
 	public static void main(String[] args) {
