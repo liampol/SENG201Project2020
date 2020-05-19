@@ -104,9 +104,7 @@ public class Setup {
 //			Matcher hasSpecial = special.matcher(check);
 //			Matcher hasLetter = letter.matcher(check);
 //			
-//			if (!(hasSpecial.find() || hasLetter.find())) {
-//				newAge = Integer.parseInt(check);
-//			}
+
 			if (newAge >= 10 && newAge <=20) {
 				pass = true;
 				message = " WOW your still young!";
