@@ -133,3 +133,50 @@ public static void launchWelcomeWindow(PaddockParadiseManager manager) {
 
 	
 }
+
+
+Scanner input = new Scanner(System.in);
+System.out.print("Enter Farm Name:\n");
+String newName = input.nextLine();
+
+
+int newInt = 0;
+String newType = "";
+boolean correct = false;
+
+do {
+	System.out.print("Choose Type by typing corresponding number only!:\n"
+			+ "[1] Money Tree:\n"
+			+ "Gives 20% Extra money bonus at the start ofeach day\n"
+			+ "[2] Faster Crop Growth\n"
+			+ "Decreases the days till harvest by 1\n"
+			+ "[3] Happy Animal\n"
+			+ "Animals are happier longer\n"
+			+ "[4] Discount Store\n"
+			+ "40% Discount added to carton checkout!");
+	newInt = input.nextInt();
+	if (newInt == 1) {
+		newType = "Money Tree";
+		correct = true;
+	}else if (newInt == 2) {
+		newType = "Faster Crop Growth";
+		correct = true;
+	}else if (newInt == 3) {
+		newType = "Happy Animal";
+		correct = true;
+	}else if (newInt == 4) {
+		newType = "Discunt Store";
+		correct = true;
+	}else {
+		System.out.println("Sorry that was an invalid option, please choose again!");
+	}
+}while(!(correct));
+
+System.out.println("These are your new Farm Details:\n"
+		        + "Farm Name: "+ newName + "\n"
+				+ "Farm Type: " + newType + "\n");
+createFarm(newName, newType);
+System.out.println("Lets Play!");
+
+}
+

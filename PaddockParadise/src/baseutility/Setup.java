@@ -36,7 +36,6 @@ public class Setup {
 		getFarmType();
 		
 		
-		return farmer;
 	}
 	
 	public int getDays() {
@@ -199,13 +198,7 @@ public class Setup {
 			}
 		}while(!(correct));
 		
-		System.out.println("These are your new Farm Details:\n"
-				        + "Farm Name: "+ newName + "\n"
-						+ "Farm Type: " + newType + "\n");
-		createFarm(newName, newType);
-		System.out.println("Lets Play!");
-		
-	}
+		return newType;
 	}
 	
 	
@@ -213,8 +206,8 @@ public class Setup {
 		
 		PaddockParadiseManager manager = new PaddockParadiseManager();
 		
-		Setup setup = new Setup();
-		setup.createFarmer(manager);
+	//	Setup setup = new Setup();
+	//	setup.createFarmer(manager);
 	}
 	
 	
