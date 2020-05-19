@@ -14,7 +14,8 @@ public class Crop {
 	double sellPrice;               // Price to sell vegetable
 	double buyPrice;                // Price to buy vegetable
 	int daysToHarvest;              // Amount of days to harvest
-	String state;                   // Plants current state (Sprout or Harvest)
+	String state;                   // Plants current state ("Harvest", "Sprout") 
+	int stateTracker;               
 	boolean farmBonus;
 	
 	/**
@@ -65,7 +66,7 @@ public class Crop {
 		return state;
 	}
 	
-	// When state is called when days of crop is 0, which changes state of Crop to Harvest to allow the Crops to be sold
+	// State is called when days of crop is 0, which changes state of Crop to Harvest to allow the Crops to be sold
 	public void setState() {
 		state = "Harvest";
 	}
@@ -98,8 +99,6 @@ public class Crop {
 		avo.alterCropTime(2);
 		System.out.println(avo.getDaysToHarvest());
 		carrot.getDetails();
-		
-		
 		
 	}
 }

@@ -286,11 +286,19 @@ public class Farm {
 	public void checkForDeadAnimals() {
 		
 		for (Animal corpse : currentAnimals) {
-			if (corpse.getHealthState().equals("Die")){
+			if (corpse.getHealthState().equals("Dead")){
 					System.out.println("Rest In Peace " + corpse.getName());
 					currentAnimals.remove(corpse);
 			}
 		}
+	}
+	
+	public void checkForDeadCrops() {
+		
+	}
+	
+	public void startNewDay() {
+		
 	}
 	
 	private static void toString(String message) {

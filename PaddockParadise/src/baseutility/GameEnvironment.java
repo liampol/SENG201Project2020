@@ -106,7 +106,7 @@ public class GameEnvironment {
 	}
 	
 	public void leaveMarket(PaddockParadiseManager manager) {
-		new GameEnvironment(manager);
+		GameEnvironment next = new GameEnvironment(manager);
 	}
 	
 	public void performActivity() {

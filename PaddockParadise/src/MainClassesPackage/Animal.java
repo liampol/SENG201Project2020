@@ -17,7 +17,7 @@ public class Animal {
 	double profit;          // Bonus received from each animal
 	String healthState;         // Current health state of animal ("Healthy", "Sick", "Die");
 	String emotionalState;      // Emotional state of animal ("Happy" "Saudade" or "Sad")
-	int healthTracker;          // Tracks the health state of the animal in days where (3+ = "Healthy, 2 = "Sick", 0 = "Die")  
+	int healthTracker;          // Tracks the health state of the animal in days where (3+ = "Healthy, 2 = "Sick", 0 = "Dead")  
 	int emotionTracker;         // Tracks the emotional state of the animal in days where (3+ = "Happy", 2 = "Neutral", 0 = "Sad") 
 	
 	
@@ -75,7 +75,7 @@ public class Animal {
 		}else if (healthTracker <= 2 && healthTracker > 0) {
 			healthState = "Sick";
 		}else {
-			healthState = "Die";	
+			healthState = "Dead";	
 		}
 	}
 	
