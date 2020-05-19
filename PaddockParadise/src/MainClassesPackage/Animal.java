@@ -17,7 +17,7 @@ public class Animal {
     String type;                // Types will be Cows, Sheep, Pigs
 	double price;               // Cost of animal
 	double moneyBonus;          // Bonus received from each animal
-	String healthState;         // Current health state of animal
+	String healthState;         // Current health state of animal ("Happy" or "Sad");
 	String emotionalState;      // Emotional state of animal
 	
 	
