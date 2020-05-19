@@ -51,11 +51,21 @@ public class Animal {
 	
 	public String getHealthState() {
 		return healthState;
+}
+
+	public void setEmotionalState(String emotionalState) {
+		this.emotionalState = emotionalState;
 	}
 	
 	public String getEmotionalState() {
 		return emotionalState;
 	}
+	
+	public void setState(String healthState) {
+		this.healthState = healthState;
+	}
+	
+
 	public void setName(String newName) {
 		name = newName;
 	}

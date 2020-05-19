@@ -87,6 +87,15 @@ public class PaddockParadiseManager {
 		
 	}
 	
+	public void setActivitiesLeft(int activitiesLeft) {
+		this.activitiesLeft = activitiesLeft;
+	}
+	
+	public int getActivitiesLeft() {
+		return activitiesLeft;
+	}
+	
+	
 	public boolean isValidInput(ArrayList<Integer> acceptedInputs, int input) {
 		if (acceptedInputs.contains(input)) {
 			return true;
