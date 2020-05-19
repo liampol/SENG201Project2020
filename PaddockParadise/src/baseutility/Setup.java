@@ -82,7 +82,7 @@ public class Setup {
 				invalid = true;
 			}
 			else {
-				System.out.println("You thought I wouldn't notice! \nPlease enter a VALID option\n");
+				System.out.println("You thought I wouldn't notice! \nPlease enter a VALID name\n");
 			}
 		}while (!invalid);
 		
@@ -97,14 +97,16 @@ public class Setup {
 		boolean pass = false;
 		String message = "";
 		do {
+			
 			System.out.println("Please enter your age: (Enter a age between 10 and 100)");
 			check = input.nextLine();
-			Matcher hasSpecial = special.matcher(check);
-			Matcher hasLetter = letter.matcher(check);
-			
-			if (!(hasSpecial.find() || hasLetter.find())) {
-				newAge = Integer.parseInt(check);
-			}
+			newAge = checkValidInt(check);
+//			Matcher hasSpecial = special.matcher(check);
+//			Matcher hasLetter = letter.matcher(check);
+//			
+//			if (!(hasSpecial.find() || hasLetter.find())) {
+//				newAge = Integer.parseInt(check);
+//			}
 			if (newAge >= 10 && newAge <=20) {
 				pass = true;
 				message = " WOW your still young!";
@@ -131,7 +133,7 @@ public class Setup {
 		String newType = "";
 		do {
 			System.out.print("Choose Type by typing corresponding number only!:\n"
-					+ " [1] Male Farmer\n "
+					+ "[1] Male Farmer\n "
 					+ "[2] Female Farmer\n "
 					+ "[3] Alien Farmer\n");
 			newInt = input.nextInt();
@@ -156,12 +158,28 @@ public class Setup {
 	
 	public String getFarmName() {
 		
-		Scanner input = new Scanner(System.in);
-		System.out.print("Enter Farm Name:\n");
-		String newName = input.nextLine();
+		String newName ="";
+		
+		// Iterates through the do-while loop until the name meets specification
+		do {
+			
+			System.out.println("Please Enter a Farm Name: (Name has to be between 3 and 15 characters and must NOT contain special characters and numbers)\n");
+			newName = input.nextLine();
+			Matcher hasNums = nums.matcher(newName);
+			Matcher hasSpecial = special.matcher(newName);
+			
+			// Checks name
+			if (!(hasNums.find() || hasSpecial.find() || newName.length() < 3 || newName.length() > 15)) {
+				invalid = true;
+			}
+			else {
+				System.out.println("You thought I wouldn't notice! \nPlease enter a VALID name\n");
+			}
+		}while (!invalid);
 		
 		return newName;
 	}
+	
 	
 	public String getFarmType() {
 		
@@ -199,6 +217,19 @@ public class Setup {
 		}while(!(correct));
 		
 		return newType;
+	}
+	
+	private int checkValidInt(String toCheck) {
+		
+		int correct = 0;
+		Matcher hasSpecial = special.matcher(toCheck);
+		Matcher hasLetter = letter.matcher(toCheck);
+		
+		if (!(hasSpecial.find() || hasLetter.find())) {
+			correct = Integer.parseInt(toCheck);
+		}
+		
+		return correct;
 	}
 	
 	
