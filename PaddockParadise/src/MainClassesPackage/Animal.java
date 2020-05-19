@@ -1,7 +1,5 @@
 package MainClassesPackage;
 import animalExtend.*;
-import GUIPackage.*;
-import cropExtend.*;
 import baseutility.*;
 
 /**
@@ -18,9 +16,9 @@ public class Animal {
 	double price;               // Cost of animal
 	double profit;          // Bonus received from each animal
 	String healthState;         // Current health state of animal ("Healthy", "Sick", "Die");
-	String emotionalState;      // Emotional state of animal ("Happy" "Neutral" or "Sad")
+	String emotionalState;      // Emotional state of animal ("Happy" "Saudade" or "Sad")
 	int healthTracker;          // Tracks the health state of the animal in days where (3+ = "Healthy, 2 = "Sick", 0 = "Die")  
-	int emotionTracker;         // Tracks the emotional state of the animal in days where (4+ = "Happy", 3 = "Neutral", 1 = "Sad") 
+	int emotionTracker;         // Tracks the emotional state of the animal in days where (3+ = "Happy", 2 = "Neutral", 0 = "Sad") 
 	
 	
 	
@@ -31,8 +29,8 @@ public class Animal {
 		profit = newBonus;
 		healthState = newHealthState;
 		emotionalState = newEmotionalState;
-		healthTracker = 1;  // init as "Healthy"
-		emotionTracker = 1; // init as "Happy"
+		healthTracker = 3;  // init as "Healthy"
+		emotionTracker = 3; // init as "Happy"
 	}
 	
 	public String getName() {
@@ -51,10 +49,13 @@ public class Animal {
 		return profit;
 	}
 	
-	public String getState() {
+	public String getHealthState() {
 		return healthState;
 	}
 	
+	public String getEmotionalState() {
+		return emotionalState;
+	}
 	public void setName(String newName) {
 		name = newName;
 	}
@@ -91,17 +92,24 @@ public class Animal {
 		if (emotionTracker >= 3) {
 			emotionalState = "Happy";	
 		}else if (emotionTracker <= 2 && emotionTracker > 0) {
-			emotionalState = "Neutral";
+			emotionalState = "Saudade";
 		}else {
 			emotionalState = "Sad";	
 		}
 	}
-	
+	/**
+	 * This method returns the amount of profit received bassed on the emotionalState of the animal
+	 * @return
+	 */
 	public double getWorth() {
 		
 		double worth = 0; 
 		if (emotionalState == "Happy") {
 				worth = profit;
+		}else if ( emotionalState == "Saudade") {
+			worth = profit - (profit*0.40);    // 40% less profit
+		}else {
+			worth = 0;
 		}
 		return worth;
 	}

@@ -234,16 +234,25 @@ public class Farm {
 	 * -Health
 	 * @return
 	 */
-	public String viewAnimalsStatus() {
+	public String getAnimalsStatus() {
 		String status = "";
 		if (currentAnimals.isEmpty()) {
 			status = "Sorry but you have no Animals to view";
 		}else {
 			for (Animal animal: currentAnimals) {
-				status += animal.getName() + "the " + animal.getType() + "is " + animal.getState() + "\n";
+				status += animal.getName() 
+						+ " the " + animal.getType() 
+						+ " is " + animal.getHealthState() 
+						+ " and feeling " + animal.getEmotionalState() + "\n";
 			}
 		}
 		return status;
+	}
+	
+	public void viewAnimalStatus() {
+		
+		String message = getAnimalsStatus();
+		toString(message);
 	}
 	
 	/**
@@ -274,7 +283,17 @@ public class Farm {
 				+ "Supplies: " + viewSupplies() + ",\n";
 	}
 	
-	public static void toString(String message) {
+	public void checkForDeadAnimals() {
+		
+		for (Animal corpse : currentAnimals) {
+			if (corpse.getHealthState().equals("Die")){
+					System.out.println("Rest In Peace " + corpse.getName());
+					currentAnimals.remove(corpse);
+			}
+		}
+	}
+	
+	private static void toString(String message) {
 		System.out.println(message);
 	}
 	
@@ -283,30 +302,42 @@ public class Farm {
 		// Implemented for testing
 		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
 		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
-		newFarm.viewFarmStatus();
-		Carrot carrot = new Carrot();
-		Carrot carrot1 = new Carrot();
-		Carrot carrot2 = new Carrot();
-		Carrot carrot3 = new Carrot();
-		Broccoli broc = new Broccoli();
-		Potato potato = new Potato();
+		Cow moo = new Cow();
+		Sheep barbra = new Sheep();
+		newFarm.addAnimal(moo);
+		newFarm.addAnimal(barbra);
 		
-		newFarm.addCrop(carrot);
-		newFarm.addCrop(carrot1);
-		newFarm.addCrop(carrot2);
-		newFarm.addCrop(carrot3);
-		newFarm.addCrop(broc);
-		newFarm.addCrop(potato);
-		System.out.printf("You have $%.2f left\n", newFarm.getMoney());  // Print to 2 d.p
-		newFarm.viewCrops();
+		newFarm.viewAnimalStatus();
+		moo.alterHealthState(-3);
+		moo.alterEmotionalState(2);
+		newFarm.viewAnimalStatus();
+		newFarm.checkForDeadAnimals();
+		newFarm.viewAnimalStatus();
 		
-		newFarm.removeCrop(carrot2);
-		System.out.println(carrot3.getDaysToHarvest());
-		newFarm.removeCrop(broc);
-		newFarm.viewCrops();
-		newFarm.viewAnimalsStatus();
-		newFarm.viewCropsStatus();
-		
+//		newFarm.viewFarmStatus();
+//		Carrot carrot = new Carrot();
+//		Carrot carrot1 = new Carrot();
+//		Carrot carrot2 = new Carrot();
+//		Carrot carrot3 = new Carrot();
+//		Broccoli broc = new Broccoli();
+//		Potato potato = new Potato();
+//		
+//		newFarm.addCrop(carrot);
+//		newFarm.addCrop(carrot1);
+//		newFarm.addCrop(carrot2);
+//		newFarm.addCrop(carrot3);
+//		newFarm.addCrop(broc);
+//		newFarm.addCrop(potato);
+//		System.out.printf("You have $%.2f left\n", newFarm.getMoney());  // Print to 2 d.p
+//		newFarm.viewCrops();
+//		
+//		newFarm.removeCrop(carrot2);
+//		System.out.println(carrot3.getDaysToHarvest());
+//		newFarm.removeCrop(broc);
+//		newFarm.viewCrops();
+//		newFarm.viewAnimalsStatus();
+//		newFarm.viewCropsStatus();
+//		
 		
 		
 		
