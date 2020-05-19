@@ -47,6 +47,18 @@ public class Animal {
 		return moneyBonus;
 	}
 	
+	public void setEmotionalState(String emotionalState) {
+		this.emotionalState = emotionalState;
+	}
+	
+	public String getEmotionalState() {
+		return emotionalState;
+	}
+	
+	public void setState(String healthState) {
+		this.healthState = healthState;
+	}
+	
 	public String getState() {
 		return healthState;
 	}

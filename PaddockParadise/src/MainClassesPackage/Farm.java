@@ -21,7 +21,7 @@ import GUIPackage.*;
  */
 public class Farm {
 	
-
+	private String state;
 	private String name;
 	private String type;
 	private Farmer currentFarmer;
@@ -135,6 +135,18 @@ public class Farm {
 	 */
 	public ArrayList<Crop> getCrops() {
 		return currentCrops;
+	}
+	
+	/**
+	 * returns the state of the farm
+	 * @return String
+	 */
+	public String getState() {
+		return state;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 	public String viewCrops() {
