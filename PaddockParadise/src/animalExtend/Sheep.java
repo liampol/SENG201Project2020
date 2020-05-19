@@ -1,14 +1,22 @@
 package animalExtend;
 import MainClassesPackage.Animal;
 
+
+/**
+ * The 'Sheep' class extends the animal class, and only has a default constructor() and a overload constructor(String name)
+ * that takes a name as a parameter.
+ * 
+ * @author Te Wehenga Johnson
+ *
+ */
 public class Sheep extends Animal {
 	
 	public Sheep() {
-		super("Sheep", "Sheep", 20.00, 200.00, "Healthy", "Happy");
+		super("Baarbra", "Sheep", 60.00, 500.00, "Healthy", "Happy");
 	}
 	
 	public Sheep(String name) {
-		super(name, "Sheep", 20.00, 200.00, "Healthy", "Happy");
+		super(name, "Sheep", 60.00, 500.00, "Healthy", "Happy");
 	}
 
 }

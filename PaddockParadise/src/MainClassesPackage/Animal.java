@@ -16,9 +16,11 @@ public class Animal {
 	String name;                // Name of animal
     String type;                // Types will be Cows, Sheep, Pigs
 	double price;               // Cost of animal
-	double moneyBonus;          // Bonus received from each animal
-	String healthState;         // Current health state of animal ("Happy" or "Sad");
-	String emotionalState;      // Emotional state of animal
+	double profit;          // Bonus received from each animal
+	String healthState;         // Current health state of animal ("Healthy", "Sick", "Die");
+	String emotionalState;      // Emotional state of animal ("Happy" "Neutral" or "Sad")
+	int healthTracker;          // Tracks the health state of the animal in days where (3+ = "Healthy, 2 = "Sick", 0 = "Die")  
+	int emotionTracker;         // Tracks the emotional state of the animal in days where (4+ = "Happy", 3 = "Neutral", 1 = "Sad") 
 	
 	
 	
@@ -26,9 +28,11 @@ public class Animal {
 		name = newName;
 		type = newType;
 		price = newPrice;
-		moneyBonus = newBonus;
+		profit = newBonus;
 		healthState = newHealthState;
 		emotionalState = newEmotionalState;
+		healthTracker = 1;  // init as "Healthy"
+		emotionTracker = 1; // init as "Happy"
 	}
 	
 	public String getName() {
@@ -44,7 +48,7 @@ public class Animal {
 	}
 	
 	public double getMoneyBonus() {
-		return moneyBonus;
+		return profit;
 	}
 	
 	public String getState() {
@@ -55,16 +59,63 @@ public class Animal {
 		name = newName;
 	}
 	
+	/**
+	 * This method alters the healthState by the amount of days passed in as a parameter that changes the heathTracker,
+	 * the states are then changed based on the new healthTracker value,
+	 * 
+	 * @param change
+	 */
+	public void alterHealthState(int change) {
+		
+		healthTracker += change;                 // Alters healthTracker by the amount passed as a parameter
+		
+		if (healthTracker >= 3) {
+			healthState = "Healthy";	
+		}else if (healthTracker <= 2 && healthTracker > 0) {
+			healthState = "Sick";
+		}else {
+			healthState = "Die";	
+		}
+	}
+	
+	/**
+	 * This method alters the emotionalState by the amount of days passed in as a parameter that changes the emotionTracker,
+	 * The states are then changed based on the new emotionTracker value,
+	 * 
+	 * @param change
+	 */
+	public void alterEmotionalState(int change) {
+		
+		emotionTracker += change;                 // Alters emotionTracker by the amount passed as a parameter
+		
+		if (emotionTracker >= 3) {
+			emotionalState = "Happy";	
+		}else if (emotionTracker <= 2 && emotionTracker > 0) {
+			emotionalState = "Neutral";
+		}else {
+			emotionalState = "Sad";	
+		}
+	}
+	
+	public double getWorth() {
+		
+		double worth = 0; 
+		if (emotionalState == "Happy") {
+				worth = profit;
+		}
+		return worth;
+	}
+	
 	public String getDetails() {
 		String details = type + ": "
 	+ "[Name] " + name + ", "
 	+ "[Health State] " + healthState + ", "
 	+ "[Emotional State] " + emotionalState + ", "
 	+ "[Buy price] $" + price + ", "
-	+ "[Money Bonus] $" + moneyBonus + ", \n";
+	+ "[Money Bonus] $" + profit + ", \n";
 		
 		return details;
-		//System.out.println(details);
+
 	}
 		
 	
