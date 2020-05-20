@@ -2,11 +2,16 @@ package MainClassesPackage;
 import java.util.ArrayList;
 
 import baseutility.*;
+import extendSupplies.*;
+
 import java.util.Scanner;
 import GUIPackage.*;
 import GUIPackage.ChooseFarmer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import Actions.FeedAnimals;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +28,7 @@ public class PaddockParadiseManager {
 	private static Farmer newFarmer;
 	private static Farm newFarm;
 	private static int currentDay;
-	private static ArrayList<Integer> options = new ArrayList<Integer>(4);
+	private static ArrayList<Integer> options;
 	private static int activitiesLeft;
 	private String optionString;
 	private ArrayList<String> randomOccurences = new ArrayList<String>();
@@ -36,9 +41,7 @@ public class PaddockParadiseManager {
 	 */
 	public PaddockParadiseManager() {
 		activitiesLeft = 2;
-		for (int i = 1; i < 5; i++) {
-			options.add(i);
-		}
+		options = createOptionList(4);
 		Setup setup = new Setup(this);
 		
 		optionString = "What would you like to do?\n"
@@ -91,11 +94,7 @@ public class PaddockParadiseManager {
 	
 	public void playGame(Scanner scanner) {
 		System.out.println(optionString);
-		int choice = getInput(scanner);
-		while (!isValidInput(options, choice)) {
-			System.out.println(optionString);
-			choice = getInput(scanner);
-		}
+		int choice = getValidInput(options, optionString);
 		switch (choice) {
 		case 1:
 			viewFarmStatus();
@@ -110,6 +109,23 @@ public class PaddockParadiseManager {
 			skipDay();
 		}	
 
+	}
+	
+	public ArrayList<Integer> createOptionList(int numOptions) {
+		ArrayList<Integer> returnList = new ArrayList<Integer>();
+		for (int i = 1; i < numOptions + 1; i++) {
+			returnList.add(i);
+		}
+		return returnList;
+	}
+	
+	public int getValidInput(ArrayList<Integer> optionList, String errorMessage) {
+		int choice = getInput(gameScanner);
+		while (!isValidInput(optionList, choice)) {
+			System.out.println(errorMessage);
+			choice = getInput(gameScanner);
+		}
+		return choice;
 	}
 	
 	public int getInput(Scanner scanner) {
@@ -139,6 +155,23 @@ public class PaddockParadiseManager {
 		}
 	return false;
 	}
+	
+	public boolean existsByName(Supplies supply, ArrayList<Supplies> supplyList) {
+		for (Supplies supplyInList: supplyList) {
+			if (supplyInList.getName().equals(supply.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasSupply(Supplies supply, ArrayList<Supplies> supplyList) {
+		if (!existsByName(supply, supplyList)) {
+			System.out.println("You don't have any " + supply.getName());
+			return false;
+		}
+		return true;
+	}
 
 	public void viewFarmStatus() {
 		System.out.println(newFarm.viewFarmStatus());
@@ -157,10 +190,30 @@ public class PaddockParadiseManager {
 	}
 
 	public void performActivity() {
-	/**
-	 *  Do stuff
-	 * 
-	 */
+		String optionsStr = "What action would you like to perform?\n" 
+							+ "[1] Feed a farm animal (Increases the animals healthiness)\n"
+							+ "[2] Play with a farm animal (Increases the animals happiness)\n" 
+							+ "[3] Tend to a crop (Decreases the time until it can be harvested)\n"
+							+ "[4] Tend to the farmland (Allows more crops to be grown)\n"
+							+ "[5] Harvest a crop (Harvest and sell a fully grown crop)";
+		ArrayList<Integer> activityOptions = createOptionList(5);
+		int choice = getValidInput(activityOptions, optionsStr);
+		switch (choice) {
+		case 1:
+			feedAnimal();
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			
+			break;
+		case 4:
+			break;
+			
+		case 5:
+			
+		}
 		playGame(gameScanner);
 	}
 	
@@ -175,6 +228,97 @@ public class PaddockParadiseManager {
 			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		playGame(gameScanner);
 		}
+	}
+	
+	public void feedAnimal() {
+		if (!newFarm.getAnimals().isEmpty()) {
+			String output = newFarm.viewAnimals();
+			System.out.println(output);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
+			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
+			String askUser = "What food would you like to use?\n";
+			if (foodAvailable()) {
+				System.out.println(askUser);
+				ArrayList<Integer> nextOptionList = createOptionList(3);
+				int choice = getValidInput(nextOptionList, askUser);
+				Supplies itemChoice;
+				boolean successfullyFed = true;
+				switch (choice) {
+				case 1:
+					itemChoice = new Hay();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyFed = false;
+					}
+					break;
+				case 2:
+					itemChoice = new Grains();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyFed = false;
+					}
+					break;
+				case 3:	
+					itemChoice = new Vitamins();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyFed = false;
+					}
+					break;
+				default:
+					itemChoice = new Hay();
+				}
+				if (successfullyFed) {
+					FeedAnimals animalFed = new FeedAnimals(this, animalChosen, itemChoice);
+					animalFed.performAction();
+				}
+				
+			} else {
+			System.out.println("There are no animals to feed!");
+			}
+		}
+		
+	}
+	
+	private boolean foodAvailable() {
+		String output_str = "Animal food available: \n";
+		int hayCount = 0;
+		int grainsCount = 0;
+		int vitaminsCount = 0;
+		for (Supplies supply: newFarm.getCurrentSupplies()) {
+			switch (supply.getName()) {
+			case "Hay":
+				hayCount += 1;
+				break;
+			case "Grains":
+				grainsCount += 1;
+				break;
+			case "Vitamins":
+				vitaminsCount += 1;
+				break;
+			}
+		}
+		if (hayCount == 0 && grainsCount == 0 && vitaminsCount == 0) {
+			output_str = "You have no animal food available! Head to the Market to buy some.";
+			return false;
+		}
+		output_str +=    ("[1] Hay: x" + hayCount
+						+ "[2] Grains: x" + grainsCount
+						+ "[3] Vitamins: x" + vitaminsCount + "\n");
+		return true;
+	}
+	
+	public void harvestCrops(Crop crop) {
+		
+	}
+	
+	public void playWithAnimal(Animal animal) {
+		
+	}
+	
+	public void tendCrops(Crop crop, Supplies item) {
+		
+	}
+	
+	public void tendLand() {
+		
 	}
 	
 	public void endGame(PaddockParadiseManager manager) {

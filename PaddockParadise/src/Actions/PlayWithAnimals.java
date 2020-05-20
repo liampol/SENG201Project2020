@@ -17,9 +17,9 @@ public class PlayWithAnimals extends Action {
 		if (actionsAvailable()) {
 			switch (animalToPlayWith.getEmotionalState()) {
 				case "Sad":
-					animalToPlayWith.setEmotionalState("Neutral");
+					animalToPlayWith.setEmotionalState("Saudade");
 					break;
-				case "Neutral":
+				case "Saudade":
 					animalToPlayWith.setEmotionalState("Happy");
 					break;
 				case "Happy":

@@ -103,6 +103,10 @@ public class Farm {
 			return false;
 	}
 	
+	public ArrayList<Supplies> getCurrentSupplies() {
+		return currentSupplies;
+	}
+	
 	/**
 	 * Adds supply to list of supplies
 	 * @param item
@@ -133,6 +137,10 @@ public class Farm {
 	 */
 	public ArrayList<Crop> getCrops() {
 		return currentCrops;
+	}
+	
+	public ArrayList<Animal> getAnimals() {
+		return currentAnimals;
 	}
 	
 	/**
@@ -230,8 +238,8 @@ public class Farm {
 			return "Sorry but you have no animals to view";
 		}else {
 		returnString = "The current animals that are in the farm are:\n";
-		for (Animal animal: currentAnimals) {
-			returnString += animal.getType();
+		for (int i = 0; i < currentAnimals.size(); i++) {
+			returnString += "[" +  i + "]" + currentAnimals.get(i).getType();
 			returnString += "\n";
 		}
 	}
