@@ -1,5 +1,7 @@
 package MainClassesPackage;
 import java.util.ArrayList;
+import java.util.Random;
+import cropExtend.*;
 import animalExtend.*;
 import GUIPackage.*;
 
@@ -297,6 +299,84 @@ public class Farm {
 		return status;
 	}
 	
+	public void runOccurence(String occurence) {
+		
+		boolean valid = false;
+		
+		switch(occurence) {
+			case "None":
+				valid = true;
+				break;
+			case "Drought":
+				System.out.println("The wells have all dried up and the crops are thirsty!");
+				loseCropsOccurence(); 
+				break;
+			case "Broken Fence":
+				loseAnimalsOccurence();
+		}while(!valid);	
+	}
+	
+	private void loseCropsOccurence() {
+		
+		ArrayList<Integer> amountOfCrops = new ArrayList<Integer>();
+		int added = 0;
+		int amountLost = 0;
+		Random cropsLost = new Random();
+		
+		for (Crop vege : currentCrops) {
+			amountOfCrops.add(added);
+			added ++;
+		}
+		
+		added = cropsLost.nextInt(amountOfCrops.size());
+		System.out.println(" Cropslost =" + added);
+		amountLost = added;
+		
+		while (added > 0) {
+			for (Crop vege : currentCrops) {
+				currentCrops.remove(vege);
+				added -= 1;
+			}
+			System.out.println(" Cropslost = " + added);
+		}
+		System.out.println("You lost " + amountLost + " of your 'Crops!',\n" );
+		
+	}
+	
+	private void loseAnimalsOccurence() {
+		
+		// Initialise
+		ArrayList<Integer> amountOfAnimals = new ArrayList<Integer>();
+		ArrayList<String> nameOfLost = new ArrayList<String>();
+		int added = 1;
+		Random animalsLost = new Random();
+		
+		// get the number of animals on the farm and creates a ArrayList of Integers
+		for (Animal animal : currentAnimals) {
+			amountOfAnimals.add(added);
+			added ++;
+		}
+		
+		// Chooses a random number and prints message
+		added = animalsLost.nextInt(amountOfAnimals.size());
+		System.out.println("Oh NO!!");
+		System.out.println("The animals have broken the gate and " + added + " are gone!!");
+		System.out.println("The rest of the animals seem upset!");
+		
+		// Removes the amount of animals, and adds there name to an arraylist to print farewell
+		while (added > 0) {
+			for (Animal animal : currentAnimals) {
+				nameOfLost.add(animal.getName());
+				currentAnimals.remove(animal);
+				added --;
+			}
+		}
+		// Farewell message
+		System.out.println("Farewell to this list of animals gone: ");
+		for (String name : nameOfLost) {
+			System.out.println(name);
+		}
+	}
 	public void startNewDay() {
 		growCrops();
 		growAnimals();
@@ -342,27 +422,36 @@ public class Farm {
 		newFarm.addAnimal(moo);
 		newFarm.addAnimal(barbra);
 		
-		newFarm.viewAnimalStatus();
-		moo.alterHealthState(-3);
-		moo.alterEmotionalState(2);
-		newFarm.viewAnimalStatus();
-		newFarm.checkForDeadAnimals();
-		newFarm.viewAnimalStatus();
 		
-//		newFarm.viewFarmStatus();
-//		Carrot carrot = new Carrot();
-//		Carrot carrot1 = new Carrot();
-//		Carrot carrot2 = new Carrot();
-//		Carrot carrot3 = new Carrot();
-//		Broccoli broc = new Broccoli();
-//		Potato potato = new Potato();
-//		
-//		newFarm.addCrop(carrot);
-//		newFarm.addCrop(carrot1);
-//		newFarm.addCrop(carrot2);
-//		newFarm.addCrop(carrot3);
-//		newFarm.addCrop(broc);
-//		newFarm.addCrop(potato);
+		
+//		newFarm.viewAnimalStatus();
+//		moo.alterHealthState(-3);
+//		moo.alterEmotionalState(2);
+//		newFarm.viewAnimalStatus();
+//		newFarm.checkForDeadAnimals();
+//		newFarm.viewAnimalStatus();
+		
+		System.out.println(newFarm.viewAnimals());
+		Carrot carrot = new Carrot();
+		Carrot carrot1 = new Carrot();
+		Carrot carrot2 = new Carrot();
+		Carrot carrot3 = new Carrot();
+		Broccoli broc = new Broccoli();
+		Potato potato = new Potato();
+		
+		newFarm.addCrop(carrot);
+		newFarm.addCrop(carrot1);
+		newFarm.addCrop(carrot2);
+		newFarm.addCrop(carrot3);
+		newFarm.addCrop(broc);
+		newFarm.addCrop(potato);
+		System.out.println(newFarm.viewCrops());
+		
+		newFarm.runOccurence("Drought");
+		newFarm.runOccurence("Broken Fence");
+		System.out.println(newFarm.viewCrops());
+		
+		
 //		System.out.printf("You have $%.2f left\n", newFarm.getMoney());  // Print to 2 d.p
 //		newFarm.viewCrops();
 //		

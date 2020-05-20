@@ -1,5 +1,6 @@
 package MainClassesPackage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import baseutility.*;
 import java.util.Scanner;
@@ -79,12 +80,14 @@ public class PaddockParadiseManager {
 	private void initRandomOccurences() {
 		
 		randomOccurences.add("None");
-		randomOccurences.add("Flood");    // lose one animal and 4 crops
-		randomOccurences.add("Thief");    // Lose 40% of money
+		randomOccurences.add("Flood");         // lose one animal and 4 crops
+		randomOccurences.add("Thief");         // Lose 40% of money
 		randomOccurences.add("None");
+		randomOccurences.add("Drought");
 		randomOccurences.add("None");
-		randomOccurences.add("None");
-		randomOccurences.add("Fox");     // lose all Sheep
+		randomOccurences.add("Fox");           // lose all Sheep
+		randomOccurences.add("Broken Fence");
+		randomOccurences.add("County Fair");
 
 	}
 	
@@ -155,6 +158,15 @@ public class PaddockParadiseManager {
 		//openMarket.closeWindow()
 		playGame(gameScanner);
 	}
+	
+	private void rollRandomOccurence() {
+		
+		Random random = new Random();
+		int marker = random.nextInt(randomOccurences.size());
+		String occurence = randomOccurences.get(marker);
+		newFarm.runOccurence(occurence);
+		
+	}
 
 	public void performActivity() {
 	/**
@@ -172,6 +184,7 @@ public class PaddockParadiseManager {
 		}else {
 			newFarm.startNewDay();
 			setActivitiesLeft(2);
+			rollRandomOccurence();
 			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		playGame(gameScanner);
 		}
