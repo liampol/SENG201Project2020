@@ -32,22 +32,44 @@ public class Animal {
 		healthTracker = 3;  // init as "Healthy"
 		emotionTracker = 3; // init as "Happy"
 	}
-	
+	/**
+	 * Returns the name of the animal
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
-		
+	
+	/**
+	 * returns the type of animal
+	 * @return
+	 */
 	public String getType() {
 		return type;
 	}
 	
+	/**
+	 * Returns the cost of the animal
+	 * @return
+	 */
 	public double getPrice() {
 		return price;
 	}
 	
-	public double getMoneyBonus() {
-		return profit;
+	public void addHealthBonus() {
+		healthTracker += 2;
+		emotionTracker += 2;
 	}
+	
+	/**
+	 * Returns the profit from the animal based on "Health State"
+	 * @return
+	 */
+	public double getMoneyBonus() {
+		double currentProfit = getWorth();
+		return currentProfit;
+	}
+	
 	
 	public String getHealthState() {
 		return healthState;
@@ -101,7 +123,7 @@ public class Animal {
 		
 		if (emotionTracker >= 3) {
 			emotionalState = "Happy";	
-		}else if (emotionTracker <= 2 && emotionTracker > 0) {
+		}else if (emotionTracker > 0 && emotionTracker <= 2) {
 			emotionalState = "Saudade";
 		}else {
 			emotionalState = "Sad";	
@@ -140,14 +162,14 @@ public class Animal {
 	public static void main(String[] args) {
 		
 		//Implemented for testing
-		Cow cow = new Cow();
-		Cow cow1 = new Cow("Belle");
-		Pig pig = new Pig();
-		Pig pig1 = new Pig("Sir-Oinks-alot");
-		Sheep sheep = new Sheep();
-		Sheep sheep1 = new Sheep("Baaabara");
-		
-		System.out.printf("your income for this Sheep is $%.2f per day ",sheep1.getMoneyBonus());
+//		Cow cow = new Cow();
+//		Cow cow1 = new Cow("Belle");
+//		Pig pig = new Pig();
+//		Pig pig1 = new Pig("Sir-Oinks-alot");
+//		Sheep sheep = new Sheep();
+//		Sheep sheep1 = new Sheep("Baaabara");
+//		
+//		System.out.printf("your income for this Sheep is $%.2f per day ",sheep1.getMoneyBonus());
 	}
 
 }

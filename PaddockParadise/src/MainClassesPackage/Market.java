@@ -1,6 +1,5 @@
 package MainClassesPackage;
 import animalExtend.*;
-
 import cropExtend.*;
 import java.util.ArrayList;
 import MainClassesPackage.*;
@@ -23,6 +22,7 @@ public class Market {
 	private ArrayList<Supplies> suppliesCart;    // This variable is used to keep track of Crops added to cart
 	private double cartCost;
 	private Farm farmOwner;
+	private Scanner input = new Scanner(System.in);
 	
 	// Crops on display
 	Cauliflower cauliflower = new Cauliflower();
@@ -124,7 +124,6 @@ public class Market {
 		System.out.println("Your Current Cart:");
 		printCart();
 		
-		Scanner frontDesk = new Scanner(System.in);
 		int option = 0;
 		boolean correct = false; 
 		
@@ -138,7 +137,7 @@ public class Market {
 					+ "[5] Remove items from cart\n"
 					+ "[6] Checkout\n"
 					+ "[7] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
-			option = frontDesk.nextInt();
+			option = input.nextInt();
 			switch(option) {
 			case 1:
 				buyCrops();
@@ -181,7 +180,6 @@ public class Market {
 	
 	public void buyCrops() {
 		
-		Scanner cropToBuy = new Scanner(System.in);
 		int added = 0;
 		boolean endSwitch = true; // Should always be true to end switch
 		boolean endDo = false;     // Only true when Do-while ends and returns to previous menu
@@ -197,7 +195,7 @@ public class Market {
 				+ "[5] Potato      $15.00\n"
 				+ "[6] Cauliflower $30.00\n"
 				+ "[7] Return to 'FRONT DESK'");
-		added = cropToBuy.nextInt();
+		added = input.nextInt();
 		switch(added) {
 		case 1:
 			addCarrots();
@@ -229,7 +227,6 @@ public class Market {
 	
 	public void buyAnimals() {
 		
-		Scanner animalToBuy = new Scanner(System.in);
 		int added = 0;
 		boolean endSwitch = true; // Always ends through each iteration
 		boolean endDo = false;    // Ends only when user wants to return to "FRONT DESK"
@@ -240,7 +237,7 @@ public class Market {
 					+ "[2] Cow   $50.00\n"
 					+ "[3] Pig  $10.00\n"
 					+ "[4] Return to 'FRONT DESK'");
-			added = animalToBuy.nextInt();
+			added = input.nextInt();
 			switch(added) {
 			case 1:
 				addSheep();
@@ -259,11 +256,11 @@ public class Market {
 		
 		viewMarketOptions();
 		
+		
 	}
 	
 	public void buySupplies() {
 		
-		Scanner suppliesToBuy = new Scanner(System.in);
 		int added = 0;
 		boolean endSwitch = true; // Always exit Switch after each iteration
 		boolean endDo = false;    // Only exit do-while loop when returning back to "FRONT DESK"
@@ -278,7 +275,7 @@ public class Market {
 					+ "[6] Horse-Dung: [Cost] $10.00,  [Attribute] Boosts chosen crop by 1 days,\n"
 					+ "[7] Return to 'FRONT DESK'");
 			
-			added = suppliesToBuy.nextInt();
+			added = input.nextInt();
 			switch(added) {
 			case 1:
 				addGrains();
@@ -305,6 +302,7 @@ public class Market {
 		}while(!(endDo));
 		
 		viewMarketOptions();
+		
 	}
 	private void addFertiliser() {
 			Fertiliser addedFertiliser = new Fertiliser();
@@ -526,8 +524,6 @@ public class Market {
 	 * Interface for user to decide which item to remove
 	 */
 	private void removeFromCart() {
-		
-		Scanner removeItem = new Scanner(System.in);
 
 		int option =0;            // tracks the option chosen
 		boolean endDo = false;    // Ends the do-while loop only when a suitable optional has been chosen 
@@ -538,7 +534,7 @@ public class Market {
 				+ "[2] Animals\n"
 				+ "[3] Supplies\n"
 				+ "[4] Return to 'FRONT DESK'");
-		option = removeItem.nextInt();
+		option = input.nextInt();
 		
 		switch(option) {
 			case 1:
@@ -563,7 +559,6 @@ public class Market {
 	 */
 	private void removeCropFromCart() {
 		
-		Scanner removeCrop = new Scanner(System.in);
 		int option = 0;            // tracks the option chosen
 		boolean endDo = false;    // Ends the do-while loop only when a suitable optional has been chosen 
 		boolean endSwitch = true; // Switch ends after every iteration
@@ -576,7 +571,7 @@ public class Market {
 				+ "[5] Avocado\n"
 				+ "[6] Cauliflower\n"
 				+ "[7] Return to 'REMOVE ITEM MENU'");
-		option = removeCrop.nextInt();
+		option = input.nextInt();
 		
 			switch(option) {
 			case 1:
@@ -646,7 +641,6 @@ public class Market {
 	 */
 	private void removeSuppliesFromCart() {
 		
-		Scanner removeSupplies = new Scanner(System.in);
 		int option = 0;            // tracks the option chosen
 		boolean endDo = false;     // Ends the do-while loop only when a suitable optional has been chosen 
 		boolean endSwitch = true;  // Switch ends after every iteration
@@ -659,7 +653,7 @@ public class Market {
 				+ "[5] Hay\n"
 				+ "[6] Vitamin\n"
 				+ "[7] Return to 'REMOVE ITEM MENU'");
-		option = removeSupplies.nextInt();
+		option = input.nextInt();
 		
 			switch(option) {
 			case 1:
@@ -732,8 +726,7 @@ public class Market {
 	 * User interface to ask what 'Animal' they would like to remove
 	 */
 	private void removeAnimalFromCart() {
-		
-		Scanner removeAnimal = new Scanner(System.in);
+	
 		int option = 0;            // tracks the option chosen
 		boolean endDo = false;     // Ends the do-while loop only when a suitable optional has been chosen 
 		boolean endSwitch = true;  // Switch ends after every iteration
@@ -743,7 +736,7 @@ public class Market {
 				+ "[2] Sheep\n"
 				+ "[3] Cow\n"
 				+ "[7] Return to 'REMOVE ITEM MENU'");
-		option = removeAnimal.nextInt();
+		option = input.nextInt();
 		
 			switch(option) {
 			case 1:
@@ -799,7 +792,6 @@ public class Market {
 	 */
 	private void sellCrops() {
 		
-		Scanner cropToSell = new Scanner(System.in);
 		int sell = 0;
 		boolean endDo = false;    // Ends the do-while loop only when a suitable optional has been chosen 
 		boolean endSwitch = true; // Switch ends after every iteration
@@ -813,7 +805,7 @@ public class Market {
 			           	 + "[5] Avocado\n"
 				         + "[6] Cauliflower\n"
 				         + "[7] Return to 'REMOVE ITEM MENU'");
-		sell = cropToSell.nextInt();
+		sell = input.nextInt();
 		
 			switch(sell) {
 			case 1:
@@ -886,7 +878,6 @@ public class Market {
 	 */
 	private void checkout() {
 		
-		Scanner getOption = new Scanner(System.in);
 		int option = 0;
 		
 		//Check to see if farmOwner can afford the items in the cart
@@ -904,7 +895,7 @@ public class Market {
 		System.out.println("What would you like to do?");
 		System.out.println("[1] Pay for cart\n"
 				         + "[2] Return to 'FRONT DESK'");
-		option = getOption.nextInt();
+		option = input.nextInt();
 		
 		switch(option) {
 			case 1:
@@ -923,13 +914,24 @@ public class Market {
 	
 	private void completeCheckout() {
 		
-		Scanner nameAnimal = new Scanner(System.in);
 		boolean end = true;
 		int option = 0;
 		String newName = "";
 		
-		// Checks for Farm Bonus "DISCOUNT STORE"
+		boolean discountStore = false;
+		boolean fasterCropGrowth = false;
+		boolean happyAnimal = false;
+		
 		if (farmOwner.getType() == "Discount Store") {
+			discountStore = true;
+		}else if (farmOwner.getType() == "Faster Crop Growth") {
+			fasterCropGrowth = true;
+		}else if (farmOwner.getType() == "Happy Animal") {
+			happyAnimal = true;
+		}
+		
+		// Checks for Farm Bonus "DISCOUNT STORE"
+		if (discountStore) {
 			cartCost = cartCost-(cartCost*0.4);
 			System.out.println("Your 'Discount Store Bonus has been applied, \n"
 					+ "The amount you paid was $" + cartCost + ",\n");
@@ -938,11 +940,11 @@ public class Market {
 		
 		// Resets cartCost back to zero
 		cartCost = 0;
-		
+		// Checks the status of the crops in the cart
 		if (!(cropCart.isEmpty())) {
 			for (Crop vegetable : cropCart) {
-				// Checks to see if Farmer has 
-				if (farmOwner.getType() == "Faster Crop Growth") {
+				// Checks to see if bonus applies
+				if (fasterCropGrowth) {
 					vegetable.alterCropTime(1);
 				}		
 				farmOwner.addCrop(vegetable);    // Adds crop to farm
@@ -960,23 +962,28 @@ public class Market {
 				System.out.println("Would you like to name your " + animal.getType() + "?\n");
 				System.out.println("[1] Yes i would like to name my " + animal.getType() + ",\n"
 						         + "[2] No thank you im fine with " + animal.getName() + ",\n");
-				option = nameAnimal.nextInt();
+				
+				// Checks to see if bonus applies
+				if (happyAnimal) {
+					animal.addHealthBonus();
+				}
+					
+				option = input.nextInt();
 				switch(option) {
 					case 1:
 						System.out.println("Please Enter new name,");
-						newName = nameAnimal.nextLine();
+						newName = input.nextLine();
 						animal.setName(newName);
 						break;
 					case 2:
 						break;
-				}while(!(end));
-				farmOwner.addAnimal(animal);
-			}
+						
+				}while(!(end)); // end do-while
+				farmOwner.addAnimal(animal);  // add to farms animals
+				}
 			animalCart.clear();
+			viewMarketOptions();
 		}
-		viewMarketOptions();
-
-		
 	}
 	
 	public static void exit() {

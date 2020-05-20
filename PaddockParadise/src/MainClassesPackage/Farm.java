@@ -1,8 +1,6 @@
 package MainClassesPackage;
 import java.util.ArrayList;
-import java.util.Scanner;
 import animalExtend.*;
-import cropExtend.*;
 import GUIPackage.*;
 
 /**
@@ -240,6 +238,14 @@ public class Farm {
 		return returnString;
 	}
 	
+	public void growAnimals() {
+		
+		for (Animal animal : currentAnimals) {
+			animal.alterEmotionalState(-1);
+			animal.alterHealthState(-1);
+		}
+	}
+	
 	/**
 	 * returns the current state the animals are in:
 	 * -Emotional
@@ -283,13 +289,19 @@ public class Farm {
 		return status;
 	}
 	
+	public void startNewDay() {
+		growCrops();
+		growAnimals();
+	}
+	
 	/**
 	 * Returns the status of 'Crops', 'Animals' and Supplies
 	 *  as well as the amount of money the farm has
 	 * @return
 	 */
 	public String viewFarmStatus() {
-		return "Crops: " + viewCropsStatus() + ",\n" 
+		return "Farmer: " + currentFarmer + "\n"
+				+ "Crops: " + viewCropsStatus() + ",\n" 
 				+ "Animals: " + viewAnimals() + ",\n"
 				+ "Money: " + viewWallet() + ",\n"
 				+ "Supplies: " + viewSupplies() + ",\n";
@@ -305,13 +317,6 @@ public class Farm {
 		}
 	}
 	
-	public void checkForDeadCrops() {
-		
-	}
-	
-	public void startNewDay() {
-		
-	}
 	
 	private static void toString(String message) {
 		System.out.println(message);
@@ -358,8 +363,9 @@ public class Farm {
 //		newFarm.viewAnimalsStatus();
 //		newFarm.viewCropsStatus();
 //		
-		
-		
-		
 	}
 }
+	
+		
+
+

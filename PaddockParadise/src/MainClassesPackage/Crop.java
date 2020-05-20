@@ -83,8 +83,8 @@ public class Crop {
 		//System.out.println(details);
 	}
 
-	public void alterCropTime(int bonus) {
-		daysToHarvest -= bonus;
+	public void alterCropTime(int time) {
+		daysToHarvest -= time;
 		if (daysToHarvest <= 0) {
 			state = "Harvest";
 		}

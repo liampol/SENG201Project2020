@@ -53,6 +53,18 @@ public class PaddockParadiseManager {
 		newFarmer = farmer;
 	}
 	
+	public Farmer getFarmer() {
+		return newFarmer;
+	}
+	
+	public void setFarm(Farm farm) {
+		newFarm = farm;
+	}
+	
+	public Farm getFarm() {
+		return newFarm;
+	}
+	
 	
 	public void playGame(Scanner scanner) {
 		System.out.println(optionString);
@@ -117,6 +129,7 @@ public class PaddockParadiseManager {
 	}
 
 	public void leaveMarket() {
+		//openMarket.closeWindow()
 		playGame(gameScanner);
 	}
 
@@ -132,31 +145,18 @@ public class PaddockParadiseManager {
 		System.out.println("Welcome to the new day");
 		currentDay -= 1; 
 		if (currentDay < 0) {
-			//endGame(this); need to implement end game
-		}
-		newFarm.growCrops();          // decreases the amount of days left for crops to grow
-		//newFarm.setAnimalState();   // need to implement a change of state for animal so they need to be tended too, 
-		                              // Cant forget to incorporate 'Happy Animal Bonus'
-		// Need to implement a reset for activities counts
-		// Need to implement a random occurrence for extra credit that occurs every 3rd day??
+			endGame(this); // need to implement end game
+		}else {
+			newFarm.startNewDay();
+			
+			// Need to implement a reset for activities counts
+			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		playGame(gameScanner);
-	}
-
-
-	/**
-	 * Overloaded constructor for creating the farm
-	 * @param farmName
-	 * @param farmType
-	 */
-	public static void createFarm(String farmName, String farmType) {
-		newFarm = new Farm(farmName, newFarmer, farmType);
+		}
 	}
 	
-	/**
-	 * Default constructor for creating the farm
-	 */
-	public static void createFarm() {
-		newFarm = new Farm(newFarmer);
+	public void endGame(PaddockParadiseManager manager) {
+		System.out.println("You have completed the game!");
 	}
 	
 	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
@@ -173,7 +173,7 @@ public class PaddockParadiseManager {
 		//launchChooseFarmType();
 	}
 	public void launchMainWindow() {
-		String currentCrops = newFarm.viewCrops();
+		//String currentCrops = newFarm.viewCrops();
 	}
 	
 	public void closeMainWindow() {
@@ -185,16 +185,8 @@ public class PaddockParadiseManager {
 		return message;
 	}
 	
-	public Farmer getFarmer() {
-		return newFarmer;
-	}
-	
-	public Farm getFarm() {
-		return newFarm;
-	}
-	
 	public String viewDetails() {
-		return newFarmer.viewDetails()
+		return newFarmer.viewFarmerStatus()
 				+ newFarm.viewFarmStatus()
 				+"Days left to play: " + currentDay + ",\n"; 
 		

@@ -32,7 +32,7 @@ public class Farmer {
 	}
 	
 	
-	public String viewDetails() {
+	public String viewFarmerStatus() {
 		return "Name: " + name + ",\n"
 				+ "Age: " + age + ",\n"
 				+ "Type: " + type + ",\n";

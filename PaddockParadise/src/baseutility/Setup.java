@@ -22,15 +22,28 @@ public class Setup {
 	public Setup(PaddockParadiseManager incomingManager) {
 		
 		manager = incomingManager;
+		// Gets days to play
 		int day = getDays();
 		manager.setDays(day);
 		
+		// Gets details for a farmer
 		String name = getName();
 		int age = getAge();
 		String type = getType();
+		//Create Farmer
 		Farmer farmer = new Farmer(name, age, type);
-		farmer.viewDetails();
+		farmer.viewFarmerStatus();
 		manager.setFarmer(farmer);
+		
+		// Get details for farm
+		String farmType = getFarmType();
+		String farmName = getFarmName();
+		// Create Farm
+		Farm newFarm = new Farm(farmName, manager.getFarmer(), farmType);
+		newFarm.viewFarmStatus();
+		manager.setFarm(newFarm);
+		
+		
 		
 		getFarmName();
 		getFarmType();
@@ -101,10 +114,7 @@ public class Setup {
 			System.out.println("Please enter your age: (Enter a age between 10 and 100)");
 			check = input.nextLine();
 			newAge = checkValidInt(check);
-//			Matcher hasSpecial = special.matcher(check);
-//			Matcher hasLetter = letter.matcher(check);
-//			
-
+			
 			if (newAge >= 10 && newAge <=20) {
 				pass = true;
 				message = " WOW your still young!";
@@ -189,13 +199,13 @@ public class Setup {
 		do {
 			System.out.print("Choose Type by typing corresponding number only!:\n"
 					+ "[1] Money Tree:\n"
-					+ "Gives 20% Extra money bonus at the start ofeach day\n"
-					+ "[2] Faster Crop Growth\n"
-					+ "Decreases the days till harvest by 1\n"
-					+ "[3] Happy Animal\n"
-					+ "Animals are happier longer\n"
-					+ "[4] Discount Store\n"
-					+ "40% Discount added to carton checkout!");
+					+ "Gives 20% Extra money bonus at the start of each day,\n\n"
+					+ "[2] Faster Crop Growth:\n"
+					+ "Decreases the days till harvest by 1,\n\n"                 // implemented
+					+ "[3] Happy Animal:\n"
+					+ "Animals are happier for 2 extra days when purchased,\n"   // implemented
+					+ "[4] Discount Store:\n"
+					+ "40% Discount added to carton checkout!\n");               // implemented
 			newInt = input.nextInt();
 			if (newInt == 1) {
 				newType = "Money Tree";
