@@ -1,5 +1,6 @@
 package MainClassesPackage;
 import java.util.ArrayList;
+
 import baseutility.*;
 import java.util.Scanner;
 import GUIPackage.*;
@@ -9,14 +10,23 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * PaddockParadiseManager is the game environment,
+ *
+ * @author Te Wehenga Johnson
+ * @author Liam Pol
+ *
+ */
 public class PaddockParadiseManager {
 	
 	private static Farmer newFarmer;
 	private static Farm newFarm;
 	private static int currentDay;
-	private static ArrayList<Integer> options = new ArrayList<Integer>(3);
+	private static ArrayList<Integer> options = new ArrayList<Integer>(4);
 	private static int activitiesLeft;
 	private String optionString;
+	private ArrayList<String> randomOccurences = new ArrayList<String>();
 	private Scanner gameScanner = new Scanner(System.in);
 	
 	/**
@@ -26,7 +36,7 @@ public class PaddockParadiseManager {
 	 */
 	public PaddockParadiseManager() {
 		activitiesLeft = 2;
-		for (int i = 1; i < 4; i++) {
+		for (int i = 1; i < 5; i++) {
 			options.add(i);
 		}
 		Setup setup = new Setup(this);
@@ -36,6 +46,7 @@ public class PaddockParadiseManager {
 				+	"[2] Perform an action\n"
 				+	"[3] Visit the General Store\n"
 				+   "[4] Skip to next day?";
+		initRandomOccurences();          
 		playGame(gameScanner);
 		// Only closes once game is finished, i.e all calls of playGame() is finished.
 	}
@@ -63,6 +74,18 @@ public class PaddockParadiseManager {
 	
 	public Farm getFarm() {
 		return newFarm;
+	}
+	
+	private void initRandomOccurences() {
+		
+		randomOccurences.add("None");
+		randomOccurences.add("Flood");    // lose one animal and 4 crops
+		randomOccurences.add("Thief");    // Lose 40% of money
+		randomOccurences.add("None");
+		randomOccurences.add("None");
+		randomOccurences.add("None");
+		randomOccurences.add("Fox");     // lose all Sheep
+
 	}
 	
 	
@@ -148,8 +171,7 @@ public class PaddockParadiseManager {
 			endGame(this); // need to implement end game
 		}else {
 			newFarm.startNewDay();
-			
-			// Need to implement a reset for activities counts
+			setActivitiesLeft(2);
 			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		playGame(gameScanner);
 		}
@@ -204,8 +226,7 @@ public class PaddockParadiseManager {
 //		Farm Johnson = new Farm(Jack);
 //		newFarmer = Jack;
 //		newFarm = Johnson;
-//		startGame();
-		
+//		startGame();		
 // 
 		
 		

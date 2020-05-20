@@ -29,7 +29,7 @@ public class Setup {
 		// Gets details for a farmer
 		String name = getName();
 		int age = getAge();
-		String type = getType();
+		String type = getFarmerType();
 		//Create Farmer
 		Farmer farmer = new Farmer(name, age, type);
 		farmer.viewFarmerStatus();
@@ -43,10 +43,6 @@ public class Setup {
 		newFarm.viewFarmStatus();
 		manager.setFarm(newFarm);
 		
-		
-		
-		getFarmName();
-		getFarmType();
 		
 		
 	}
@@ -105,7 +101,7 @@ public class Setup {
 	private int getAge() {
 		
 		int newAge = 0;
-		invalid = false;
+		boolean valid = false;
 		String check = "";
 		boolean pass = false;
 		String message = "";
@@ -113,49 +109,64 @@ public class Setup {
 			
 			System.out.println("Please enter your age: (Enter a age between 10 and 100)");
 			check = input.nextLine();
-			newAge = checkValidInt(check);
-			
-			if (newAge >= 10 && newAge <=20) {
-				pass = true;
-				message = " WOW your still young!";
-			}else if ( newAge >=20 && newAge <= 100) {
-				pass = true;
-				message = "Thank you!";
+			valid = checkValidInt(check);
+			if (valid) {
+				newAge = Integer.parseInt(check);
 			}
-			if (pass == false){
-				System.out.println("Sorry that was an invalid input, please try again?");
-			}else {
-				System.out.println(message);
+			while (valid) {
+				valid = false;
+				if (newAge >= 10 && newAge <=20) {
+					pass = true;
+					message = " WOW your still young!";
+				}else if ( newAge >= 20 && newAge <= 100) {
+					pass = true;
+					message = "Thank you!";
+				}
+				if (pass == false){
+					System.out.println("Sorry that was an invalid input, please try again?");
+				}else {
+					System.out.println(message);
+				}
 			}
 			
 		}while(!(pass));
 		return newAge;
 	}
 	
-	private String getType() {
+	private String getFarmerType() {
 		
 		
 		// Gets the type of Farmer
 		invalid = false;
 		int newInt = 0;
 		String newType = "";
+		String check = "";
+		boolean inputValid = false;
+		
 		do {
 			System.out.print("Choose Type by typing corresponding number only!:\n"
-					+ "[1] Male Farmer\n "
+					+ " [1] Male Farmer\n "
 					+ "[2] Female Farmer\n "
 					+ "[3] Alien Farmer\n");
-			newInt = input.nextInt();
-			if (newInt == 1) {
-				newType = "Male Farmer";
-				invalid = true;
-			}else if (newInt == 2) {
-				newType = "Female Farmer";
-				invalid = true;
-			}else if (newInt == 3) {
-				newType = "Alien Farmer";
-				invalid = true;
-			}else {
-				System.out.println("That is an invalid option, please choose again");
+			check = input.nextLine();
+			inputValid = checkValidInt(check);
+			if (inputValid) {
+				newInt = Integer.parseInt(check);
+			}
+			while (inputValid) {
+				inputValid = false;
+				if (newInt == 1) {
+					newType = "Male Farmer";
+					invalid = true;
+				}else if (newInt == 2) {
+					newType = "Female Farmer";
+					invalid = true;
+				}else if (newInt == 3) {
+					newType = "Alien Farmer";
+					invalid = true;
+				}else {
+					System.out.println("That is an invalid option, please choose again");
+					}
 				}
 			}while (!(invalid));
 			
@@ -167,11 +178,11 @@ public class Setup {
 	public String getFarmName() {
 		
 		String newName ="";
-		
+		invalid = false;
 		// Iterates through the do-while loop until the name meets specification
 		do {
 			
-			System.out.println("Please Enter a Farm Name: (Name has to be between 3 and 15 characters and must NOT contain special characters and numbers)\n");
+			System.out.println("Please Enter a Farm Name:(Name has to be between 3 and 15 characters and must NOT contain special characters and numbers)\n");
 			newName = input.nextLine();
 			Matcher hasNums = nums.matcher(newName);
 			Matcher hasSpecial = special.matcher(newName);
@@ -194,47 +205,58 @@ public class Setup {
 		
 		int newInt = 0;
 		String newType = "";
+		String option = "";
 		boolean correct = false;
+		boolean valid = false;
 		
 		do {
-			System.out.print("Choose Type by typing corresponding number only!:\n"
+			System.out.print("Choose Type by typing corresponding number only!:\n\n"
 					+ "[1] Money Tree:\n"
-					+ "Gives 20% Extra money bonus at the start of each day,\n\n"
+					+ "Gives 20% Extra money bonus at the start of each day,\n"
 					+ "[2] Faster Crop Growth:\n"
-					+ "Decreases the days till harvest by 1,\n\n"                 // implemented
+					+ "Decreases the days till harvest by 1,\n"                 // implemented
 					+ "[3] Happy Animal:\n"
 					+ "Animals are happier for 2 extra days when purchased,\n"   // implemented
 					+ "[4] Discount Store:\n"
 					+ "40% Discount added to carton checkout!\n");               // implemented
-			newInt = input.nextInt();
-			if (newInt == 1) {
-				newType = "Money Tree";
-				correct = true;
-			}else if (newInt == 2) {
-				newType = "Faster Crop Growth";
-				correct = true;
-			}else if (newInt == 3) {
-				newType = "Happy Animal";
-				correct = true;
-			}else if (newInt == 4) {
-				newType = "Discunt Store";
-				correct = true;
-			}else {
-				System.out.println("Sorry that was an invalid option, please choose again!");
+			option = input.nextLine();
+			valid = checkValidInt(option);
+			if (valid) {
+				newInt = Integer.parseInt(option);
 			}
+			while (valid) {
+				valid = false;
+			
+				if (newInt == 1) {
+					newType = "Money Tree";
+					correct = true;
+				}else if (newInt == 2) {
+					newType = "Faster Crop Growth";
+					correct = true;
+				}else if (newInt == 3) {
+					newType = "Happy Animal";
+					correct = true;
+				}else if (newInt == 4) {
+					newType = "Discunt Store";
+					correct = true;
+				}else {
+					System.out.println("Sorry that was an invalid option, please choose again!");
+				}
+			}
+			
 		}while(!(correct));
 		
 		return newType;
 	}
 	
-	private int checkValidInt(String toCheck) {
+	private boolean checkValidInt(String toCheck) {
 		
-		int correct = 0;
+		boolean correct = false;
 		Matcher hasSpecial = special.matcher(toCheck);
 		Matcher hasLetter = letter.matcher(toCheck);
 		
 		if (!(hasSpecial.find() || hasLetter.find())) {
-			correct = Integer.parseInt(toCheck);
+			correct = true;
 		}
 		
 		return correct;

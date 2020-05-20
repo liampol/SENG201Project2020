@@ -881,7 +881,7 @@ public class Market {
 		int option = 0;
 		
 		//Check to see if farmOwner can afford the items in the cart
-		if (farmOwner.getMoney() > cartCost){
+		if (farmOwner.getMoney() >= cartCost){
 		}else {
 			System.out.println("Sorry you do not have enough money, "
 					         + "Please remove some items from the cart");
@@ -914,7 +914,7 @@ public class Market {
 	
 	private void completeCheckout() {
 		
-		boolean end = true;
+		boolean end = false;
 		int option = 0;
 		String newName = "";
 		
@@ -959,6 +959,7 @@ public class Market {
 		}
 		if (!(animalCart.isEmpty())) {
 			for (Animal animal : animalCart) {
+				end = true;
 				System.out.println("Would you like to name your " + animal.getType() + "?\n");
 				System.out.println("[1] Yes i would like to name my " + animal.getType() + ",\n"
 						         + "[2] No thank you im fine with " + animal.getName() + ",\n");
@@ -971,9 +972,10 @@ public class Market {
 				option = input.nextInt();
 				switch(option) {
 					case 1:
+						
 						System.out.println("Please Enter new name,");
-						newName = input.nextLine();
-						animal.setName(newName);
+						newName = input.next();
+						animal.setName(newName);     // GETTING SCANNER ERROR WHEN NAMING
 						break;
 					case 2:
 						break;
@@ -993,10 +995,6 @@ public class Market {
 	public static void main(String[] args) {
 		
 		//Implemented for testing
-//		PaddockParadiseManager manager = new PaddockParadiseManager();
-//		manager.createFarmer();
-//		manager.createFarm();
-		
 		
 //		Market openMarket = new Market(newFarm); // Test Market()
 //		openMarket.printCart();                  // Test printCart() with no items

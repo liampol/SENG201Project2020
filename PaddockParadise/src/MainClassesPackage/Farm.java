@@ -217,7 +217,7 @@ public class Farm {
 	 * @return
 	 */
 	public String viewWallet() {
-		return "Current cash balance: $" + money + ",\n";
+		return "Current cash balance: $" + money + ",";
 	}
 	
 	/**
@@ -238,13 +238,21 @@ public class Farm {
 		return returnString;
 	}
 	
-	public void growAnimals() {
+	private void growAnimals() {
 		
 		for (Animal animal : currentAnimals) {
 			animal.alterEmotionalState(-1);
 			animal.alterHealthState(-1);
 		}
 	}
+	
+	private void getProfits() {
+		
+		for (Animal income : currentAnimals) {
+			money += income.getMoneyBonus();
+		}
+	}
+	
 	
 	/**
 	 * returns the current state the animals are in:
@@ -292,6 +300,8 @@ public class Farm {
 	public void startNewDay() {
 		growCrops();
 		growAnimals();
+		checkForDeadAnimals();
+		getProfits();
 	}
 	
 	/**
@@ -300,10 +310,10 @@ public class Farm {
 	 * @return
 	 */
 	public String viewFarmStatus() {
-		return "Farmer: " + currentFarmer + "\n"
+		return "Farmer: " + currentFarmer.getName() + "\n"
 				+ "Crops: " + viewCropsStatus() + ",\n" 
 				+ "Animals: " + viewAnimals() + ",\n"
-				+ "Money: " + viewWallet() + ",\n"
+				+ "Money: " + viewWallet() + "\n"
 				+ "Supplies: " + viewSupplies() + ",\n";
 	}
 	
