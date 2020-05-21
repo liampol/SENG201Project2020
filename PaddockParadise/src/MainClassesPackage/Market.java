@@ -672,7 +672,7 @@ public class Market {
 				removeSupply("Hay");
 				break;
 			case 6:
-				removeSupply("Vitamin");
+				removeSupply("Vitamins");
 				break;
 			case 7:
 				endDo = true;
@@ -709,7 +709,7 @@ public class Market {
 			hayCount --;
 		}else if ( item == "Grains" && grainCount > 0) {
 			grainCount --;
-		}else if ( item == "Horse  Dung"  && dungCount > 0) {
+		}else if ( item == "Horse Dung" && dungCount > 0) {
 			 dungCount --;
 		}else if ( item == "Vitamins" && vitCount > 0) {
 			vitCount --;
@@ -735,7 +735,7 @@ public class Market {
 		System.out.println("[1] Pig\n"
 				+ "[2] Sheep\n"
 				+ "[3] Cow\n"
-				+ "[7] Return to 'REMOVE ITEM MENU'");
+				+ "[4] Return to 'REMOVE ITEM MENU'");
 		option = input.nextInt();
 		
 			switch(option) {
@@ -748,7 +748,7 @@ public class Market {
 			case 3:
 				removeAnimal("Cow");
 				break;
-			case 7:
+			case 4:
 				endDo = true;
 				break;
 			}while(!endSwitch);
@@ -996,8 +996,10 @@ public class Market {
 		
 		//Implemented for testing
 		
+		
+		
 //		Market openMarket = new Market(newFarm); // Test Market()
-//		openMarket.printCart();                  // Test printCart() with no items
+//openMarket.printCart();                  // Test printCart() with no items
 		
 //		// Test for adding Animals
 //		openMarket.addCow();                     // Test addCow() 
