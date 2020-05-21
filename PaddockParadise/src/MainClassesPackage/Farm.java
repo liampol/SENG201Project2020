@@ -251,7 +251,7 @@ public class Farm {
 	private void getProfits() {
 		
 		for (Animal income : currentAnimals) {
-			money += income.getMoneyBonus();
+			money += income.getWorth();
 		}
 	}
 	
@@ -315,6 +315,8 @@ public class Farm {
 			case "Broken Fence":
 				loseAnimalsOccurence();
 				valid = true;
+			case "County Fair":
+				getCountyFairBonus();
 		}while(!valid);	
 	}
 	
@@ -375,6 +377,27 @@ public class Farm {
 		growAnimals();
 		
 		System.out.println(viewAnimals());
+	}
+	
+	
+	private void getCountyFairBonus() {
+		
+		double bonus = 0;
+		
+		for (Animal animal : currentAnimals) {
+			bonus += animal.getWorth();
+		}
+		
+		for (Crop vegie : currentCrops) {
+			bonus += vegie.getSellPrice();
+		}
+		
+		// 2xthe farms worth
+		bonus = (2*bonus);
+		System.out.println("Congratulations Your farm has just won first prize at the 'County Fair'\n");
+		System.out.println("Your prize is " + bonus);
+		money += bonus;
+		System.out.println("Your prize has been adding to your wallet!");
 	}
 	
 	public void startNewDay() {
