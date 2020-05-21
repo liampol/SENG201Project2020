@@ -1,7 +1,8 @@
 package Actions;
 import MainClassesPackage.PaddockParadiseManager;
+import MainClassesPackage.Supplies;
 
-/*
+/**
  * @author liam
  * 
  */
@@ -25,6 +26,15 @@ public abstract class Action {
 	
 	public void refundAction() {
 		manager.setActivitiesLeft(manager.getActivitiesLeft() + 1);
+	}
+	
+	public void removeItemFromSupplies(Supplies supplyToUse) {
+		for (Supplies supply: manager.getFarm().getCurrentSupplies()) {
+			if (supplyToUse.getName().equals(supply.getName())) {
+				manager.getFarm().getCurrentSupplies().remove(supply);
+				break;
+			}
+		}
 	}
 	
 	public abstract void performAction();

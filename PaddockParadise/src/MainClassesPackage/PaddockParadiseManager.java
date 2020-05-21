@@ -48,10 +48,17 @@ public class PaddockParadiseManager {
 				+	"[1] View " + newFarm.getName() + "\n"
 				+	"[2] Perform an action\n"
 				+	"[3] Visit the General Store\n"
-				+   "[4] Skip to next day?";
-		initRandomOccurences();          
-		playGame(gameScanner);
+				+   "[4] Skip to next day?\n";
+		initRandomOccurences();
+		// make a runtime loop, so that when a method finishes it isn't required to call playGame() again
+		runGame();
 		// Only closes once game is finished, i.e all calls of playGame() is finished.
+	}
+	
+	public void runGame() {
+		while (true) {
+			playGame(gameScanner);
+		}
 	}
 	
 	public static void launchWelcomeWindow(PaddockParadiseManager manager) {
@@ -167,7 +174,7 @@ public class PaddockParadiseManager {
 	
 	public boolean hasSupply(Supplies supply, ArrayList<Supplies> supplyList) {
 		if (!existsByName(supply, supplyList)) {
-			System.out.println("You don't have any " + supply.getName());
+			System.out.println("You don't have any " + supply.getName() + "!\n");
 			return false;
 		}
 		return true;
@@ -175,18 +182,20 @@ public class PaddockParadiseManager {
 
 	public void viewFarmStatus() {
 		System.out.println(newFarm.viewFarmStatus());
-		playGame(gameScanner);
 	}
 
 	public void visitMarket() {
-		Market openMarket = new Market(this);
+		try {
+			Market openMarket = new Market(this);
+		} catch(NullPointerException npe) {
+			// try-catch used to abort instantiation and return;
+		}
 		leaveMarket();
 	
 	}
 
 	public void leaveMarket() {
 		//openMarket.closeWindow()
-		playGame(gameScanner);
 	}
 
 	public void performActivity() {
@@ -196,6 +205,7 @@ public class PaddockParadiseManager {
 							+ "[3] Tend to a crop (Decreases the time until it can be harvested)\n"
 							+ "[4] Tend to the farmland (Allows more crops to be grown)\n"
 							+ "[5] Harvest a crop (Harvest and sell a fully grown crop)";
+		System.out.println(optionsStr);
 		ArrayList<Integer> activityOptions = createOptionList(5);
 		int choice = getValidInput(activityOptions, optionsStr);
 		switch (choice) {
@@ -214,7 +224,6 @@ public class PaddockParadiseManager {
 		case 5:
 			
 		}
-		playGame(gameScanner);
 	}
 	
 	public void skipDay() {
@@ -226,13 +235,12 @@ public class PaddockParadiseManager {
 			newFarm.startNewDay();
 			setActivitiesLeft(2);
 			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
-		playGame(gameScanner);
 		}
 	}
 	
 	public void feedAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
-			String output = newFarm.viewAnimals();
+			String output = newFarm.viewAnimals(true) + "Choose an animal to feed!\n";
 			System.out.println(output);
 			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
 			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
@@ -271,14 +279,17 @@ public class PaddockParadiseManager {
 				}
 				
 			} else {
-			System.out.println("There are no animals to feed!");
+				System.out.println("You don't own any Hay, Grains or Vitamins to feed the animals!\n");
 			}
-		}
+			
+		} else {
+			System.out.println("There are no animals to feed!\n");
+			}
 		
 	}
 	
 	private boolean foodAvailable() {
-		String output_str = "Animal food available: \n";
+		String outputStr = "Animal food available: \n";
 		int hayCount = 0;
 		int grainsCount = 0;
 		int vitaminsCount = 0;
@@ -296,12 +307,13 @@ public class PaddockParadiseManager {
 			}
 		}
 		if (hayCount == 0 && grainsCount == 0 && vitaminsCount == 0) {
-			output_str = "You have no animal food available! Head to the Market to buy some.";
+			outputStr = "You have no animal food available! Head to the Market to buy some.";
 			return false;
 		}
-		output_str +=    ("[1] Hay: x" + hayCount
-						+ "[2] Grains: x" + grainsCount
+		outputStr +=    ("[1] Hay: x" + hayCount + "\n"
+						+ "[2] Grains: x" + grainsCount + "\n"
 						+ "[3] Vitamins: x" + vitaminsCount + "\n");
+		System.out.println(outputStr);
 		return true;
 	}
 	

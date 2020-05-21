@@ -26,21 +26,22 @@ public class FeedAnimals extends Action {
 		if (actionsAvailable()) {
 			switch (foodToUse.getName()) {
 			case "Hay":
-				animalToFeed.alterHealthState(1);
+				animalToFeed.alterEmotionalState(1);
 				break;
 			case "Grains":
 				animalToFeed.alterHealthState(2);
 				break;
 			case "Vitamins":
 				animalToFeed.alterHealthState(3);
+				animalToFeed.alterEmotionalState(3);
 				break;
 			} 
-			System.out.println("You feed the " + animalToFeed.getName() + " the " + foodToUse.getName()
+			System.out.println("You feed " + animalToFeed.getName() + " the " + foodToUse.getName()
 								+ "!\n");
-			System.out.println("The " + animalToFeed.getName() + " is looking much healther!\n");
-			System.out.println("The state of " + animalToFeed.getName() + " is now " + animalToFeed.getHealthState() 
-								+ "!\n");
-			manager.getFarm().getCurrentSupplies().remove(foodToUse);
+			System.out.println(animalToFeed.getName() + " is looking much healther!\n");
+			System.out.println("The state of " + animalToFeed.getName() + " is now: " + animalToFeed.getHealthState() 
+								+ "\n");
+			removeItemFromSupplies(foodToUse);
 		} else {
 			System.out.println("You have performed all of your actions today!\n");
 		}

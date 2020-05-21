@@ -989,7 +989,9 @@ public class Market {
 	}
 	
 	public static void exit() {
-		return;
+		throw new NullPointerException();
+		// throw an exception in order to abort construction, and not go through the
+		// rest of the methods on call stack
 	}
 	
 	public static void main(String[] args) {
