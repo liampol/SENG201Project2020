@@ -1,5 +1,8 @@
 package MainClassesPackage;
 import java.util.ArrayList;
+import java.util.ListIterator;
+import java.util.Random;
+import cropExtend.*;
 import animalExtend.*;
 import GUIPackage.*;
 
@@ -239,11 +242,11 @@ public class Farm {
 		}else {
 		returnString = "The current animals that are in the farm are:\n";
 		for (int i = 0; i < currentAnimals.size(); i++) {
-			returnString += "[" +  (i+1) + "] " + currentAnimals.get(i).getType();
-			returnString += "\n";
+			returnString += "[" +  (i+1) + "] " + currentAnimals.get(i).getName() + " the "
+						+  currentAnimals.get(i).getType() + "\n";
 		}
-	}
 		return returnString;
+		}
 	}
 	
 	public String viewAnimals(boolean showName) {
@@ -277,7 +280,7 @@ public class Farm {
 	private void getProfits() {
 		
 		for (Animal income : currentAnimals) {
-			money += income.getMoneyBonus();
+			money += income.getWorth();
 		}
 	}
 	
@@ -326,6 +329,107 @@ public class Farm {
 		return status;
 	}
 	
+	public void runOccurence(String occurence) {
+		
+		boolean valid = false;
+		
+		switch(occurence) {
+			case "None":
+				valid = true;
+				break;
+			case "Drought":
+				System.out.println("The wells have all dried up and the crops are thirsty!");
+				loseCropsOccurence();
+				valid = true;
+				break;
+			case "Broken Fence":
+				loseAnimalsOccurence();
+				valid = true;
+			case "County Fair":
+				getCountyFairBonus();
+		}while(!valid);	
+	}
+	
+	private void loseCropsOccurence() {
+		
+		int lost = 0;
+		int amountLost = 0;
+		Random cropsLost = new Random();
+		amountLost = currentCrops.size() ;
+		
+		//Choosing random integer based on the size of currentCrops
+		lost = cropsLost.nextInt(amountLost);
+		
+		//Init amount of crops to be removed
+		amountLost = lost;
+		
+		System.out.println("You lost " + (lost+1) + " of your 'Crops!',\n" );
+		
+		//Iterates through, removing crop from currentCrops using amountLost as index
+		//    Also gets the type of Crop removed and prints message of what was removed
+		while (amountLost >=0) {
+			Crop veg = currentCrops.get(amountLost);
+			System.out.println("Crop lost: " + veg.getType());
+			currentCrops.remove(amountLost);
+			amountLost -= 1;
+		}
+		
+		// Displays the Crops left
+		System.out.println(viewCrops());
+
+		
+	}
+	
+	private void loseAnimalsOccurence() {
+		
+		// Initialise
+		int counter = 0;
+		int gone = 0;
+		int amountOfAnimals = currentAnimals.size();
+		Random animalsLost = new Random();
+		
+		// Chooses a random number based on the size of currentAnimals and prints message
+		gone = animalsLost.nextInt(amountOfAnimals);
+		System.out.println("Oh NO!!");
+		System.out.println("The animals have broken the gate and " + (gone+1) + " are gone!!");
+		System.out.println("The rest of the animals seem upset!");
+
+		counter = gone;
+		System.out.println("Farewell to this list of animals gone: ");
+		
+		while (counter >= 0) {
+			Animal animal = currentAnimals.get(counter);
+			System.out.println(animal.getName());
+			currentAnimals.remove(counter);
+			counter -= 1;	
+		}
+		//Decrease the emotional State and Health State of the animal
+		growAnimals();
+		
+		System.out.println(viewAnimals());
+	}
+	
+	
+	private void getCountyFairBonus() {
+		
+		double bonus = 0;
+		
+		for (Animal animal : currentAnimals) {
+			bonus += animal.getWorth();
+		}
+		
+		for (Crop vegie : currentCrops) {
+			bonus += vegie.getSellPrice();
+		}
+		
+		// 2xthe farms worth
+		bonus = (2*bonus);
+		System.out.println("Congratulations Your farm has just won first prize at the 'County Fair'\n");
+		System.out.println("Your prize is " + bonus);
+		money += bonus;
+		System.out.println("Your prize has been adding to your wallet!");
+	}
+	
 	public void startNewDay() {
 		growCrops();
 		growAnimals();
@@ -366,32 +470,61 @@ public class Farm {
 		// Implemented for testing
 		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
 		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
-		Cow moo = new Cow();
-		Sheep barbra = new Sheep();
+		Cow moo = new Cow("Truce");
+		Cow moo1 = new Cow("Trail");
+		Cow moo2 = new Cow("trace");
+		Cow moo3 = new Cow("Trump");
+		Cow moo4 = new Cow("Boris");
+		Cow moo5 = new Cow("Bettsy");
+		Sheep barbra = new Sheep("Benny");
+		Sheep barbra1 = new Sheep("Bootsie");
+		Sheep barbra2 = new Sheep("Bail");
+		Sheep barbra3 = new Sheep("Hoops");
 		newFarm.addAnimal(moo);
 		newFarm.addAnimal(barbra);
+		newFarm.addAnimal(moo);
+		newFarm.addAnimal(moo1);
+		newFarm.addAnimal(moo2);
+		newFarm.addAnimal(moo3);
+		newFarm.addAnimal(moo4);
+		newFarm.addAnimal(moo5);
+		newFarm.addAnimal(barbra1);
+		newFarm.addAnimal(barbra2);
+		newFarm.addAnimal(barbra3);
 		
-		newFarm.viewAnimalStatus();
-		moo.alterHealthState(-3);
-		moo.alterEmotionalState(2);
-		newFarm.viewAnimalStatus();
-		newFarm.checkForDeadAnimals();
-		newFarm.viewAnimalStatus();
+		System.out.println(newFarm.viewAnimals());
+
 		
-//		newFarm.viewFarmStatus();
-//		Carrot carrot = new Carrot();
-//		Carrot carrot1 = new Carrot();
-//		Carrot carrot2 = new Carrot();
-//		Carrot carrot3 = new Carrot();
-//		Broccoli broc = new Broccoli();
-//		Potato potato = new Potato();
-//		
-//		newFarm.addCrop(carrot);
-//		newFarm.addCrop(carrot1);
-//		newFarm.addCrop(carrot2);
-//		newFarm.addCrop(carrot3);
-//		newFarm.addCrop(broc);
-//		newFarm.addCrop(potato);
+//		newFarm.viewAnimalStatus();
+//		moo.alterHealthState(-3);
+//		moo.alterEmotionalState(2);
+//		newFarm.viewAnimalStatus();
+//		newFarm.checkForDeadAnimals();
+//		newFarm.viewAnimalStatus();
+		
+		System.out.println(newFarm.viewAnimals());
+		Carrot carrot = new Carrot();
+		Carrot carrot1 = new Carrot();
+		Carrot carrot2 = new Carrot();
+		Carrot carrot3 = new Carrot();
+		Broccoli broc = new Broccoli();
+		Potato potato = new Potato();
+		
+		newFarm.addCrop(carrot);
+		newFarm.addCrop(carrot1);
+		newFarm.addCrop(carrot2);
+		newFarm.addCrop(carrot3);
+		newFarm.addCrop(broc);
+		newFarm.addCrop(potato);
+		System.out.println(newFarm.viewCrops());
+		
+		// Test runOccurences()
+		newFarm.runOccurence("Drought");
+		System.out.println(newFarm.viewCrops());
+		newFarm.runOccurence("Broken Fence");
+		System.out.println(newFarm.viewAnimals());
+		
+		
 //		System.out.printf("You have $%.2f left\n", newFarm.getMoney());  // Print to 2 d.p
 //		newFarm.viewCrops();
 //		

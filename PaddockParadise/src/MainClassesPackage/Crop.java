@@ -66,12 +66,18 @@ public class Crop {
 		return state;
 	}
 	
-	// State is called when days of crop is 0, which changes state of Crop to Harvest to allow the Crops to be sold
+	/**
+	 *  State is called when days of crop is 0, which changes state of Crop to Harvest to allow the Crops to be sold
+	 */
 	public void setState() {
 		state = "Harvest";
 	}
 	
-	// Returns,days left till harvest, Current State, Crop type, 
+	
+	/**
+	 *  Returns,days left till harvest, Current State, Crop type, 
+	 * @return
+	 */
 	public String getDetails() {
 		String details = type + ":" 
 	+ " [State] " + state + ", " 
@@ -80,7 +86,6 @@ public class Crop {
 	+ " [Days till harvest] " + daysToHarvest + ", \n" ;
 		
 		return details;
-		//System.out.println(details);
 	}
 
 	public void alterCropTime(int time) {
