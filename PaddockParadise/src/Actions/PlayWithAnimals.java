@@ -15,18 +15,11 @@ public class PlayWithAnimals extends Action {
 	@Override
 	public void performAction() {
 		if (actionsAvailable()) {
-			switch (animalToPlayWith.getEmotionalState()) {
-				case "Sad":
-					animalToPlayWith.setEmotionalState("Saudade");
-					break;
-				case "Saudade":
-					animalToPlayWith.setEmotionalState("Happy");
-					break;
-				case "Happy":
-					animalToPlayWith.setEmotionalState("Happy");
-					break;
-			}
+			animalToPlayWith.alterEmotionalState(1);
 			System.out.println("You play with the " + animalToPlayWith.getName() + "!\n");
+			System.out.println("The state of " + animalToPlayWith.getName() + " is now - Emotional State: " 
+			+ animalToPlayWith.getEmotionalState() 
+			+ ", Health State: " + animalToPlayWith.getHealthState() + "\n");
 		} else {
 			System.out.println("You have performed all of your actions today!\n");
 		}

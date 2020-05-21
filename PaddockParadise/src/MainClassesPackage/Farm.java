@@ -205,10 +205,12 @@ public class Farm {
 	public String viewCropsStatus() {
 		String status = "";
 		if (currentCrops.isEmpty()) {
-			status = "Sorry but you have no crops to view";
+			status = "Sorry but you have no crops to view,";
 		}else {
-			for (Crop vegetable: currentCrops) {
-				status += vegetable.getType() + " Days to harvest: " + vegetable.getDaysToHarvest() + "\n";
+			status += "The current crops that are in the farm are:";
+			for (int i = 0; i < currentCrops.size(); i++) {
+				status += "\n[" + (i+1) + "] " + currentCrops.get(i).getType() + " - Days to harvest: " 
+						+ currentCrops.get(i).getDaysToHarvest() + ",";
 			}
 		}
 		return status;
@@ -238,34 +240,17 @@ public class Farm {
 	public String viewAnimals() {
 		String returnString = "";
 		if (currentAnimals.isEmpty()) {
-			return "Sorry but you have no animals to view";
+			return "Sorry but you have no animals to view,";
 		}else {
-		returnString = "The current animals that are in the farm are:\n";
+		returnString = "The current animals that are in the farm are:";
 		for (int i = 0; i < currentAnimals.size(); i++) {
-			returnString += "[" +  (i+1) + "] " + currentAnimals.get(i).getName() + " the "
-						+  currentAnimals.get(i).getType() + "\n";
+			returnString += "\n[" +  (i+1) + "] " + currentAnimals.get(i).getName() + " the "
+						+  currentAnimals.get(i).getType() 
+						+ " - Emotional State: " + currentAnimals.get(i).getEmotionalState()
+						+ ", Health State: " + currentAnimals.get(i).getHealthState()
+						+ ",";
 		}
 		return returnString;
-		}
-	}
-	
-	public String viewAnimals(boolean showName) {
-		if (showName == false) {
-			return viewAnimals();
-		}
-		else {
-			String returnString = "";
-			if (currentAnimals.isEmpty()) {
-				return "Sorry but you have no animals to view";
-			}else {
-			returnString = "The current animals that are in the farm are:\n";
-			for (int i = 0; i < currentAnimals.size(); i++) {
-				returnString += "[" +  (i+1) + "] " + currentAnimals.get(i).getName() + " : "
-								+ currentAnimals.get(i).getType(); 
-				returnString += "\n";
-			}
-		}
-			return returnString;
 		}
 	}
 	
@@ -319,11 +304,12 @@ public class Farm {
 	public String viewSupplies() {
 		String status = "";
 		if (currentSupplies.isEmpty()) {
-			status = "Sorry but you have no 'Supplies' to view";
+			status = "Sorry but you have no 'Supplies' to view,";
 		}else {
+			status += "The current supplies that are in the farm are:";
 			for (int i = 0; i < currentSupplies.size(); i++) {
-				status += "["+(i+1)+"] " + currentSupplies.get(i).getName() 
-						+ ": " + currentSupplies.get(i).getBonus() + ",\n";
+				status += "\n["+(i+1)+"] " + currentSupplies.get(i).getName() 
+						+ " - " + currentSupplies.get(i).getBonus() + ",";
 			}
 		}
 		return status;
@@ -443,11 +429,11 @@ public class Farm {
 	 * @return
 	 */
 	public String viewFarmStatus() {
-		return "Farmer: " + currentFarmer.getName() + "\n"
-				+ "Crops: " + viewCropsStatus() + ",\n" 
-				+ "Animals: " + viewAnimals() + ",\n"
+		return "Farmer: " + currentFarmer.getName() + ",\n"
 				+ "Money: " + viewWallet() + "\n"
-				+ "Supplies: \n" + viewSupplies() + ",";
+				+ "Crops: " + viewCropsStatus() + "\n" 
+				+ "Animals: " + viewAnimals() + "\n"
+				+ "Supplies: " + viewSupplies();
 	}
 	
 	public void checkForDeadAnimals() {

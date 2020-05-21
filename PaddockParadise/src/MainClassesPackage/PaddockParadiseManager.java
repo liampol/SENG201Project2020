@@ -12,6 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import Actions.FeedAnimals;
+import Actions.HarvestCrops;
+import Actions.PlayWithAnimals;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -107,7 +109,8 @@ public class PaddockParadiseManager {
 		int choice = getValidInput(options, optionString);
 		switch (choice) {
 		case 1:
-			viewFarmStatus();
+			// CHANGED from viewFarmStatus()
+			System.out.println(viewDetails());
 			break;
 		case 2:
 			performActivity();
@@ -216,25 +219,28 @@ public class PaddockParadiseManager {
 							+ "[2] Play with a farm animal (Increases the animals happiness)\n" 
 							+ "[3] Tend to a crop (Decreases the time until it can be harvested)\n"
 							+ "[4] Tend to the farmland (Allows more crops to be grown)\n"
-							+ "[5] Harvest a crop (Harvest and sell a fully grown crop)";
+							+ "[5] Harvest a crop (Harvest and sell a fully grown crop)\n"
+							+ "[6] No action - go back.";
 		System.out.println(optionsStr);
-		ArrayList<Integer> activityOptions = createOptionList(5);
+		ArrayList<Integer> activityOptions = createOptionList(6);
 		int choice = getValidInput(activityOptions, optionsStr);
 		switch (choice) {
 		case 1:
 			feedAnimal();
 			break;
 		case 2:
-			
+			playWithAnimal();
 			break;
 		case 3:
-			
+//			tendCrops();
 			break;
 		case 4:
+//			tendLand();
 			break;
-			
 		case 5:
-			
+			harvestCrops();
+		case 6:
+			return;
 		}
 	}
 	
@@ -246,14 +252,14 @@ public class PaddockParadiseManager {
 		}else {
 			newFarm.startNewDay();
 			setActivitiesLeft(2);
-			rollRandomOccurence();
+//			rollRandomOccurence();
 			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		}
 	}
 	
 	public void feedAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
-			String output = newFarm.viewAnimals(true) + "Choose an animal to feed!\n";
+			String output = newFarm.viewAnimals() + "\nChoose an animal to feed!\n";
 			System.out.println(output);
 			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
 			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
@@ -296,7 +302,7 @@ public class PaddockParadiseManager {
 			}
 			
 		} else {
-			System.out.println("There are no animals to feed!\n");
+			System.out.println("There are no animals!\n");
 			}
 		
 	}
@@ -320,22 +326,39 @@ public class PaddockParadiseManager {
 			}
 		}
 		if (hayCount == 0 && grainsCount == 0 && vitaminsCount == 0) {
-			outputStr = "You have no animal food available! Head to the Market to buy some.";
 			return false;
 		}
-		outputStr +=    ("[1] Hay: x" + hayCount + "\n"
-						+ "[2] Grains: x" + grainsCount + "\n"
-						+ "[3] Vitamins: x" + vitaminsCount + "\n");
+		outputStr +=    ("[1] Hay - Keeps animals Happier for 2 days, (x" + hayCount + ")\n"
+						+ "[2] Grains - Keeps animals Healthier for 2 days, (x" + grainsCount + ")\n"
+						+ "[3] Vitamins - Keeps animals Healthier and Happy for 3 days, (x" + vitaminsCount + ")\n");
 		System.out.println(outputStr);
 		return true;
 	}
-	
-	public void harvestCrops(Crop crop) {
-		
+
+	public void harvestCrops() {
+		if (!newFarm.getCrops().isEmpty()) {
+			String output = newFarm.viewCropsStatus() + "\nChoose a crop to harvest!\n";
+			System.out.println(output);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size());
+			Crop cropChosen = newFarm.getCrops().get(getValidInput(optionsList, output) - 1);
+			HarvestCrops cropHarvest = new HarvestCrops(this, cropChosen);
+			cropHarvest.performAction();
+		} else {
+			System.out.println("There are no crops!\n");
+		}
 	}
 	
-	public void playWithAnimal(Animal animal) {
-		
+	public void playWithAnimal() {
+		if (!newFarm.getAnimals().isEmpty()) {
+			String output = newFarm.viewAnimals() + "\nChoose an animal to play with!\n";
+			System.out.println(output);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
+			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
+			PlayWithAnimals animalPlay = new PlayWithAnimals(this, animalChosen);
+			animalPlay.performAction();
+		} else {
+			System.out.println("There are no animals!\n");
+		}
 	}
 	
 	public void tendCrops(Crop crop, Supplies item) {
@@ -377,9 +400,9 @@ public class PaddockParadiseManager {
 	}
 	
 	public String viewDetails() {
-		return newFarmer.viewFarmerStatus()
+		return newFarmer.viewFarmerStatus() + "\n"
 				+ newFarm.viewFarmStatus()
-				+"Days left to play: " + currentDay + ",\n"; 
+				+"\nDays left to play: " + currentDay + ",\n"; 
 		
 	}
 	

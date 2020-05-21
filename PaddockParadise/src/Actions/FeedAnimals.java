@@ -36,11 +36,12 @@ public class FeedAnimals extends Action {
 				animalToFeed.alterEmotionalState(3);
 				break;
 			} 
-			System.out.println("You feed " + animalToFeed.getName() + " the " + foodToUse.getName()
+			System.out.println("You feed " + animalToFeed.getName() + " the " + animalToFeed.getType()
 								+ "!\n");
 			System.out.println(animalToFeed.getName() + " is looking much healther!\n");
-			System.out.println("The state of " + animalToFeed.getName() + " is now: " + animalToFeed.getHealthState() 
-								+ "\n");
+			System.out.println("The state of " + animalToFeed.getName() + " is now - Emotional State: " 
+			+ animalToFeed.getEmotionalState() 
+			+ ", Health State: " + animalToFeed.getHealthState() + "\n");
 			removeItemFromSupplies(foodToUse);
 		} else {
 			System.out.println("You have performed all of your actions today!\n");
