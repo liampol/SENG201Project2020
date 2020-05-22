@@ -257,6 +257,7 @@ public class PaddockParadiseManager {
 				double bonus = newFarm.getFarmWorth();
 				bonus = (bonus*0.2);
 				newFarm.addToWallet(bonus);
+				System.out.println("Your Money Tree has given you a $" + bonus + " \n");
 			}
 
 		}
