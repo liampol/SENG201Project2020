@@ -50,27 +50,23 @@ public class Setup {
 	public int getDays() {
 		
 		int days = 0;
-		String check = "";
 		boolean pass = false;
 		do {
 			System.out.println("How long would you like to play for? (Please type in a number between 5 and 10)\n");
-			check = input.nextLine();
-			Matcher hasSpecial = special.matcher(check);
-			Matcher hasLetter = letter.matcher(check);
-			
-			if (!(hasSpecial.find() || hasLetter.find())) {
-				days = Integer.parseInt(check);
-			}
-			if (days >= 5 && days <=10) {
-				pass = true;
-			}
-			if (pass == false){
+			if (input.hasNextInt()) {
+				days = input.nextInt();
+				if (days >= 5 && days <= 10) {
+					pass = true;
+				} else {
+					System.out.println("That wasn't beetween 5 and 10!");
+				}
+			} else {
 				System.out.println("Sorry that was an invalid input, please try again?");
-			}else {
-				System.out.println("Nice choice!");
+				input.nextLine();
 			}
-			
 		}while(!(pass));
+		System.out.println("Nice choice!");
+		input.nextLine();
 		return days;
 	}
 	
@@ -107,7 +103,7 @@ public class Setup {
 		String message = "";
 		do {
 			
-			System.out.println("Please enter your age: (Enter a age between 10 and 100)");
+			System.out.println("Please enter your age: (Enter a age between 10 and 100)\n");
 			check = input.nextLine();
 			valid = checkValidInt(check);
 			if (valid) {

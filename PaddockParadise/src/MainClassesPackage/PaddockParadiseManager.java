@@ -476,11 +476,25 @@ public class PaddockParadiseManager {
 	
 	public void displayScoreboard() {
 		System.out.println("---------------");
-		getScoreboard();
+		int playerScore = getScore();
+		int[] scoreMilestones = {(int) (20000 / totalDays),
+								(int) (10000 / totalDays),
+								(int) (5000 / totalDays)};
+		String title;
+		if (playerScore > scoreMilestones[0]) {
+			title = "Legendary Farmer";
+		} else if (playerScore > scoreMilestones[1]) {
+			title = "Master Farmer";
+		} else {
+			title = "Rookie Farmer";
+		}
+		
+		
 	}
 		
-	public void getScoreboard() {
+	public int getScore() {
 		int score = (int) (newFarm.getMoney() / totalDays);
+		return score;
 	}
 	
 	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
