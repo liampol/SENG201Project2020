@@ -109,7 +109,6 @@ public class ChooseFarmer {
 		JButton femaleAvatarBtn = new JButton("Female Farmer");
 		femaleAvatarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newFarmer = new Farmer();
 				//String farmerType = "Female Farmer";
 				newFarmer.setType("Female Farmer");
 				farmerTypeConfirm();
@@ -128,7 +127,6 @@ public class ChooseFarmer {
 		JButton maleAvatarBtn = new JButton("Male Farmer");
 		maleAvatarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newFarmer = new Farmer();
 				newFarmer.setType("Male Farmer");
 				farmerTypeConfirm();
 			}
@@ -146,7 +144,6 @@ public class ChooseFarmer {
 		JButton alienAvatarBtn = new JButton("Alien Farmer");
 		alienAvatarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newFarmer = new Farmer();
 				newFarmer.setType("Alien Farmer");
 				farmerTypeConfirm();
 				
