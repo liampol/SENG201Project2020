@@ -51,6 +51,7 @@ public class PaddockParadiseManager {
 				+	"[2] Perform an action\n"
 				+	"[3] Visit the General Store\n"
 				+   "[4] Skip to next day?\n";
+		
 		initRandomOccurences();
 		// make a runtime loop, so that when a method finishes it isn't required to call playGame() again
 		runGame();
@@ -495,6 +496,10 @@ public class PaddockParadiseManager {
 	public void closeChooseFarmerScreen(ChooseFarmer chooseFarmerScreen) {
 		//chooseFarmerScreen.closeWindow();
 		//launchChooseFarmType();
+	}
+	
+	public void closeChooseFarmType(ChooseFarmType chooseFarmTypeScreen) {
+		chooseFarmTypeScreen.closeWindow();
 	}
 	public void launchMainWindow() {
 		//String currentCrops = newFarm.viewCrops();

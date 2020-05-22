@@ -20,7 +20,7 @@ public class WelcomeScreen {
 
 	private JFrame welcomeWindow;
 	private static PaddockParadiseManager manager;
-	private int day;
+
 
 	/**
 	 * Launch the application.
@@ -47,8 +47,9 @@ public class WelcomeScreen {
 		welcomeWindow.setVisible(true);
 	}
 	
-	public void setDays(Days intDaySelection) {
-		intDaySelection.setDay(day);
+	private void setDays(int day) {
+		manager.setDays(day);
+		finishedWindow();
 	}
 	
 	
@@ -56,7 +57,7 @@ public class WelcomeScreen {
 		welcomeWindow.dispose();
 	}
 	
-	public void finishedWindow() {
+	private void finishedWindow() {
 		manager.closeWelcomeScreen(this);
 	}
 
@@ -99,7 +100,8 @@ public class WelcomeScreen {
 				}
 				
 				else {
-					day = Integer.parseInt(daySelection);
+					int day = Integer.parseInt(daySelection);
+					setDays(day);
 					finishedWindow();
 				}
 			}
