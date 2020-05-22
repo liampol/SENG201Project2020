@@ -157,15 +157,20 @@ public class Market {
 //				sellCrops();
 //				correct = true;
 //				break;
-			case 4:
+			case 5:
 				removeFromCart();
 				correct = true;
 				break;
-			case 5:
+			case 6:
 				checkout();
 				correct = true;
 				break;
-			case 6:
+			case 7:
+				viewBag();
+				correct = true;
+				break;
+				
+			case 8:
 				correct = true;
 				System.out.print("You left the market\n");
 				exit();
@@ -309,6 +314,21 @@ public class Market {
 		}while(!(endDo));
 		
 		viewMarketOptions();
+		
+	}
+	
+	private void viewBag() {
+		
+		// Crops
+		System.out.println("Your Crops:\n");
+		farmOwner.viewCrops();
+		
+		// Animals
+		System.out.println("Your Animals:\n");
+		farmOwner.viewAnimals();
+		// Supplies
+		System.out.println("Your Supplies:\n");
+		farmOwner.viewSupplies();
 		
 	}
 	private void addFertiliser() {
