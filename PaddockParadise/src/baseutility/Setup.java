@@ -218,7 +218,7 @@ public class Setup {
 					+ "[3] Happy Animal:\n"
 					+ "Animals are happier for 2 extra days when purchased,\n"   // implemented
 					+ "[4] Discount Store:\n"
-					+ "40% Discount added to carton checkout!\n");               // implemented
+					+ "40% Discount added to cart on checkout!\n");               // implemented
 			option = input.nextLine();
 			valid = checkValidInt(option);
 			if (valid) {
