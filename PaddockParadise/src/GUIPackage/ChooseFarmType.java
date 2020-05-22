@@ -47,7 +47,7 @@ public class ChooseFarmType {
 		initialize();
 	}
 	
-	private void setFarmerType(String newType) {
+	private void setFarmType(String newType) {
 		farmer.setType(newType);
 		
 	}
@@ -68,11 +68,11 @@ public class ChooseFarmType {
 	}
 	
 	public void closeWindow() {
-		welcomeWindow.dispose();
+		chooseFarmType.dispose();
 	}
 	
 	private void finishedWindow() {
-		manager.closeChooseFarmerType(this);
+		manager.closeChooseFarmType(this);
 	}
 	
 

@@ -43,9 +43,14 @@ public class PaddockParadiseManager {
 	 * 
 	 */
 	public PaddockParadiseManager() {
+		
+		//Initialise
+		newFarmer = new Farmer();
+		newFarm = new Farm(newFarmer);
+		
 		activitiesLeft = 2;
 		options = createOptionList(4);
-		Setup setup = new Setup(this);
+		Setup setup = new Setup1(this);
 		
 //		optionString = "What would you like to do?\n"
 //				+	"[1] View " + newFarm.getName() + "\n"
@@ -66,7 +71,7 @@ public class PaddockParadiseManager {
 	
 	public static void launchWelcomeWindow(PaddockParadiseManager manager) {
 		//WelcomeScreen welcomeWindow = new WelcomeScreen(this);
-		System.out.println("Welcome to Paddock Paradise");
+		//System.out.println("Welcome to Paddock Paradise");
 	}
 	
 	public void setDays(int day) {
@@ -378,13 +383,23 @@ public class PaddockParadiseManager {
 		//launchChooseFarmer();
 	}
 	
-	public void launchChooseFarmer() {
-		//ChooseFarmer chooseFarmerScreen = new ChooseFarmer(this);
+	public void launchChooseAvatar() {
+		ChooseAvatar chooseAvatarScreen = new ChooseAvatar(this);
 	}
 		
-	public void closeChooseFarmerScreen(ChooseAvatar chooseFarmerScreen) {
-		//chooseFarmerScreen.closeWindow();
-		//launchChooseFarmType();
+	public void closeChooseAvatarScreen(ChooseAvatar chooseFarmerScreen) {
+		chooseFarmerScreen.closeWindow();
+		launchChooseFarmType();
+	}
+	
+	public void launch
+	
+	public void launchChooseFarmType() {
+		ChooseFarmType chooseFarmTypeScreen = new ChooseFarmType(this);
+	}
+	
+	public void closeChooseFarmType(ChooseFarmType chooseFarmTypeScreen) {
+		chooseFarmTypeScreen.closeWindow();
 	}
 	public void launchMainWindow() {
 		//String currentCrops = newFarm.viewCrops();
