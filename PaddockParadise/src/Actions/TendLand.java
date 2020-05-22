@@ -3,8 +3,6 @@ package Actions;
 import MainClassesPackage.PaddockParadiseManager;
 
 public class TendLand extends Action {
-
-	private PaddockParadiseManager manager;
 	
 	public TendLand(PaddockParadiseManager incoming) {
 		super(incoming);
@@ -13,7 +11,7 @@ public class TendLand extends Action {
 	@Override
 	public void performAction() {
 		if (actionsAvailable()) {
-			System.out.println("The land has been tended to!\n");
+			System.out.println("The land has been tended to and is looking much better!\n");
 			switch (manager.getFarm().getState()) {
 			case "Unkept":
 				manager.getFarm().setState("Tidy");
@@ -21,9 +19,14 @@ public class TendLand extends Action {
 			case "Tidy":
 				break;
 			}
-			System.out.println("The farm land is looking much better!\n");
-			System.out.println("The state of " + manager.getFarm().getName() + "is now " 
-								+ manager.getFarm().getState() + "!\n");
+			manager.getFarm().setDaysBeingTidy(1);
+			System.out.println("The state of " + manager.getFarm().getName() + " is now: " 
+								+ manager.getFarm().getState() + "\n");
+			if (manager.getFarm().getCropLimit() < 6) {
+				manager.getFarm().setCropLimit(manager.getFarm().getCropLimit() + 1);
+			}
+			System.out.println("The crop capacity of " + manager.getFarm().getName()
+							+ "is now: " + manager.getFarm().getCropLimit() + "  crops\n");
 		} else {
 			System.out.println("You have performed all of your actions today!\n");
 		}

@@ -11,6 +11,7 @@ import baseutility.*;
  */
 public class Animal {
 	
+	private int daysSincePurchase;
 	String name;                // Name of animal
     String type;                // Types will be Cows, Sheep, Pigs
 	double price;               // Cost of animal

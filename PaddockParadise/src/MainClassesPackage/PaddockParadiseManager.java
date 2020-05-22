@@ -11,10 +11,7 @@ import GUIPackage.ChooseFarmer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Actions.FeedAnimals;
-import Actions.HarvestCrops;
-import Actions.PlayWithAnimals;
-import Actions.TendCrops;
+import Actions.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -240,7 +237,7 @@ public class PaddockParadiseManager {
 			}
 			break;
 		case 4:
-//			tendLand();
+			tendLand();
 			break;
 		case 5:
 			harvestCrops();
@@ -410,7 +407,6 @@ public class PaddockParadiseManager {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(2);
 				int choice = getValidInput(nextOptionList, askUser);
-				Supplies itemChoice;
 				if (choice == 1) {
 					TendCrops cropTended = new TendCrops(this, cropChosen, null);
 					cropTended.performAction();
@@ -445,6 +441,7 @@ public class PaddockParadiseManager {
 		if (horseDungCount == 0 && rootBoostCount == 0 && fertiliserCount == 0) {
 			outputStr += "[1] Water - Grows crops faster by 1 day, (UNLIMITED)\n"
 						+"[2] No item - go back.";
+			System.out.println(outputStr);
 			return false;
 		}
 		outputStr +=    ("[1] Water - Grows crops faster by 1 day, (UNLIMITED)\n"
@@ -456,7 +453,8 @@ public class PaddockParadiseManager {
 	}
 	
 	public void tendLand() {
-		
+		TendLand landTended = new TendLand(this);
+		landTended.performAction();
 	}
 	
 	public void endGame(PaddockParadiseManager manager) {
@@ -490,9 +488,15 @@ public class PaddockParadiseManager {
 	}
 	
 	public String viewDetails() {
+		String farmStateString = (newFarm.getState().equals("Unkept")) ? "\n\n" + newFarm.getName() + " is unkept! "
+				+ "\nYour animals will lose happiness twice as fast each day unless the land is tended to!\n" :
+					"\n";
 		return newFarmer.viewFarmerStatus() + "\n"
 				+ newFarm.viewFarmStatus()
-				+"\nDays left to play: " + currentDay + ",\n"; 
+				+ "\nDays left to play: " + currentDay + ","
+				+ "\nCrop capacity: " + newFarm.getCropLimit() + ","
+				+ "\nState of Farm: " + newFarm.getState() + ","
+				+ farmStateString;
 		
 	}
 	
