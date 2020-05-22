@@ -333,6 +333,8 @@ public class Farm {
 				valid = true;
 			case "County Fair":
 				getCountyFairBonus();
+			case "Thief":
+				implementThiefOccurrence();
 		}while(!valid);	
 	}
 	
@@ -400,6 +402,19 @@ public class Farm {
 		
 		double bonus = 0;
 		
+		// 2xthe farms worth
+		bonus = (2*bonus);
+		System.out.println("Congratulations Your farm has just won first prize at the 'County Fair'\n");
+		System.out.println("Your prize is " + bonus);
+		money += bonus;
+		System.out.println("Your prize has been adding to your wallet!");
+	}
+	
+	public double getFarmWorth() {
+		
+		
+		double bonus = 0;
+		
 		for (Animal animal : currentAnimals) {
 			bonus += animal.getWorth();
 		}
@@ -407,13 +422,24 @@ public class Farm {
 		for (Crop vegie : currentCrops) {
 			bonus += vegie.getSellPrice();
 		}
+		return bonus;
+	}
+	
+	private void implementThiefOccurrence() {
 		
-		// 2xthe farms worth
-		bonus = (2*bonus);
-		System.out.println("Congratulations Your farm has just won first prize at the 'County Fair'\n");
-		System.out.println("Your prize is " + bonus);
-		money += bonus;
-		System.out.println("Your prize has been adding to your wallet!");
+		double stolenAmount = getFarmWorth();
+		stolenAmount = stolenAmount * 0.4;
+		// Only performs occurrence if the farm has enough to lose 
+		if (money > stolenAmount){
+			money -= stolenAmount;
+			System.out.println("Oh No!!");
+			System.out.println("A thief has broken in and stolen $" + stolenAmount + "!\n" );
+		}else {
+			; // Do nothing
+		}
+
+		
+		
 	}
 	
 	public void startNewDay() {

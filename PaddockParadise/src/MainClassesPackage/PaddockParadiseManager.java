@@ -91,13 +91,11 @@ public class PaddockParadiseManager {
 	
 	private void initRandomOccurences() {
 		
-		randomOccurences.add("None");
-		randomOccurences.add("Flood");         // lose one animal and 4 crops
+		randomOccurences.add("None");          // Have added 3x None to give more chances of nothing happening
 		randomOccurences.add("Thief");         // Lose 40% of money
 		randomOccurences.add("None");
 		randomOccurences.add("Drought");       // Lose a random amount of Crops
 		randomOccurences.add("None");
-		randomOccurences.add("Fox");           // lose all Sheep
 		randomOccurences.add("Broken Fence");  // Lose a random amount of animals
 		randomOccurences.add("County Fair");   // Gets 200% Farm worth
 
