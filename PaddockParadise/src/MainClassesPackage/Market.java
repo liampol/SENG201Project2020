@@ -91,7 +91,8 @@ public class Market {
 	 *		[4] Sell Crops
 	 *		[5] Remove items from cart
 	 *      [6] Checkout
-	 *		[7] EXIT SHOP
+	 *      [7] View Bag
+	 *		[8] EXIT SHOP
 	 */
 	public void viewMarketOptions() {
 		System.out.println("WELCOME TO THE GENERAL MARKET!!\n\nThis is the 'FRONT DESK' How can I help you today?");
@@ -133,9 +134,11 @@ public class Market {
 					+ "[1] Buy Crops\n"
 					+ "[2] Buy Animals\n"
 					+ "[3] Buy Farm Supplies\n"
-					+ "[4] Remove items from cart\n"
-					+ "[5] Checkout\n"
-					+ "[6] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
+					+ "[4] Sell Crops\n"
+					+ "[5] Remove items from cart\n"
+					+ "[6] Checkout\n"
+					+ "[7] View Bag\n"
+					+ "[8] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
 			option = input.nextInt();
 			switch(option) {
 			case 1:
