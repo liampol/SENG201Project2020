@@ -237,7 +237,7 @@ public class Setup {
 					newType = "Happy Animal";
 					correct = true;
 				}else if (newInt == 4) {
-					newType = "Discunt Store";
+					newType = "Discount Store";
 					correct = true;
 				}else {
 					System.out.println("Sorry that was an invalid option, please choose again!");
