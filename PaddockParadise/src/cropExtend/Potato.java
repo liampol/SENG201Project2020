@@ -4,7 +4,7 @@ import MainClassesPackage.Crop;
 public class Potato extends Crop {
 	
 	public Potato() {
-		super("Potato", 25.00, 15.00, 3);
+		super("Potato", 350.00, 20.00, 3);
 
 	}
 

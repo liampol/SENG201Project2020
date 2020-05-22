@@ -11,9 +11,7 @@ import GUIPackage.ChooseFarmer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Actions.FeedAnimals;
-import Actions.HarvestCrops;
-import Actions.PlayWithAnimals;
+import Actions.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +26,7 @@ import java.util.regex.Pattern;
  */
 public class PaddockParadiseManager {
 	
+	private int totalDays;
 	private static Farmer newFarmer;
 	private static Farm newFarm;
 	private static int currentDay;
@@ -46,7 +45,7 @@ public class PaddockParadiseManager {
 		activitiesLeft = 2;
 		options = createOptionList(4);
 		Setup setup = new Setup(this);
-		
+	
 		optionString = "What would you like to do?\n"
 				+	"[1] View " + newFarm.getName() + "\n"
 				+	"[2] Perform an action\n"
@@ -60,7 +59,12 @@ public class PaddockParadiseManager {
 	
 	public void runGame() {
 		while (true) {
-			playGame(gameScanner);
+			try {
+				playGame(gameScanner);
+			} catch(NullPointerException npe) {
+				displayScoreboard();
+				break;
+			}
 		}
 	}
 	
@@ -230,10 +234,14 @@ public class PaddockParadiseManager {
 			playWithAnimal();
 			break;
 		case 3:
-//			tendCrops();
+			try {
+				tendCrops();
+			} catch(NullPointerException npe) {
+				
+			}
 			break;
 		case 4:
-//			tendLand();
+			tendLand();
 			break;
 		case 5:
 			harvestCrops();
@@ -250,7 +258,7 @@ public class PaddockParadiseManager {
 		}else {
 			newFarm.startNewDay();
 			setActivitiesLeft(2);
-//			rollRandomOccurence();
+			rollRandomOccurence();
 			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		}
 	}
@@ -359,16 +367,112 @@ public class PaddockParadiseManager {
 		}
 	}
 	
-	public void tendCrops(Crop crop, Supplies item) {
-		
+	public void tendCrops() {
+		if (!newFarm.getCrops().isEmpty()) {
+			String output = newFarm.viewCropsStatus() + "\nChoose a crop to tend!\n";
+			System.out.println(output);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size());
+			Crop cropChosen = newFarm.getCrops().get(getValidInput(optionsList, output) - 1);
+			String askUser = "What item would you like to use?\n";
+			boolean successfullyTended = true;
+			if (itemAvailable()) {
+				System.out.println(askUser);
+				ArrayList<Integer> nextOptionList = createOptionList(4);
+				int choice = getValidInput(nextOptionList, askUser);
+				Supplies itemChoice;
+				switch (choice) {
+				case 1:
+					itemChoice = new HorseDung();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyTended = false;
+					}
+					break;
+				case 2:
+					itemChoice = new Fertiliser();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyTended = false;
+					}
+					break;
+				case 3:	
+					itemChoice = new RootBoost();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyTended = false;
+					}
+					break;
+				default:
+					itemChoice = null;
+				}
+				if (successfullyTended) {
+					TendCrops cropTended = new TendCrops(this, cropChosen, itemChoice);
+					cropTended.performAction();
+				}
+				
+			} else {
+				System.out.println(askUser);
+				ArrayList<Integer> nextOptionList = createOptionList(2);
+				int choice = getValidInput(nextOptionList, askUser);
+				if (choice == 1) {
+					TendCrops cropTended = new TendCrops(this, cropChosen, null);
+					cropTended.performAction();
+				} else {
+					throw new NullPointerException();
+				}
+			}
+			
+		} else {
+			System.out.println("There are no crops!\n");
+			}
+	}
+	
+	private boolean itemAvailable() {
+		String outputStr = "Crop items available: \n";
+		int horseDungCount = 0;
+		int rootBoostCount = 0;
+		int fertiliserCount = 0;
+		for (Supplies supply: newFarm.getCurrentSupplies()) {
+			switch (supply.getName()) {
+			case "Horse Dung":
+				horseDungCount += 1;
+				break;
+			case "Fertiliser":
+				fertiliserCount += 1;
+				break;
+			case "Root Boost":
+				rootBoostCount += 1;
+				break;
+			}
+		}
+		if (horseDungCount == 0 && rootBoostCount == 0 && fertiliserCount == 0) {
+			outputStr += "[1] Water - Grows crops faster by 1 day, (UNLIMITED)\n"
+						+"[2] No item - go back.";
+			System.out.println(outputStr);
+			return false;
+		}
+		outputStr +=    ("[1] Water - Grows crops faster by 1 day, (UNLIMITED)\n"
+						+ "[2] Horse Dung - Grows crops faster by 2 day, (x" + horseDungCount+ ")\n"
+						+ "[3] Fertiliser - Grows crop faster by 3 days, (x" + fertiliserCount + ")\n"
+						+ "[4] Root Boost - Grows crop faster by 4 days, (x" + rootBoostCount + ")\n");
+		System.out.println(outputStr);
+		return true;
 	}
 	
 	public void tendLand() {
-		
+		TendLand landTended = new TendLand(this);
+		landTended.performAction();
 	}
 	
 	public void endGame(PaddockParadiseManager manager) {
 		System.out.println("You have completed the game!");
+		throw new NullPointerException();
+	}
+	
+	public void displayScoreboard() {
+		System.out.println("---------------");
+		getScoreboard();
+	}
+		
+	public void getScoreboard() {
+		int score = (int) (newFarm.getMoney() / totalDays);
 	}
 	
 	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
@@ -398,9 +502,16 @@ public class PaddockParadiseManager {
 	}
 	
 	public String viewDetails() {
+		String farmStateString = (newFarm.getState().equals("Unkept")) ? "\n\n" + newFarm.getName() + " is unkept! "
+				+ "\nYour animals will lose happiness twice as fast and you'll reduce the maximum amount of crops"
+				+ " you can plant unless the land is tended to!\n" :
+					"\n";
 		return newFarmer.viewFarmerStatus() + "\n"
 				+ newFarm.viewFarmStatus()
-				+"\nDays left to play: " + currentDay + ",\n"; 
+				+ "\nDays left to play: " + currentDay + ","
+				+ "\nCrop capacity: " + newFarm.getCropLimit() + ","
+				+ "\nState of Farm: " + newFarm.getState() + ","
+				+ farmStateString;
 		
 	}
 	

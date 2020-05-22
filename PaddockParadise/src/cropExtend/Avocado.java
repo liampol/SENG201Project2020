@@ -5,6 +5,6 @@ import MainClassesPackage.Crop;
 public class Avocado extends Crop {
 	public Avocado() {
 		
-		super("Avocado", 60.00, 30.00, 4);
+		super("Avocado", 750.00, 35.00, 4);
 	}
 }

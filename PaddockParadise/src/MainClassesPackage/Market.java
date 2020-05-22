@@ -133,10 +133,9 @@ public class Market {
 					+ "[1] Buy Crops\n"
 					+ "[2] Buy Animals\n"
 					+ "[3] Buy Farm Supplies\n"
-					+ "[4] Sell Crops\n"
-					+ "[5] Remove items from cart\n"
-					+ "[6] Checkout\n"
-					+ "[7] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
+					+ "[4] Remove items from cart\n"
+					+ "[5] Checkout\n"
+					+ "[6] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
 			option = input.nextInt();
 			switch(option) {
 			case 1:
@@ -151,19 +150,19 @@ public class Market {
 				buySupplies();
 				correct = true;
 				break;
+//			case 4: CAN BE SOLD VIA "Harvest Crop" Action
+//				sellCrops();
+//				correct = true;
+//				break;
 			case 4:
-				sellCrops();
-				correct = true;
-				break;
-			case 5:
 				removeFromCart();
 				correct = true;
 				break;
-			case 6:
+			case 5:
 				checkout();
 				correct = true;
 				break;
-			case 7:
+			case 6:
 				correct = true;
 				System.out.print("You left the market\n");
 				exit();
@@ -184,17 +183,17 @@ public class Market {
 		boolean endSwitch = true; // Should always be true to end switch
 		boolean endDo = false;     // Only true when Do-while ends and returns to previous menu
 		do {
-		System.out.println("\nPlease choose option by typing the corresponding number, and adding one item at a time, \n"
-			             + "(EXAMPLE : press 1, then enter, for carrot, then press 2, then enter to also add broccoli)\n ");
+			System.out.println("\nPlease choose option by typing the corresponding number, and adding one item at a time, \n"
+		             + "(EXAMPLE : press 1, then enter, for carrot, then press 2, then enter to also add broccoli)\n ");
 
-		System.out.println("What crops would you like to add to cart?\n"
-				+ "[1] Carrot      $10.00\n"
-				+ "[2] Broccoli    $15.00\n"
-				+ "[3] Capsicum    $20.00\n"
-				+ "[4] Avocado     $30.00\n"
-				+ "[5] Potato      $15.00\n"
-				+ "[6] Cauliflower $30.00\n"
-				+ "[7] Return to 'FRONT DESK'");
+			System.out.println("What crops would you like to add to cart?\n"
+			+ "[1] Carrot      $10.00\n"
+			+ "[2] Broccoli    $15.00\n"
+			+ "[3] Capsicum    $20.00\n"
+			+ "[4] Avocado     $30.00\n"
+			+ "[5] Potato      $15.00\n"
+			+ "[6] Cauliflower $30.00\n"
+			+ "[7] Return to 'FRONT DESK'");
 		added = input.nextInt();
 		switch(added) {
 		case 1:
@@ -219,6 +218,11 @@ public class Market {
 			endDo = true;
 			break;
 			}while(!endSwitch);  // End switch when endSwitch is true
+		if (cropCart.size() > (farmOwner.getCropLimit() - farmOwner.getCrops().size())) {
+				System.out.println("You don't have enough space for in your farm for more crops!\n" + 
+									"To get more space, tend your farmland!\n");
+				removeCrop(cropCart.get(cropCart.size() - 1).type);
+		}
 		}while(!endDo);          // End do-while loop while endDo is true
 		
 		viewMarketOptions();
@@ -233,9 +237,9 @@ public class Market {
 		
 		do {
 			System.out.println("What animals would you like to add to cart?\n"
-					+ "[1] Sheep $20.00\n"
-					+ "[2] Cow   $50.00\n"
-					+ "[3] Pig  $10.00\n"
+					+ "[1] Sheep   $" + sheep.getPrice() + "\n"
+					+ "[2] Cow   $" + cow.getPrice() +"\n"
+					+ "[3] Pig  $" + pig.getPrice() +"\n"
 					+ "[4] Return to 'FRONT DESK'");
 			added = input.nextInt();
 			switch(added) {
@@ -844,7 +848,7 @@ public class Market {
 		double profit = 0.00;             // Initialize cost
 		
 		for (Crop toSell : farmOwner.getCrops()) {         
-			if (toSell.getType() == item && toSell.getState() == "Harvest") {   // Finds 'Crop' to sell, once found it checks if the 'State' is 'Harvest'
+			if (toSell.getType().equals(item) && toSell.getState().equals("Harvest")) {   // Finds 'Crop' to sell, once found it checks if the 'State' is 'Harvest'
 				profit = toSell.getSellPrice();                                     // Gets the price of item to remove
 				farmOwner.removeCrop(toSell);                                   // removes item object from cart
 				System.out.println(item + " has been SOLD\n");
@@ -922,11 +926,11 @@ public class Market {
 		boolean fasterCropGrowth = false;
 		boolean happyAnimal = false;
 		
-		if (farmOwner.getType() == "Discount Store") {
+		if (farmOwner.getType().equals("Discount Store")) {
 			discountStore = true;
-		}else if (farmOwner.getType() == "Faster Crop Growth") {
+		}else if (farmOwner.getType().equals("Faster Crop Growth")) {
 			fasterCropGrowth = true;
-		}else if (farmOwner.getType() == "Happy Animal") {
+		}else if (farmOwner.getType().equals("Happy Animal")) {
 			happyAnimal = true;
 		}
 		

@@ -22,6 +22,9 @@ import GUIPackage.*;
  */
 public class Farm {
 	
+	private int cropLimit;
+	private int daysBeingTidy;
+	private int daysBeingUnkept;
 	private String state;
 	private String name;
 	private String type;
@@ -40,7 +43,10 @@ public class Farm {
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
 		currentSupplies =new ArrayList<Supplies>();
-		money = 500.00; 
+		money = 500.00;
+		state = "Tidy";
+		daysBeingTidy = 1;
+		cropLimit = 3;
 	}
 	
 	public Farm(Farmer newFarmer) {
@@ -51,8 +57,29 @@ public class Farm {
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
 		money =  500.00; 
+		state = "Tidy";
+	}
+	
+	/**
+	 * retuns the number of crops available to purchase/grow currently;
+	 * @return
+	 */
+	public int getCropLimit() {
+		return cropLimit;
 	}
 
+	public void setCropLimit(int cropLimit) {
+		this.cropLimit = cropLimit; 
+	}
+	
+	public void setDaysBeingTidy(int days) {
+		daysBeingTidy = days;
+	} 
+	
+	public void setDaysBeingUnkept(int days) {
+		daysBeingUnkept = days;
+	}
+	
 	/**
 	 * retuns the name of the Farm
 	 * @return
@@ -254,11 +281,16 @@ public class Farm {
 		}
 	}
 	
-	private void growAnimals() {
+	private void growAnimals(String state) {
 		
 		for (Animal animal : currentAnimals) {
-			animal.alterEmotionalState(-1);
-			animal.alterHealthState(-1);
+			if (state.equals("Unkept")) {
+				animal.alterEmotionalState(-2);
+				animal.alterHealthState(-1);
+			} else {
+				animal.alterEmotionalState(-1);
+				animal.alterHealthState(-1);
+			}
 		}
 	}
 	
@@ -331,10 +363,18 @@ public class Farm {
 			case "Broken Fence":
 				loseAnimalsOccurence();
 				valid = true;
+				break;
 			case "County Fair":
 				getCountyFairBonus();
+				valid = true;
+				break;
 			case "Thief":
 				implementThiefOccurrence();
+				valid = true;
+				break;
+			default:
+				valid = true;
+				break;
 		}while(!valid);	
 	}
 	
@@ -388,11 +428,11 @@ public class Farm {
 		while (counter >= 0) {
 			Animal animal = currentAnimals.get(counter);
 			System.out.println(animal.getName());
-			currentAnimals.remove(counter);
+			currentAnimals.remove(animal);
 			counter -= 1;	
 		}
 		//Decrease the emotional State and Health State of the animal
-		growAnimals();
+		growAnimals("Tidy");
 		
 		System.out.println(viewAnimals());
 	}
@@ -435,16 +475,29 @@ public class Farm {
 			System.out.println("Oh No!!");
 			System.out.println("A thief has broken in and stolen $" + stolenAmount + "!\n" );
 		}else {
-			; // Do nothing
+			 // Do nothing
 		}
-
-		
-		
 	}
 	
 	public void startNewDay() {
+		if (state.equals("Tidy")) {
+			daysBeingTidy += 1;
+		} else {
+			daysBeingUnkept += 1;
+		}
+		if (daysBeingTidy == 4) {
+			daysBeingTidy = 1;
+			state = "Unkept";
+		} 
+		if (daysBeingUnkept > 1) {
+			for (int i = 0; i < 2; i++) {
+				if (cropLimit > 3) {
+					cropLimit -= 1;
+				}
+			}
+		}
 		growCrops();
-		growAnimals();
+		growAnimals(this.state);
 		checkForDeadAnimals();
 		getProfits();
 	}
@@ -464,12 +517,14 @@ public class Farm {
 	
 	public void checkForDeadAnimals() {
 		
+		ArrayList<Animal> deadAnimals = new ArrayList<Animal>();
 		for (Animal corpse : currentAnimals) {
 			if (corpse.getHealthState().equals("Dead")){
 					System.out.println("Rest In Peace " + corpse.getName());
-					currentAnimals.remove(corpse);
+					deadAnimals.add(corpse);
 			}
 		}
+		currentAnimals.removeAll(deadAnimals);
 	}
 	
 	
