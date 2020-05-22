@@ -24,6 +24,7 @@ public class Farm {
 	
 	private int cropLimit;
 	private int daysBeingTidy;
+	private int daysBeingUnkept;
 	private String state;
 	private String name;
 	private String type;
@@ -74,6 +75,10 @@ public class Farm {
 	public void setDaysBeingTidy(int days) {
 		daysBeingTidy = days;
 	} 
+	
+	public void setDaysBeingUnkept(int days) {
+		daysBeingUnkept = days;
+	}
 	
 	/**
 	 * retuns the name of the Farm
@@ -358,8 +363,14 @@ public class Farm {
 			case "Broken Fence":
 				loseAnimalsOccurence();
 				valid = true;
+				break;
 			case "County Fair":
 				getCountyFairBonus();
+				valid = true;
+				break;
+			default:
+				valid = true;
+				break;
 		}while(!valid);	
 	}
 	
@@ -413,7 +424,7 @@ public class Farm {
 		while (counter >= 0) {
 			Animal animal = currentAnimals.get(counter);
 			System.out.println(animal.getName());
-			currentAnimals.remove(counter);
+			currentAnimals.remove(animal);
 			counter -= 1;	
 		}
 		//Decrease the emotional State and Health State of the animal
@@ -437,7 +448,7 @@ public class Farm {
 		
 		// 2xthe farms worth
 		bonus = (2*bonus);
-		System.out.println("Congratulations Your farm has just won first prize at the 'County Fair'\n");
+		System.out.println("Congratulations Your farm has just won first prize at the County Fair\n");
 		System.out.println("Your prize is " + bonus);
 		money += bonus;
 		System.out.println("Your prize has been adding to your wallet!");
@@ -446,10 +457,19 @@ public class Farm {
 	public void startNewDay() {
 		if (state.equals("Tidy")) {
 			daysBeingTidy += 1;
+		} else {
+			daysBeingUnkept += 1;
 		}
 		if (daysBeingTidy == 4) {
 			daysBeingTidy = 1;
 			state = "Unkept";
+		} 
+		if (daysBeingUnkept > 1) {
+			for (int i = 0; i < 2; i++) {
+				if (cropLimit > 3) {
+					cropLimit -= 1;
+				}
+			}
 		}
 		growCrops();
 		growAnimals(this.state);

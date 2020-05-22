@@ -10,12 +10,10 @@ import baseutility.*;
  *
  */
 public class Animal {
-	
-	private int daysSincePurchase;
 	String name;                // Name of animal
     String type;                // Types will be Cows, Sheep, Pigs
 	double price;               // Cost of animal
-	double profit;          // Bonus received from each animal
+	double profit;          	// Bonus received from each animal
 	String healthState;         // Current health state of animal ("Healthy", "Sick", "Die");
 	String emotionalState;      // Emotional state of animal ("Happy" "Saudade" or "Sad")
 	int healthTracker;          // Tracks the health state of the animal in days where (3+ = "Healthy, 2 = "Sick", 0 = "Dead")  

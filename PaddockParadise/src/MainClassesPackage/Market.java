@@ -218,7 +218,7 @@ public class Market {
 			endDo = true;
 			break;
 			}while(!endSwitch);  // End switch when endSwitch is true
-		if (cropCart.size() > farmOwner.getCropLimit()) {
+		if (cropCart.size() > (farmOwner.getCropLimit() - farmOwner.getCrops().size())) {
 				System.out.println("You don't have enough space for in your farm for more crops!\n" + 
 									"To get more space, tend your farmland!\n");
 				removeCrop(cropCart.get(cropCart.size() - 1).type);
@@ -237,9 +237,9 @@ public class Market {
 		
 		do {
 			System.out.println("What animals would you like to add to cart?\n"
-					+ "[1] Sheep $20.00\n"
-					+ "[2] Cow   $50.00\n"
-					+ "[3] Pig  $10.00\n"
+					+ "[1] Sheep   $" + sheep.getPrice() + "\n"
+					+ "[2] Cow   $" + cow.getPrice() +"\n"
+					+ "[3] Pig  $" + pig.getPrice() +"\n"
 					+ "[4] Return to 'FRONT DESK'");
 			added = input.nextInt();
 			switch(added) {

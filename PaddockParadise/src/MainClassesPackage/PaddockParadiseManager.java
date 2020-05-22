@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
  */
 public class PaddockParadiseManager {
 	
+	private int totalDays;
 	private static Farmer newFarmer;
 	private static Farm newFarm;
 	private static int currentDay;
@@ -44,7 +45,7 @@ public class PaddockParadiseManager {
 		activitiesLeft = 2;
 		options = createOptionList(4);
 		Setup setup = new Setup(this);
-		
+	
 		optionString = "What would you like to do?\n"
 				+	"[1] View " + newFarm.getName() + "\n"
 				+	"[2] Perform an action\n"
@@ -58,7 +59,12 @@ public class PaddockParadiseManager {
 	
 	public void runGame() {
 		while (true) {
-			playGame(gameScanner);
+			try {
+				playGame(gameScanner);
+			} catch(NullPointerException npe) {
+				displayScoreboard();
+				break;
+			}
 		}
 	}
 	
@@ -254,7 +260,7 @@ public class PaddockParadiseManager {
 		}else {
 			newFarm.startNewDay();
 			setActivitiesLeft(2);
-//			rollRandomOccurence();
+			rollRandomOccurence();
 			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
 		}
 	}
@@ -459,6 +465,16 @@ public class PaddockParadiseManager {
 	
 	public void endGame(PaddockParadiseManager manager) {
 		System.out.println("You have completed the game!");
+		throw new NullPointerException();
+	}
+	
+	public void displayScoreboard() {
+		System.out.println("---------------");
+		getScoreboard();
+	}
+		
+	public void getScoreboard() {
+		int score = (int) (newFarm.getMoney() / totalDays);
 	}
 	
 	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
@@ -489,7 +505,8 @@ public class PaddockParadiseManager {
 	
 	public String viewDetails() {
 		String farmStateString = (newFarm.getState().equals("Unkept")) ? "\n\n" + newFarm.getName() + " is unkept! "
-				+ "\nYour animals will lose happiness twice as fast each day unless the land is tended to!\n" :
+				+ "\nYour animals will lose happiness twice as fast and you'll reduce the maximum amount of crops"
+				+ " you can plant unless the land is tended to!\n" :
 					"\n";
 		return newFarmer.viewFarmerStatus() + "\n"
 				+ newFarm.viewFarmStatus()

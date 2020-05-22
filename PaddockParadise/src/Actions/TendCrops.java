@@ -52,7 +52,7 @@ public class TendCrops extends Action {
 			}
 			String pluralDays = (cropToTend.getDaysToHarvest() == 1) ? "" : "s";
 			System.out.println("\nThe " + cropToTend.getType() + "s have been tended to and are looking healthy!\n" +
-								"\nThe " + cropToTend.getType() + "s crops are now " + cropToTend.getDaysToHarvest() + 
+								"\nThe " + cropToTend.getType() + " crops are now " + cropToTend.getDaysToHarvest() + 
 								" day" + pluralDays + " away from being harvested\n");
 		} else {
 			System.out.println("You have performed all of your actions today!\n");
