@@ -7,7 +7,7 @@ import extendSupplies.*;
 
 import java.util.Scanner;
 import GUIPackage.*;
-import GUIPackage.ChooseFarmer;
+import GUIPackage.ChooseAvatar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -382,7 +382,7 @@ public class PaddockParadiseManager {
 		//ChooseFarmer chooseFarmerScreen = new ChooseFarmer(this);
 	}
 		
-	public void closeChooseFarmerScreen(ChooseFarmer chooseFarmerScreen) {
+	public void closeChooseFarmerScreen(ChooseAvatar chooseFarmerScreen) {
 		//chooseFarmerScreen.closeWindow();
 		//launchChooseFarmType();
 	}
