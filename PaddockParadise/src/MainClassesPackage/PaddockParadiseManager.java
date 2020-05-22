@@ -258,8 +258,15 @@ public class PaddockParadiseManager {
 		}else {
 			newFarm.startNewDay();
 			setActivitiesLeft(2);
-			rollRandomOccurence();
-			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
+			rollRandomOccurence();  // Implements the random occurrences that happen at the start of everyday
+			
+			// Implemented only if the FarmType is Money Tree
+			if (newFarm.getType() == "Money Tree"){
+				double bonus = newFarm.getFarmWorth();
+				bonus = (bonus*0.2);
+				newFarm.addToWallet(bonus);
+			}
+
 		}
 	}
 	
