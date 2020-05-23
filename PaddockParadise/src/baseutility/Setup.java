@@ -43,31 +43,21 @@ public class Setup {
 		newFarm.viewFarmStatus();
 		manager.setFarm(newFarm);
 		
+		System.out.println("Welcome to Paddock Paradise!\n");
 		
 		
 	}
 	
 	public int getDays() {
 		
-		int days = 0;
-		boolean pass = false;
+		int dayNumber;
 		do {
 			System.out.println("How long would you like to play for? (Please type in a number between 5 and 10)\n");
-			if (input.hasNextInt()) {
-				days = input.nextInt();
-				if (days >= 5 && days <= 10) {
-					pass = true;
-				} else {
-					System.out.println("That wasn't beetween 5 and 10!");
-				}
-			} else {
-				System.out.println("Sorry that was an invalid input, please try again?");
-				input.nextLine();
-			}
-		}while(!(pass));
+			dayNumber = returnValidInt(5, 10, "You didn't enter a number!");
+		}	while(dayNumber == -1);
 		System.out.println("Nice choice!");
 		input.nextLine();
-		return days;
+		return dayNumber;
 	}
 	
 	public String getName() {
@@ -97,75 +87,45 @@ public class Setup {
 	private int getAge() {
 		
 		int newAge = 0;
-		boolean valid = false;
-		String check = "";
-		boolean pass = false;
 		String message = "";
 		do {
-			
-			System.out.println("Please enter your age: (Enter a age between 10 and 100)\n");
-			check = input.nextLine();
-			valid = checkValidInt(check);
-			if (valid) {
-				newAge = Integer.parseInt(check);
-			}
-			while (valid) {
-				valid = false;
-				if (newAge >= 10 && newAge <=20) {
-					pass = true;
-					message = " WOW your still young!";
-				}else if ( newAge >= 20 && newAge <= 100) {
-					pass = true;
-					message = "Thank you!";
-				}
-				if (pass == false){
-					System.out.println("Sorry that was an invalid input, please try again?");
-				}else {
-					System.out.println(message);
-				}
+			System.out.println("Please enter your age: (Enter an age between 10 and 100)\n");
+			newAge = returnValidInt(10, 100, "You didn't enter a number!");
+			if (newAge >= 10 && newAge <=20) {
+				message = "WOW you're still young!\n";
+			}else if ( newAge >= 20 && newAge <= 100) {
+				message = "Thank you!\n";
 			}
 			
-		}while(!(pass));
+		} while (newAge == -1);
+		System.out.println(message);
+		input.nextLine();
 		return newAge;
 	}
 	
 	private String getFarmerType() {
 		
-		
 		// Gets the type of Farmer
-		invalid = false;
 		int newInt = 0;
-		String newType = "";
-		String check = "";
-		boolean inputValid = false;
+		String newType;
 		
 		do {
 			System.out.print("Choose Type by typing corresponding number only!:\n"
-					+ " [1] Male Farmer\n "
-					+ "[2] Female Farmer\n "
-					+ "[3] Alien Farmer\n");
-			check = input.nextLine();
-			inputValid = checkValidInt(check);
-			if (inputValid) {
-				newInt = Integer.parseInt(check);
-			}
-			while (inputValid) {
-				inputValid = false;
-				if (newInt == 1) {
-					newType = "Male Farmer";
-					invalid = true;
-				}else if (newInt == 2) {
-					newType = "Female Farmer";
-					invalid = true;
-				}else if (newInt == 3) {
-					newType = "Alien Farmer";
-					invalid = true;
-				}else {
-					System.out.println("That is an invalid option, please choose again");
-					}
-				}
-			}while (!(invalid));
-			
+					+ "[1] Male Farmer\n"
+					+ "[2] Female Farmer\n"
+					+ "[3] Alien Farmer\n\n");
+			newInt = returnValidInt(1, 3, "You didn't enter a number!");
+			} while (newInt == -1);
+		switch (newInt) {
+		case 1:
+			newType = "Male Farmer";
+		case 2:
+			newType = "Female Farmer";
+		case 3:
+			newType = "Alien Farmer";
+		default:
+			newType = "Alien Farmer";
+		} 
 		return newType;
 		
 	}
@@ -200,10 +160,7 @@ public class Setup {
 		
 		
 		int newInt = 0;
-		String newType = "";
-		String option = "";
-		boolean correct = false;
-		boolean valid = false;
+		String newType ;
 		
 		do {
 			System.out.print("Choose Type by typing corresponding number only!:\n\n"
@@ -214,49 +171,42 @@ public class Setup {
 					+ "[3] Happy Animal:\n"
 					+ "Animals are happier for 2 extra days when purchased,\n"   // implemented
 					+ "[4] Discount Store:\n"
-					+ "40% Discount added to carton checkout!\n");               // implemented
-			option = input.nextLine();
-			valid = checkValidInt(option);
-			if (valid) {
-				newInt = Integer.parseInt(option);
+					+ "40% Discount added to carton checkout!\n\n"); // implemented
+			newInt = returnValidInt(1, 4, "You didn't enter a valid number!");
+			switch (newInt) {
+			case 1:
+				newType = "Money Tree";
+			case 2:
+				newType = "Faster Crop Growth";
+			case 3:
+				newType = "Happy Animal";
+			case 4:
+				newType = "Discount Store";
+			default:
+				newType = "Money Tree";
 			}
-			while (valid) {
-				valid = false;
-			
-				if (newInt == 1) {
-					newType = "Money Tree";
-					correct = true;
-				}else if (newInt == 2) {
-					newType = "Faster Crop Growth";
-					correct = true;
-				}else if (newInt == 3) {
-					newType = "Happy Animal";
-					correct = true;
-				}else if (newInt == 4) {
-					newType = "Discount Store";
-					correct = true;
-				}else {
-					System.out.println("Sorry that was an invalid option, please choose again!");
-				}
-			}
-			
-		}while(!(correct));
-		
+		} while(newInt == -1);
+		input.nextLine();
 		return newType;
 	}
 	
-	private boolean checkValidInt(String toCheck) {
-		
-		boolean correct = false;
-		Matcher hasSpecial = special.matcher(toCheck);
-		Matcher hasLetter = letter.matcher(toCheck);
-		
-		if (!(hasSpecial.find() || hasLetter.find())) {
-			correct = true;
+	private int returnValidInt(int lowerInclusiveBound, int upperInclusiveBound, String errorMessage) {
+	
+			if (input.hasNextInt()) {
+				int number = input.nextInt();
+				if (number >= lowerInclusiveBound && number <= upperInclusiveBound) {
+					return number;
+				} else {
+					System.out.println("That number wasn't valid!");
+					return -1;
+				}
+				
+			} else {
+				System.out.println(errorMessage);
+				input.next();
+				return -1;
+			}
 		}
-		
-		return correct;
-	}
 	
 	
 	private static void main(String[] args) {

@@ -45,7 +45,8 @@ public class PaddockParadiseManager {
 		activitiesLeft = 2;
 		options = createOptionList(4);
 		Setup setup = new Setup(this);
-	
+		totalDays = currentDay;
+		
 		optionString = "What would you like to do?\n"
 				+	"[1] View " + newFarm.getName() + "\n"
 				+	"[2] Perform an action\n"
@@ -96,6 +97,8 @@ public class PaddockParadiseManager {
 	
 	private void initRandomOccurences() {
 		
+		randomOccurences.add("None");
+		randomOccurences.add("None");
 		randomOccurences.add("None");          // Have added 3x None to give more chances of nothing happening
 		randomOccurences.add("Thief");         // Lose 40% of money
 		randomOccurences.add("None");
@@ -223,7 +226,7 @@ public class PaddockParadiseManager {
 							+ "[3] Tend to a crop (Decreases the time until it can be harvested)\n"
 							+ "[4] Tend to the farmland (Allows more crops to be grown)\n"
 							+ "[5] Harvest a crop (Harvest and sell a fully grown crop)\n"
-							+ "[6] No action - go back.";
+							+ "[6] No action - go back.\n";
 		System.out.println(optionsStr);
 		ArrayList<Integer> activityOptions = createOptionList(6);
 		int choice = getValidInput(activityOptions, optionsStr);
@@ -266,7 +269,7 @@ public class PaddockParadiseManager {
 				double bonus = newFarm.getFarmWorth();
 				bonus = (bonus*0.2);
 				newFarm.addToWallet(bonus);
-				System.out.println("Your Money Tree has given you a $" + bonus + " \n");
+				System.out.println("Your Money Tree has given you $" + bonus + "!\n");
 			}
 
 		}
@@ -478,8 +481,8 @@ public class PaddockParadiseManager {
 	public void displayScoreboard() {
 		System.out.println("---------------");
 		int playerScore = getScore();
-		int[] scoreMilestones = {(int) (20000 / totalDays),
-								(int) (10000 / totalDays),
+		int[] scoreMilestones = {(int) (25000 / totalDays),
+								(int) (15000 / totalDays),
 								(int) (5000 / totalDays)};
 		String title;
 		if (playerScore > scoreMilestones[0]) {
@@ -489,12 +492,13 @@ public class PaddockParadiseManager {
 		} else {
 			title = "Rookie Farmer";
 		}
-		
+		System.out.println("Your score is " + playerScore + ", and you have reached the title of "
+							+ title +".\n\nThanks for playing Paddock Paradise!");
 		
 	}
 		
 	public int getScore() {
-		int score = (int) (newFarm.getMoney() / totalDays);
+		int score = (int) ((newFarm.getMoney() + (newFarm.getFarmWorth()) / 2) / totalDays);
 		return score;
 	}
 	
@@ -513,7 +517,7 @@ public class PaddockParadiseManager {
 	}
 	
 	public void closeChooseFarmType(ChooseFarmType chooseFarmTypeScreen) {
-		chooseFarmTypeScreen.closeWindow();
+//		chooseFarmTypeScreen.closeWindow();
 	}
 	public void launchMainWindow() {
 		//String currentCrops = newFarm.viewCrops();

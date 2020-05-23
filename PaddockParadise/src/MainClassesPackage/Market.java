@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import MainClassesPackage.*;
 import extendSupplies.*;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import GUIPackage.*;
 
 
@@ -15,6 +18,8 @@ import GUIPackage.*;
  *
  */
 public class Market {
+	
+	
 	
 	PaddockParadiseManager manager;
 	private ArrayList<Crop> cropCart;            // This variable is used to keep track of Crops added to cart
@@ -61,6 +66,10 @@ public class Market {
 	int cowCount = 0;
 	int sheepCount =0;
 	int pigCount = 0;
+	
+	private Pattern letter = Pattern.compile("[a-zA-z]");
+    private Pattern nums = Pattern.compile("[0-9]");
+    private Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
 	
 	
 	/**
@@ -134,12 +143,11 @@ public class Market {
 					+ "[1] Buy Crops\n"
 					+ "[2] Buy Animals\n"
 					+ "[3] Buy Farm Supplies\n"
-					+ "[4] Sell Crops\n"
-					+ "[5] Remove items from cart\n"
-					+ "[6] Checkout\n"
-					+ "[7] View Bag\n"
-					+ "[8] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
-			option = input.nextInt();
+					+ "[4] Remove items from cart\n"
+					+ "[5] Checkout\n"
+					+ "[6] View Bag\n"
+					+ "[7] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
+			option = getInput(1, 7);
 			switch(option) {
 			case 1:
 				buyCrops();
@@ -157,20 +165,20 @@ public class Market {
 //				sellCrops();
 //				correct = true;
 //				break;
-			case 5:
+			case 4:
 				removeFromCart();
 				correct = true;
 				break;
-			case 6:
+			case 5:
 				checkout();
 				correct = true;
 				break;
-			case 7:
+			case 6:
 				viewBag();
 				correct = true;
 				break;
 				
-			case 8:
+			case 7:
 				correct = true;
 				System.out.print("You left the market\n");
 				exit();
@@ -181,10 +189,66 @@ public class Market {
 		
 	}
 	
+	public int getValidInput(int lowB, int upB) {
+		int newInput;
+		do {
+			newInput = getInput(lowB, upB);
+		} while (newInput == -1);
+		return newInput;
+	}
+	
+	public String getValidInput() {
+		String newInput;
+		do {
+			newInput = getInput();
+		} while (newInput.equals(""));
+		return newInput;
+	}
+	
+	public int getInput(int lowerInclusiveBoundary, int upperInclusiveBoundary) {
+		// Only need to enter either INTEGERS or STRINGS
+		
+		if (input.hasNextInt()) {
+			int intInput = input.nextInt();
+			if (intInput >= lowerInclusiveBoundary && intInput <= upperInclusiveBoundary) {
+				return intInput;
+			} else {
+				System.out.println("There is no option for that number!");
+				return -1;
+			}
+		} else {
+			System.out.println("You didn't enter a valid input!");
+			input.next();
+			return -1;
+		}
+	}
+	
+public String getInput() {
+		boolean invalid = false;
+		String newName ="";
+		
+		do {
+			
+			System.out.println("Please enter a new name: (Name has to be between 3 and 15 characters "
+					+ "and must NOT contain special characters and numbers)s \n");
+			newName = input.next();
+			Matcher hasNums = nums.matcher(newName);
+			Matcher hasSpecial = special.matcher(newName);
+			
+			// Checks name
+			if (!(hasNums.find() || hasSpecial.find() || newName.length() < 3 || newName.length() > 15)) {
+				invalid = true;
+			}
+			else {
+				System.out.println("Your name was invalid!");
+			}
+		}while (!invalid);
+		
+		return newName;
+	}
 	/**
 	 * Adds Fertiliser to cart as well as adds the cost to cartCost
 	 */
-	
 	public void buyCrops() {
 		
 		int added = 0;
@@ -202,7 +266,7 @@ public class Market {
 			+ "[5] Potato      $15.00\n"
 			+ "[6] Cauliflower $30.00\n"
 			+ "[7] Return to 'FRONT DESK'");
-		added = input.nextInt();
+		added = getInput(1, 7);
 		switch(added) {
 		case 1:
 			addCarrots();
@@ -249,7 +313,7 @@ public class Market {
 					+ "[2] Cow   $" + cow.getPrice() +"\n"
 					+ "[3] Pig  $" + pig.getPrice() +"\n"
 					+ "[4] Return to 'FRONT DESK'");
-			added = input.nextInt();
+			added = getInput(1, 4);
 			switch(added) {
 			case 1:
 				addSheep();
@@ -287,7 +351,7 @@ public class Market {
 					+ "[6] Horse-Dung: [Cost] $10.00,  [Attribute] Boosts chosen crop by 1 days,\n"
 					+ "[7] Return to 'FRONT DESK'");
 			
-			added = input.nextInt();
+			added = getInput(1, 7);
 			switch(added) {
 			case 1:
 				addGrains();
@@ -561,7 +625,7 @@ public class Market {
 				+ "[2] Animals\n"
 				+ "[3] Supplies\n"
 				+ "[4] Return to 'FRONT DESK'");
-		option = input.nextInt();
+		option = getInput(1, 4);
 		
 		switch(option) {
 			case 1:
@@ -598,7 +662,7 @@ public class Market {
 				+ "[5] Avocado\n"
 				+ "[6] Cauliflower\n"
 				+ "[7] Return to 'REMOVE ITEM MENU'");
-		option = input.nextInt();
+		option = getInput(1, 7);
 		
 			switch(option) {
 			case 1:
@@ -680,7 +744,7 @@ public class Market {
 				+ "[5] Hay\n"
 				+ "[6] Vitamin\n"
 				+ "[7] Return to 'REMOVE ITEM MENU'");
-		option = input.nextInt();
+		option = getInput(1, 7);
 		
 			switch(option) {
 			case 1:
@@ -763,7 +827,7 @@ public class Market {
 				+ "[2] Sheep\n"
 				+ "[3] Cow\n"
 				+ "[4] Return to 'REMOVE ITEM MENU'");
-		option = input.nextInt();
+		option = getInput(1, 4);
 		
 			switch(option) {
 			case 1:
@@ -832,7 +896,7 @@ public class Market {
 			           	 + "[5] Avocado\n"
 				         + "[6] Cauliflower\n"
 				         + "[7] Return to 'REMOVE ITEM MENU'");
-		sell = input.nextInt();
+		sell = getInput(1, 7);
 		
 			switch(sell) {
 			case 1:
@@ -922,14 +986,14 @@ public class Market {
 		System.out.println("What would you like to do?");
 		System.out.println("[1] Pay for cart\n"
 				         + "[2] Return to 'FRONT DESK'");
-		option = input.nextInt();
+		option = getInput(1, 2);
 		
 		switch(option) {
 			case 1:
 				completeCheckout();
 				endDo = true;
 				break;
-			case 7:
+			case 2:
 				endDo = true;
 				break;
 			}while(!endSwitch);
@@ -995,13 +1059,18 @@ public class Market {
 				if (happyAnimal) {
 					animal.addHealthBonus();
 				}
+				option = getInput(1, 2);
+				while (option == -1) {
+					System.out.println("Would you like to name your " + animal.getType() + "?\n");
+					System.out.println("[1] Yes i would like to name my " + animal.getType() + ",\n"
+							         + "[2] No thank you im fine with " + animal.getName() + ",\n");
+					option = getInput(1, 2);
 					
-				option = input.nextInt();
+				}
 				switch(option) {
 					case 1:
-						
-						System.out.println("Please Enter new name,");
-						newName = input.next();
+						input.nextLine();
+						newName = getInput();
 						animal.setName(newName);     // GETTING SCANNER ERROR WHEN NAMING
 						break;
 					case 2:

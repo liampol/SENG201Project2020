@@ -360,12 +360,19 @@ public class Farm {
 				valid = true;
 				break;
 			case "Drought":
-				System.out.println("The wells have all dried up and the crops are thirsty!");
-				loseCropsOccurence();
+				try {
+					loseCropsOccurence();
+				} catch(IllegalArgumentException noCrops) {
+					// If no crops, bound it 0 
+				}
 				valid = true;
 				break;
 			case "Broken Fence":
+				try {
 				loseAnimalsOccurence();
+				} catch (IllegalArgumentException noAnimals) {
+					// If no animals, bound is 0
+				}
 				valid = true;
 				break;
 			case "County Fair":
@@ -388,6 +395,8 @@ public class Farm {
 		int amountLost = 0;
 		Random cropsLost = new Random();
 		amountLost = currentCrops.size() ;
+		
+		System.out.println("The wells have all dried up and the crops are thirsty!");
 		
 		//Choosing random integer based on the size of currentCrops
 		lost = cropsLost.nextInt(amountLost);
