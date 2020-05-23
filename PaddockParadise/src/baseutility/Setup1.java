@@ -50,6 +50,7 @@ public class Setup1 {
 	
 	public void closeFarmerDetailsScreen(FarmerDetails farmerDetailsScreen) {
 		farmerDetailsScreen.closeWindow();
+		launchChooseFarmType();
 	}
 	
 	public void launchChooseFarmType() {

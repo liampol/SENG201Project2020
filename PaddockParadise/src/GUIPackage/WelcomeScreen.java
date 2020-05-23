@@ -52,7 +52,7 @@ public class WelcomeScreen {
 	
 	private void setDays(int day) {
 		manager.setDays(day);
-		finishedWindow();
+
 	}
 	
 	

@@ -31,7 +31,7 @@ public class ChooseAvatar {
 	public static void main(String[] args) {
 		
 		// implemented for testing
-		PaddockParadiseManager manager = new PaddockParadiseManager();
+		//PaddockParadiseManager manager = new PaddockParadiseManager();
 		
 		
 		EventQueue.invokeLater(new Runnable() {

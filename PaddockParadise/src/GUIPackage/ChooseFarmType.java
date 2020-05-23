@@ -49,6 +49,7 @@ public class ChooseFarmType {
 		manager = setup.getManager();
 		farm = manager.getFarm();
 		initialize();
+		chooseFarmType.setVisible(true);
 	}
 	
 	private void setFarmType(String newType) {
@@ -58,7 +59,7 @@ public class ChooseFarmType {
 
 	
 	public void farmTypeConfirm(String type) {
-		int choice = JOptionPane.showConfirmDialog(chooseFarmType, "Are you sure you want  " + type + " ?", "Choose Yes or No", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(chooseFarmType, "Are you sure you want  " + type + "Farm?", "Choose Yes or No", JOptionPane.YES_NO_OPTION);
 		if (choice == JOptionPane.YES_OPTION) {
 			setFarmType(type);
 			finishedWindow();
