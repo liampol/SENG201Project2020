@@ -45,7 +45,7 @@ public class Farm {
 	
 	public Farm(Farmer newFarmer) {
 		
-		name = newFarmer.getName();
+		name = "Paddock Paradise";
 		currentFarmer = newFarmer;
 		type = "Money Tree";
 		currentCrops = new ArrayList<Crop>();

@@ -7,7 +7,6 @@ import extendSupplies.*;
 
 import java.util.Scanner;
 import GUIPackage.*;
-import GUIPackage.ChooseAvatar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,7 +50,7 @@ public class PaddockParadiseManager {
 		activitiesLeft = 2;
 		options = createOptionList(4);
 		Setup1 setup = new Setup1(this);
-		
+		launchIntroductionManager();
 //		optionString = "What would you like to do?\n"
 //				+	"[1] View " + newFarm.getName() + "\n"
 //				+	"[2] Perform an action\n"
@@ -67,11 +66,6 @@ public class PaddockParadiseManager {
 		while (true) {
 			playGame(gameScanner);
 		}
-	}
-	
-	public static void launchWelcomeWindow(PaddockParadiseManager manager) {
-		//WelcomeScreen welcomeWindow = new WelcomeScreen(this);
-		//System.out.println("Welcome to Paddock Paradise");
 	}
 	
 	public void setDays(int day) {
@@ -378,27 +372,12 @@ public class PaddockParadiseManager {
 		System.out.println("You have completed the game!");
 	}
 	
-	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
-		//welcomeWindow.closeWindow();
-		//launchChooseFarmer();
-	}
-	
-	public void launchChooseAvatar() {
-		ChooseAvatar chooseAvatarScreen = new ChooseAvatar(this);
-	}
+	private void launchIntroductionManager() {
+		IntroductionManager introManager = new IntroductionManager(this);
 		
-	public void closeChooseAvatarScreen(ChooseAvatar chooseFarmerScreen) {
-		chooseFarmerScreen.closeWindow();
-		launchChooseFarmType();
 	}
 	
-	public void launchChooseFarmType() {
-		ChooseFarmType chooseFarmTypeScreen = new ChooseFarmType(this);
-	}
-	
-	public void closeChooseFarmType(ChooseFarmType chooseFarmTypeScreen) {
-		chooseFarmTypeScreen.closeWindow();
-	}
+
 	public void launchMainWindow() {
 		//String currentCrops = newFarm.viewCrops();
 	}

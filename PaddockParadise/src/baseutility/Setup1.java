@@ -50,6 +50,7 @@ public class Setup1 {
 	
 	public void closeChooseFarmType(ChooseFarmType chooseFarmTypeScreen) {
 		chooseFarmTypeScreen.closeWindow();
+		launchFarmName();
 	}
 	
 	public void launchFarmName() {
@@ -61,6 +62,7 @@ public class Setup1 {
 		
 	}
 	
+	
 	public PaddockParadiseManager getManager(){
 		return manager;
 	}
@@ -68,7 +70,7 @@ public class Setup1 {
 	
 	private static void main(String[] args) {
 		
-		PaddockParadiseManager manager = new PaddockParadiseManager();
+	//PaddockParadiseManager manager = new PaddockParadiseManager();
 		
 	//	Setup setup = new Setup();
 	//	setup.createFarmer(manager);
