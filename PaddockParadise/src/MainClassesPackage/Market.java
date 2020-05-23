@@ -91,7 +91,8 @@ public class Market {
 	 *		[4] Sell Crops
 	 *		[5] Remove items from cart
 	 *      [6] Checkout
-	 *		[7] EXIT SHOP
+	 *      [7] View Bag
+	 *		[8] EXIT SHOP
 	 */
 	public void viewMarketOptions() {
 		System.out.println("WELCOME TO THE GENERAL MARKET!!\n\nThis is the 'FRONT DESK' How can I help you today?");
@@ -133,9 +134,11 @@ public class Market {
 					+ "[1] Buy Crops\n"
 					+ "[2] Buy Animals\n"
 					+ "[3] Buy Farm Supplies\n"
-					+ "[4] Remove items from cart\n"
-					+ "[5] Checkout\n"
-					+ "[6] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
+					+ "[4] Sell Crops\n"
+					+ "[5] Remove items from cart\n"
+					+ "[6] Checkout\n"
+					+ "[7] View Bag\n"
+					+ "[8] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
 			option = input.nextInt();
 			switch(option) {
 			case 1:
@@ -154,15 +157,20 @@ public class Market {
 //				sellCrops();
 //				correct = true;
 //				break;
-			case 4:
+			case 5:
 				removeFromCart();
 				correct = true;
 				break;
-			case 5:
+			case 6:
 				checkout();
 				correct = true;
 				break;
-			case 6:
+			case 7:
+				viewBag();
+				correct = true;
+				break;
+				
+			case 8:
 				correct = true;
 				System.out.print("You left the market\n");
 				exit();
@@ -306,6 +314,21 @@ public class Market {
 		}while(!(endDo));
 		
 		viewMarketOptions();
+		
+	}
+	
+	private void viewBag() {
+		
+		// Crops
+		System.out.println("Your Crops:\n");
+		farmOwner.viewCrops();
+		
+		// Animals
+		System.out.println("Your Animals:\n");
+		farmOwner.viewAnimals();
+		// Supplies
+		System.out.println("Your Supplies:\n");
+		farmOwner.viewSupplies();
 		
 	}
 	private void addFertiliser() {
