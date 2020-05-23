@@ -60,6 +60,15 @@ public class Farm {
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Sets the name of the farm
+	 * @param newName
+	 */
+	public void setName(String newName) {
+		name = newName;
+	}
+	
 	/**
 	 * returns the Type of farm
 	 * @return
@@ -68,6 +77,10 @@ public class Farm {
 		return type;
 	}
 	
+	/** Sets the type of farm
+	 * 
+	 * @param newType
+	 */
 	public void setType(String newType) {
 		type = newType;
 	}
@@ -110,6 +123,10 @@ public class Farm {
 			return false;
 	}
 	
+	/**
+	 * Returns an ArrayList of the cuurent Supplies
+	 * @return
+	 */
 	public ArrayList<Supplies> getCurrentSupplies() {
 		return currentSupplies;
 	}
@@ -146,6 +163,11 @@ public class Farm {
 		return currentCrops;
 	}
 	
+	
+	/**
+	 * Returns an ArrayLIst of the animals currently owned
+	 * @return
+	 */
 	public ArrayList<Animal> getAnimals() {
 		return currentAnimals;
 	}
@@ -158,6 +180,10 @@ public class Farm {
 		return state;
 	}
 	
+	/**
+	 * Sets the state of the farm
+	 * @param state
+	 */
 	public void setState(String state) {
 		this.state = state;
 	}

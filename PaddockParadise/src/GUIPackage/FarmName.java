@@ -5,16 +5,33 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import MainClassesPackage.Farm;
+import MainClassesPackage.PaddockParadiseManager;
+import baseutility.Setup1;
+
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.awt.event.ActionEvent;
 
 public class FarmName {
 
-	private JFrame frmFarmName;
-	private JTextField textField;
+	private JFrame farmNameWindow;
+	private static Setup1 setup;
+	private static PaddockParadiseManager manager;
+	private static Farm farm;
+    private Pattern nums = Pattern.compile("[0-9]");
+    private Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+	
+	private JTextField getFarmName;
 
 	/**
 	 * Launch the application.
@@ -23,8 +40,8 @@ public class FarmName {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FarmName window = new FarmName();
-					window.frmFarmName.setVisible(true);
+					FarmName window = new FarmName(setup);
+					window.farmNameWindow.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -33,52 +50,124 @@ public class FarmName {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the application. an initializes attributes
 	 */
-	public FarmName() {
+	public FarmName(Setup1 newSetup) {
+		setup = newSetup;
+		manager = setup.getManager();
+		farm = manager.getFarm();
 		initialize();
+		farmNameWindow.setVisible(true);
+	}
+	
+	/**
+	 * Once the Continue button is pressed, 
+	 * the input is checked to see if it meets specifications
+	 * 
+	 * @return
+	 */
+	private void checkNameInput() {
+
+		String newName = getFarmName.getText();
+		Matcher hasNums = nums.matcher(newName);
+		Matcher hasSpecial = special.matcher(newName);
+		
+		// Checks name
+		if (!(hasNums.find() || hasSpecial.find() || newName.length() < 3 || newName.length() > 15)) {
+			farm.setName(newName);
+			completeDetails();
+		}else {
+			// If name is invalid
+			JOptionPane.showMessageDialog(farmNameWindow, "Sorry you entered a invalid name!\nPlease re-enter a valid name!", "Oops!", JOptionPane.ERROR_MESSAGE);
+			}
+	}
+	
+	/**
+	 * If input meets specifications, then user is asked if they are happy with there decision,
+	 * if yes, then the window is closed
+	 * If no then the the user is asked to re-enter input
+	 */
+	private void completeDetails() {
+		
+		int choice = JOptionPane.showConfirmDialog(farmNameWindow, "Are you sure you want\n" 
+				+ "Farm Name: " + farm.getName(),"Choose Yes or No", JOptionPane.YES_NO_OPTION);
+			if (choice == JOptionPane.YES_OPTION) {
+				finishedWindow();
+				}else if (choice == JOptionPane.NO_OPTION) {                                      
+					JOptionPane.showMessageDialog(farmNameWindow, "Please change details");       
+				}else {
+				JOptionPane.showMessageDialog(farmNameWindow, "You need to select yes or no!", "Oops!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+	}
+	
+	/**
+	 * Once user is happy with the name, this method is called which passes the setup back to the setup class
+	 */
+	public void finishedWindow() {
+		setup.closeFarmNameWindow(this);
+	}
+	
+	
+	/**
+	 * This method iscalled from the Setup class to close this frame
+	 */
+	public void closeWindow() {
+		farmNameWindow.dispose();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmFarmName = new JFrame();
-		frmFarmName.setTitle("Farm Name");
-		frmFarmName.setBounds(100, 100, 496, 299);
-		frmFarmName.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmFarmName.getContentPane().setLayout(null);
+		farmNameWindow = new JFrame();
+		farmNameWindow.setTitle("Farm Name");
+		farmNameWindow.setBounds(100, 100, 554, 330);
+		farmNameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		farmNameWindow.getContentPane().setLayout(null);
 		Border border = BorderFactory.createLineBorder(Color.black);
 		
 		JLabel oldManImgLbl = new JLabel("");
 		oldManImgLbl.setIcon(new ImageIcon(FarmName.class.getResource("/Images/newOldMAnCropped.jpg")));
 		oldManImgLbl.setBounds(21, 21, 177, 122);
-		frmFarmName.getContentPane().add(oldManImgLbl);
+		farmNameWindow.getContentPane().add(oldManImgLbl);
 		
 		JLabel borderLbl = new JLabel("");
-		 borderLbl.setBounds(10, 11, 453, 143);
+		 borderLbl.setBounds(10, 11, 518, 143);
 		 borderLbl.setBorder(border);
-		frmFarmName.getContentPane().add( borderLbl);
+		farmNameWindow.getContentPane().add( borderLbl);
 		
-		JLabel lblNewLabel_2 = new JLabel("<html>Farmer Bill:<br><br><em>What would you like to name your new Farm?</em></html>");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_2.setBounds(208, 21, 240, 108);
-		frmFarmName.getContentPane().add(lblNewLabel_2);
+		JLabel speechLbl = new JLabel("<html>Farmer Bill:<br><br><em>What would you like to name your new Farm?</em></html>");
+		speechLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
+		speechLbl.setBounds(240, 21, 240, 108);
+		farmNameWindow.getContentPane().add(speechLbl);
 		
-		JLabel lblNewLabel = new JLabel("<html>Enter your new Farm Name :");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel.setBounds(20, 171, 188, 32);
-		frmFarmName.getContentPane().add(lblNewLabel);
+		JLabel nameInstructLl = new JLabel("<html>Enter your new Farm Name :");
+		nameInstructLl.setFont(new Font("Tahoma", Font.BOLD, 13));
+		nameInstructLl.setBounds(20, 171, 188, 32);
+		farmNameWindow.getContentPane().add(nameInstructLl);
 		
-		textField = new JTextField();
-		textField.setBounds(208, 172, 255, 32);
-		frmFarmName.getContentPane().add(textField);
-		textField.setColumns(10);
+		getFarmName = new JTextField();
+		getFarmName.setBounds(218, 172, 310, 32);
+		farmNameWindow.getContentPane().add(getFarmName);
+		getFarmName.setColumns(10);
+		
 		
 		JButton continueBtn = new JButton("Continue\r\n");
+		continueBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				checkNameInput();
+				
+			}
+		});
 		continueBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
-		continueBtn.setBounds(319, 215, 144, 34);
+		continueBtn.setBounds(384, 246, 144, 34);
 		continueBtn.setBorder(BorderFactory.createRaisedBevelBorder());
-		frmFarmName.getContentPane().add(continueBtn);
+		farmNameWindow.getContentPane().add(continueBtn);
+		
+		JLabel lblNewLabel = new JLabel("<html><i>(Please do not enter numbers or special characters,<br>Also keep longer than 3 characters but shorter than 15 characters)<i/></html>");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel.setBounds(21, 202, 187, 78);
+		farmNameWindow.getContentPane().add(lblNewLabel);
 	}
 }

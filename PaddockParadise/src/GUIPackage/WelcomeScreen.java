@@ -1,6 +1,7 @@
 package GUIPackage;
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -10,12 +11,8 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.border.BevelBorder;
-
 import MainClassesPackage.PaddockParadiseManager;
 import baseutility.Setup1;
-
-import java.awt.Color;
 
 public class WelcomeScreen {
 
