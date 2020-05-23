@@ -50,7 +50,7 @@ public class PaddockParadiseManager {
 		
 		activitiesLeft = 2;
 		options = createOptionList(4);
-		Setup setup = new Setup1(this);
+		Setup1 setup = new Setup1(this);
 		
 //		optionString = "What would you like to do?\n"
 //				+	"[1] View " + newFarm.getName() + "\n"
@@ -391,8 +391,6 @@ public class PaddockParadiseManager {
 		chooseFarmerScreen.closeWindow();
 		launchChooseFarmType();
 	}
-	
-	public void launch
 	
 	public void launchChooseFarmType() {
 		ChooseFarmType chooseFarmTypeScreen = new ChooseFarmType(this);

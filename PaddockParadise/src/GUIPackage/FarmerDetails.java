@@ -1,12 +1,15 @@
 package GUIPackage;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import GUIPackage.*;
 import MainClassesPackage.*;
 import javax.swing.JFrame;
 import baseutility.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -15,15 +18,21 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class FarmerDetails {
 
 	private JFrame farmerDetailsWindow;
 	private static PaddockParadiseManager manager;
+	private static Farmer farmer;
 	private static Setup1 setup;
 	private JTextField getsName;
 	private JTextField getsAge;
+	Pattern letter = Pattern.compile("[a-zA-z]");
+    Pattern nums = Pattern.compile("[0-9]");
+    Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
 	
 	
 
@@ -31,6 +40,12 @@ public class FarmerDetails {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		// Implemented for testing
+		
+		
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -49,7 +64,112 @@ public class FarmerDetails {
 	public FarmerDetails(Setup1 newSetup) {
 		setup = newSetup;
 		manager = setup.getManager();
+		farmer = manager.getFarmer();
 		initialize();
+		farmerDetailsWindow.setVisible(true);
+	}
+	
+	
+	private void confirmDetails() {
+		
+		boolean validName = checkNameInput();
+		boolean validAge = checkAgeInput();
+		int condition = 0;
+		
+		if (validName == false && validAge == false){
+			condition = 1;
+		}else if (validName == true && validAge == false) {
+			condition = 2;
+		}else if (validAge == true && validName == false) {
+			condition = 3;
+		}else {
+			completeDetails();
+		}
+		// First checks if name is a valid input
+		switch(condition) {
+		case 1:
+			// I both name and age is invalid
+			JOptionPane.showMessageDialog(farmerDetailsWindow, "Sorry you entered a invalid name and age!\nPlease re-enter a valid name and age!", "Oops!", JOptionPane.ERROR_MESSAGE);
+			break;
+		case 2:
+			// If age is invalid
+			JOptionPane.showMessageDialog(farmerDetailsWindow, "Sorry you entered a invalid age!\nPlease re-enter a valid age!", "Oops!", JOptionPane.ERROR_MESSAGE);
+			break;
+		case 3:
+			// If name is invalid
+			JOptionPane.showMessageDialog(farmerDetailsWindow, "Sorry you entered a invalid name!\nPlease re-enter a valid name!", "Oops!", JOptionPane.ERROR_MESSAGE);
+			break;
+			}
+	}
+	
+	private void completeDetails() {
+		
+		int choice = JOptionPane.showConfirmDialog(farmerDetailsWindow, "Are you sure you want\n" 
+				+ "Farmer Name: " + farmer.getName() + "\n"
+				+ "Farmer Age: " + farmer.getAge() ,"Choose Yes or No", JOptionPane.YES_NO_OPTION);
+			if (choice == JOptionPane.YES_OPTION) {
+				finishedWindow();
+				}else if (choice == JOptionPane.NO_OPTION) {                                      
+					JOptionPane.showMessageDialog(farmerDetailsWindow, "Please change details");       
+				}else {
+				JOptionPane.showMessageDialog(farmerDetailsWindow, "You need to select yes or no!", "Oops!", JOptionPane.ERROR_MESSAGE);
+				}
+				
+	}
+	
+	private void finishedWindow() {
+		setup.closeFarmerDetailsScreen(this);
+	}
+	
+	public void closeWindow() {
+		farmerDetailsWindow.dispose();
+	}
+	
+	
+	private boolean checkNameInput() {
+
+		String newName = getsName.getText();
+
+		boolean valid = false;
+		Matcher hasNums = nums.matcher(newName);
+		Matcher hasSpecial = special.matcher(newName);
+		
+		// Checks name
+		if (!(hasNums.find() || hasSpecial.find() || newName.length() < 3 || newName.length() > 15)) {
+			valid = true;
+			farmer.setName(newName);
+		}
+
+		return valid;
+	}
+	
+	private boolean checkAgeInput() {
+		
+		String newAge = getsAge.getText();
+		boolean valid = false;
+
+		Matcher hasSpecial = special.matcher(newAge);
+		Matcher hasLetter = letter.matcher(newAge);
+		
+		// Checks age
+		if (!(hasSpecial.find() || hasLetter.find())){
+			valid = true;
+		}
+
+		//Convert string to int
+		int age = 0;
+		if (valid) {
+			 age = Integer.parseInt(newAge);
+		}
+		//Checks to make sure int falls within parameters
+		if (valid) {
+			if (age >= 10 && age <= 100) {
+				farmer.setAge(age);
+			}else
+				valid = false;
+		}
+		return valid;
+		
 	}
 
 	/**
@@ -100,7 +220,7 @@ public class FarmerDetails {
 		lblNewLabel_5.setBounds(276, 65, 97, 42);
 		farmerDetailsWindow.getContentPane().add(lblNewLabel_5);
 		
-		JLabel oldManSpeech = new JLabel("<html>Welcome to Paddock Paradise!<br> My Name is \"FARMER BILL\" !!,<br>\r\nBefore we start, I just need to grt a few details from you so please follow the instructions to the LETTER! or else. . . .<br>Have Fun!</html>");
+		JLabel oldManSpeech = new JLabel("<html>Welcome to Paddock Paradise!<br> My Name is \"FARMER BILL\" !!,<br>\r\nBefore we start, I just need to get a few details from you so please follow the instructions to the LETTER! or else. . . .<br>Have Fun!</html>");
 		oldManSpeech.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		oldManSpeech.setBounds(227, 98, 386, 110);
 		farmerDetailsWindow.getContentPane().add(oldManSpeech);
@@ -122,21 +242,16 @@ public class FarmerDetails {
 		lblNewLabel_8.setBounds(10, 359, 228, 33);
 		farmerDetailsWindow.getContentPane().add(lblNewLabel_8);
 		
-		JButton submitNameBtn = new JButton("Submit Name");
-		submitNameBtn.addActionListener(new ActionListener() {
+
+		JButton submitDetails = new JButton("Submit Details");
+		submitDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getsName.setText(setText);
+				confirmDetails();
 			}
 		});
-		submitNameBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
-		submitNameBtn.setBounds(248, 273, 125, 33);
-		submitNameBtn.setBorder(BorderFactory.createRaisedBevelBorder());
-		farmerDetailsWindow.getContentPane().add(submitNameBtn);
-		
-		JButton submitAgeBtn = new JButton("Submit Age");
-		submitAgeBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
-		submitAgeBtn.setBounds(248, 376, 125, 36);
-		submitAgeBtn.setBorder(BorderFactory.createRaisedBevelBorder());
-		farmerDetailsWindow.getContentPane().add(submitAgeBtn);
+		submitDetails.setFont(new Font("Tahoma", Font.BOLD, 13));
+		submitDetails.setBounds(507, 389, 152, 42);
+		submitDetails.setBorder(BorderFactory.createRaisedBevelBorder());
+		farmerDetailsWindow.getContentPane().add(submitDetails);
 	}
 }

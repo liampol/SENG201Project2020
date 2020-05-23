@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 
 import MainClassesPackage.PaddockParadiseManager;
+import baseutility.Setup1;
 
 import java.awt.Color;
 
@@ -20,6 +21,7 @@ public class WelcomeScreen {
 
 	private JFrame welcomeWindow;
 	private static PaddockParadiseManager manager;
+	private static Setup1 setup;
 
 
 	/**
@@ -29,7 +31,7 @@ public class WelcomeScreen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WelcomeScreen window = new WelcomeScreen(manager);
+					WelcomeScreen window = new WelcomeScreen(setup);
 					window.welcomeWindow.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,8 +43,9 @@ public class WelcomeScreen {
 	/**
 	 * Create the application.
 	 */
-	public WelcomeScreen(PaddockParadiseManager incomingManager) {
-		manager = incomingManager;
+	public WelcomeScreen(Setup1 newSetup) {
+		setup = newSetup;
+		manager = setup.getManager();
 		initialize();
 		welcomeWindow.setVisible(true);
 	}
@@ -58,7 +61,7 @@ public class WelcomeScreen {
 	}
 	
 	private void finishedWindow() {
-		manager.closeWelcomeScreen(this);
+		setup.closeWelcomeScreen(this);
 	}
 
 	/**

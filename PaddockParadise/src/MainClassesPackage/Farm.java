@@ -68,6 +68,10 @@ public class Farm {
 		return type;
 	}
 	
+	public void setType(String newType) {
+		type = newType;
+	}
+	
 	/**
 	 * returns the amount of money the farm currently has
 	 * @return

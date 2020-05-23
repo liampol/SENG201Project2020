@@ -7,7 +7,7 @@ package baseutility;
 	import GUIPackage.*;
 
 	/**
-	 * @author liam
+	 * @author Te Wehenga Johnson
 	 *
 	 */
 public class Setup1 {
@@ -23,11 +23,11 @@ public class Setup1 {
 	public Setup1(PaddockParadiseManager incomingManager) {
 		
 		manager = incomingManager;
-		launchWelcomeWindow(manager);
+		launchWelcomeWindow();
 	}
 	
-	public static void launchWelcomeWindow(PaddockParadiseManager manager) {
-		WelcomeScreen welcomeWindow = new WelcomeScreen(manager);
+	public void launchWelcomeWindow() {
+		WelcomeScreen welcomeWindow = new WelcomeScreen(this);
 	}
 	
 	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
@@ -36,20 +36,28 @@ public class Setup1 {
 	}
 	
 	public void launchChooseAvatar() {
-		ChooseAvatar chooseAvatarScreen = new ChooseAvatar(manager);
+		ChooseAvatar chooseAvatarScreen = new ChooseAvatar(this);
 	}
 	
-	public void closeChooseAvatarScreen(ChooseAvatar chooseFarmerScreen) {
-		chooseFarmerScreen.closeWindow();
-		launchChooseFarmType();
+	public void closeChooseAvatarScreen(ChooseAvatar chooseAvatarScreen) {
+		chooseAvatarScreen.closeWindow();
+		launchFarmerDetails();
 	}
 	
 	public void launchFarmerDetails() {
-		
+		FarmerDetails farmerDetailsWindow = new FarmerDetails(this);
+	}
+	
+	public void closeFarmerDetailsScreen(FarmerDetails farmerDetailsScreen) {
+		farmerDetailsScreen.closeWindow();
 	}
 	
 	public void launchChooseFarmType() {
-		ChooseFarmType chooseFarmTypeScreen = new ChooseFarmType(manager);
+		ChooseFarmType chooseFarmTypeScreen = new ChooseFarmType(this);
+	}
+	
+	public void closeChooseFarmType(ChooseFarmType chooseFarmTypeScreen) {
+		chooseFarmTypeScreen.closeWindow();
 	}
 	
 	public PaddockParadiseManager getManager(){
@@ -283,5 +291,3 @@ public class Setup1 {
 
 	}
 
-
-}

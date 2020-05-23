@@ -1,7 +1,6 @@
 package GUIPackage;
 
-import animalExtend.*;
-import cropExtend.*;
+import baseutility.Setup1;
 import MainClassesPackage.*;
 
 import java.awt.EventQueue;
@@ -21,6 +20,7 @@ public class ChooseAvatar {
 	private JFrame chooseAvatarWindow;
 	private static PaddockParadiseManager manager;
 	public Farmer newFarmer;
+	private static Setup1 setup;
 
 	/**
 	 * "ChooseFarmer" window is open which allows the player to choose one avatar to play as through the game,
@@ -29,10 +29,15 @@ public class ChooseAvatar {
 	 *       
 	 */
 	public static void main(String[] args) {
+		
+		// implemented for testing
+		PaddockParadiseManager manager = new PaddockParadiseManager();
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChooseAvatar window = new ChooseAvatar(manager);
+					ChooseAvatar window = new ChooseAvatar(setup);
 					window.chooseAvatarWindow.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,8 +49,10 @@ public class ChooseAvatar {
 	/**
 	 * Create the application.
 	 */
-	public ChooseAvatar(PaddockParadiseManager incomingManager) {
-		manager = incomingManager;
+	public ChooseAvatar(Setup1 newSetup) {
+		setup = newSetup;
+		manager = setup.getManager();
+		newFarmer = manager.getFarmer();
 		initialize();
 		chooseAvatarWindow.setVisible(true);
 	}
@@ -58,9 +65,8 @@ public class ChooseAvatar {
 		int choice = JOptionPane.showConfirmDialog(chooseAvatarWindow, "Are you sure you want to be " + newFarmer.getType() + " ?", "Choose Yes or No", JOptionPane.YES_NO_OPTION);
 		if (choice == JOptionPane.YES_OPTION) {
 			finishedWindow();
-		} else if (choice == JOptionPane.NO_OPTION) {
-			newFarmer = null;                                                                    // Deleting Object created
-			JOptionPane.showMessageDialog(chooseAvatarWindow, "Please re-choose Farmer");        // Re-choosing Farmer
+		} else if (choice == JOptionPane.NO_OPTION) {                                            // Deleting Object created
+			JOptionPane.showMessageDialog(chooseAvatarWindow, "Please re-choose Avatar");        // Re-choosing Farmer
 			
 		} else {
 		JOptionPane.showMessageDialog(chooseAvatarWindow, "You need to select yes or no!", "Oops!", JOptionPane.ERROR_MESSAGE);
@@ -73,7 +79,7 @@ public class ChooseAvatar {
 	}
 	
 	public void finishedWindow() {
-		manager.closeChooseFarmerScreen(this);
+		setup.closeChooseAvatarScreen(this);
 	}
 
 	/**
@@ -81,7 +87,7 @@ public class ChooseAvatar {
 	 */
 	private void initialize() {
 		chooseAvatarWindow = new JFrame();
-		chooseAvatarWindow.setTitle("Choose Farmer");
+		chooseAvatarWindow.setTitle("Choose Avatar");
 		chooseAvatarWindow.setBounds(100, 100, 784, 482);
 		chooseAvatarWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		chooseAvatarWindow.getContentPane().setLayout(null);
@@ -109,7 +115,6 @@ public class ChooseAvatar {
 		JButton femaleAvatarBtn = new JButton("Female Farmer");
 		femaleAvatarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//String farmerType = "Female Farmer";
 				newFarmer.setType("Female Farmer");
 				farmerTypeConfirm();
 			}
@@ -154,7 +159,7 @@ public class ChooseAvatar {
 		alienAvatarBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		chooseAvatarWindow.getContentPane().add(alienAvatarBtn);
 		
-		JLabel chooseFarmerLbl = new JLabel("Please choose player to play as");
+		JLabel chooseFarmerLbl = new JLabel("Please choose Farmer to play as:");
 		chooseFarmerLbl.setFont(new Font("Tahoma", Font.BOLD, 30));
 		chooseFarmerLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		chooseFarmerLbl.setBounds(119, 46, 542, 41);

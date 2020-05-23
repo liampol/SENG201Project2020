@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 import java.awt.Font;
 import javax.swing.JButton;
 import MainClassesPackage.*;
+import baseutility.Setup1;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -21,7 +22,8 @@ public class ChooseFarmType {
 
 	private JFrame chooseFarmType;
 	private static PaddockParadiseManager manager;
-	private Farmer farmer;
+	private static Setup1 setup;
+	private Farm farm;
 
 	/**
 	 * Launch the application.
@@ -30,7 +32,7 @@ public class ChooseFarmType {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChooseFarmType window = new ChooseFarmType(manager);
+					ChooseFarmType window = new ChooseFarmType(setup);
 					window.chooseFarmType.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,14 +44,15 @@ public class ChooseFarmType {
 	/**
 	 * Create the application.
 	 */
-	public ChooseFarmType(PaddockParadiseManager newManager) {
-		manager = newManager;
+	public ChooseFarmType(Setup1 newSetup) {
+		setup = newSetup;
+		manager = setup.getManager();
+		farm = manager.getFarm();
 		initialize();
 	}
 	
 	private void setFarmType(String newType) {
-		farmer.setType(newType);
-		
+		farm.setType(newType);
 	}
 	
 
@@ -57,6 +60,7 @@ public class ChooseFarmType {
 	public void farmTypeConfirm(String type) {
 		int choice = JOptionPane.showConfirmDialog(chooseFarmType, "Are you sure you want  " + type + " ?", "Choose Yes or No", JOptionPane.YES_NO_OPTION);
 		if (choice == JOptionPane.YES_OPTION) {
+			setFarmType(type);
 			finishedWindow();
 		} else if (choice == JOptionPane.NO_OPTION) {                                                                    // Deleting Object created
 			JOptionPane.showMessageDialog(chooseFarmType, "Please re-choose Farm Type");        // Re-choosing Farmer
@@ -72,7 +76,7 @@ public class ChooseFarmType {
 	}
 	
 	private void finishedWindow() {
-		manager.closeChooseFarmType(this);
+		setup.closeChooseFarmType(this);
 	}
 	
 
