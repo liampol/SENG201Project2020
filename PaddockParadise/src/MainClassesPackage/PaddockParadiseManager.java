@@ -50,7 +50,6 @@ public class PaddockParadiseManager {
 		activitiesLeft = 2;
 		options = createOptionList(4);
 		Setup1 setup = new Setup1(this);
-		launchIntroductionManager();
 //		optionString = "What would you like to do?\n"
 //				+	"[1] View " + newFarm.getName() + "\n"
 //				+	"[2] Perform an action\n"
@@ -372,12 +371,11 @@ public class PaddockParadiseManager {
 		System.out.println("You have completed the game!");
 	}
 	
-	private void launchIntroductionManager() {
+	public void launchIntroductionManager() {
 		IntroductionManager introManager = new IntroductionManager(this);
 		
 	}
 	
-
 	public void launchMainWindow() {
 		//String currentCrops = newFarm.viewCrops();
 	}

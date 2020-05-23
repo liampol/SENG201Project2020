@@ -59,7 +59,7 @@ public class Setup1 {
 	
 	public void closeFarmNameWindow(FarmName farmNameScreen) {
 		farmNameScreen.closeWindow();
-		
+		manager.launchIntroductionManager();
 	}
 	
 	
