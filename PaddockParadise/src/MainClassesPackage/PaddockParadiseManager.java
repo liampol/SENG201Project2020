@@ -71,6 +71,10 @@ public class PaddockParadiseManager {
 		currentDay = day;
 	}
 	
+	public int getDays() {
+		return currentDay;
+	}
+	
 	public void setFarmer(Farmer farmer) {
 		newFarmer = farmer;
 	}

@@ -111,5 +111,6 @@ public class WelcomeScreen {
 		welcomeContinueBtn.setBounds(310, 436, 283, 39);
 		welcomeContinueBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		welcomeWindow.getContentPane().add(welcomeContinueBtn);
+		
 	}
 }

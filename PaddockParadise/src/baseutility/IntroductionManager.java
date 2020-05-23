@@ -82,6 +82,7 @@ public class IntroductionManager {
 	 */
 	public void closeHowToPlayWindow(HowToPlay howToPlayScreen) {
 		howToPlayScreen.closeWindow();
+		manager.launchMainWindow();
 	}
 	
 	

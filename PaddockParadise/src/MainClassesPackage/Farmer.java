@@ -4,6 +4,7 @@ public class Farmer {
 	
 	private String name;
 	private int age;
+	private String imageType;
 	private String type;  // Different types: "Male Farmer", "Female Farmer", "Alien farmer", the types are used to differentiate between avatars.
 	
 	
@@ -37,6 +38,14 @@ public class Farmer {
 	
 	public String getType() {
 		return type;
+	}
+	
+	public void setImageType(String newImage) {
+		imageType  = newImage;
+	}
+	
+	public String getImageType() {
+		return imageType;
 	}
 	
 	public void setType(String newType) {

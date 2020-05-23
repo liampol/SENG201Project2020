@@ -116,6 +116,7 @@ public class ChooseAvatar {
 		femaleAvatarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newFarmer.setType("Female Farmer");
+				newFarmer.setImageType("/Images/FemaleFarmerHeadResized.jpg");
 				farmerTypeConfirm();
 			}
 		});
@@ -133,6 +134,7 @@ public class ChooseAvatar {
 		maleAvatarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newFarmer.setType("Male Farmer");
+				newFarmer.setImageType("/Images/MaleHead.jpg");
 				farmerTypeConfirm();
 			}
 		});
@@ -150,6 +152,7 @@ public class ChooseAvatar {
 		alienAvatarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newFarmer.setType("Alien Farmer");
+				newFarmer.setImageType("/Images/AlienResized.jpg");
 				farmerTypeConfirm();
 				
 			}
