@@ -187,8 +187,9 @@ public class PaddockParadiseManager {
 		System.out.println(newFarm.viewFarmStatus());
 	}
 
-	public void visitMarket() {
+	public void visitMarket(MainWindow mainWindowScreen) {
 		try {
+			mainWindowScreen.closeWindow();
 			Market openMarket = new Market(this);
 		} catch(NullPointerException npe) {
 			// try-catch used to abort instantiation and return;

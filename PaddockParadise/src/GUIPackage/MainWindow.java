@@ -195,15 +195,15 @@ public class MainWindow {
 		borderLbl3.setBorder(border);
 		frameMainWindow.getContentPane().add(borderLbl3);
 		
-		JLabel lblNewLabel = new JLabel("Days Left: " + manager.getDays());
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel.setBounds(532, 31, 137, 28);
-		frameMainWindow.getContentPane().add(lblNewLabel);
+		JLabel days = new JLabel("Days Left: " + manager.getDays());
+		days.setFont(new Font("Tahoma", Font.BOLD, 13));
+		days.setBounds(532, 31, 137, 28);
+		frameMainWindow.getContentPane().add(days);
 		
-		JLabel lblNewLabel_1 = new JLabel("Actions Left: " + manager.getActivitiesLeft() );
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_1.setBounds(532, 98, 209, 28);
-		frameMainWindow.getContentPane().add(lblNewLabel_1);
+		JLabel actions = new JLabel("Actions Left: " + manager.getActivitiesLeft() );
+		actions.setFont(new Font("Tahoma", Font.BOLD, 13));
+		actions.setBounds(532, 98, 209, 28);
+		frameMainWindow.getContentPane().add(actions);
 	}
 
 }
