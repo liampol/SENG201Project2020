@@ -28,6 +28,8 @@ public class Market {
 	private double cartCost;
 	private Farm farmOwner;
 	private Scanner input = new Scanner(System.in);
+	private boolean hasDiscount;
+	private double newCartCost;
 	
 	// Crops on display
 	Cauliflower cauliflower = new Cauliflower();
@@ -85,6 +87,11 @@ public class Market {
 		suppliesCart = new ArrayList<Supplies>();
 		cartCost = 0.00;
 		manager = incoming;
+		if (farmOwner.getType().equals("Discount Store")) {
+			hasDiscount = true;
+		} else {
+			newCartCost = -1;
+		}
 		viewMarketOptions();
 	}
 	
@@ -130,7 +137,12 @@ public class Market {
 				+ vitamin.getDetails()
 				+ hay.getDetails() + "\n");
 		System.out.printf("YOUR CURRENT BALANCE: $" + farmOwner.getMoney()+ "\n");
-		System.out.println("CURRENT CART COST: $" + cartCost);
+		if (hasDiscount) {
+			newCartCost = cartCost-(cartCost*0.4);
+			System.out.println("CURRENT CART COST: $" + newCartCost + " (discounted! NORMAL PRICE: $" + cartCost + ")");
+		} else {
+			System.out.println("CURRENT CART COST: $" + cartCost);
+		}
 		System.out.println("Your Current Cart:");
 		printCart();
 		
@@ -206,8 +218,6 @@ public class Market {
 	}
 	
 	public int getInput(int lowerInclusiveBoundary, int upperInclusiveBoundary) {
-		// Only need to enter either INTEGERS or STRINGS
-		
 		if (input.hasNextInt()) {
 			int intInput = input.nextInt();
 			if (intInput >= lowerInclusiveBoundary && intInput <= upperInclusiveBoundary) {
@@ -246,9 +256,7 @@ public String getInput() {
 		
 		return newName;
 	}
-	/**
-	 * Adds Fertiliser to cart as well as adds the cost to cartCost
-	 */
+
 	public void buyCrops() {
 		
 		int added = 0;
@@ -385,14 +393,17 @@ public String getInput() {
 		
 		// Crops
 		System.out.println("Your Crops:\n");
-		farmOwner.viewCrops();
+		System.out.println(farmOwner.viewCropsStatus() + "\n");
 		
 		// Animals
 		System.out.println("Your Animals:\n");
-		farmOwner.viewAnimals();
+		System.out.println(farmOwner.viewAnimals() + "\n");
+		
 		// Supplies
 		System.out.println("Your Supplies:\n");
-		farmOwner.viewSupplies();
+		System.out.println(farmOwner.viewSupplies() + "\n");
+		
+		viewMarketOptions();
 		
 	}
 	private void addFertiliser() {
@@ -969,13 +980,23 @@ public String getInput() {
 	 */
 	private void checkout() {
 		
+//		if (farmOwner.getType().equals("Discount Store")) {
+//			cartCost = cartCost-(cartCost*0.4);
+//			System.out.println("Your 'Discount Store Bonus has been applied, \n"
+//					+ "The amount you paid was $" + cartCost + ",\n");
+//		}
+		
 		int option = 0;
 		
-		//Check to see if farmOwner can afford the items in the cart
-		if (farmOwner.getMoney() >= cartCost){
+		//Check to see if farmOwner can afford the items in the cart 
+		// newCartCost will ONLY be greater than 0 if the user chose discount as the farm bonus
+		if (farmOwner.getMoney() >= cartCost) {
+			
+		} else if (hasDiscount && farmOwner.getMoney() >= newCartCost) {
+			
 		}else {
 			System.out.println("Sorry you do not have enough money, "
-					         + "Please remove some items from the cart");
+					         + "Please remove some items from the cart\n");
 			viewMarketOptions();
 		}
 		
@@ -1009,28 +1030,26 @@ public String getInput() {
 		int option = 0;
 		String newName = "";
 		
-		boolean discountStore = false;
 		boolean fasterCropGrowth = false;
 		boolean happyAnimal = false;
 		
-		if (farmOwner.getType().equals("Discount Store")) {
-			discountStore = true;
-		}else if (farmOwner.getType().equals("Faster Crop Growth")) {
+		if (farmOwner.getType().equals("Faster Crop Growth")) {
 			fasterCropGrowth = true;
+			System.out.println("FASTER CROP GROWTH APPLIED");
 		}else if (farmOwner.getType().equals("Happy Animal")) {
+			System.out.println("HAPPY ANIMAL APPLIED");
 			happyAnimal = true;
 		}
 		
-		// Checks for Farm Bonus "DISCOUNT STORE"
-		if (discountStore) {
-			cartCost = cartCost-(cartCost*0.4);
-			System.out.println("Your 'Discount Store Bonus has been applied, \n"
-					+ "The amount you paid was $" + cartCost + ",\n");
+		if (hasDiscount) {
+			farmOwner.addToWallet((-1)*newCartCost);
+		} else {
+			farmOwner.addToWallet((-1)*cartCost);
+
 		}
-		farmOwner.addToWallet((-1)*cartCost);     // Removes the amount of cartCost from the farmOwners wallet
-		
 		// Resets cartCost back to zero
 		cartCost = 0;
+		newCartCost = 0;
 		// Checks the status of the crops in the cart
 		if (!(cropCart.isEmpty())) {
 			for (Crop vegetable : cropCart) {
@@ -1052,7 +1071,7 @@ public String getInput() {
 			for (Animal animal : animalCart) {
 				end = true;
 				System.out.println("Would you like to name your " + animal.getType() + "?\n");
-				System.out.println("[1] Yes i would like to name my " + animal.getType() + ",\n"
+				System.out.println("[1] Yes I would like to name my " + animal.getType() + ",\n"
 						         + "[2] No thank you im fine with " + animal.getName() + ",\n");
 				
 				// Checks to see if bonus applies
@@ -1062,7 +1081,7 @@ public String getInput() {
 				option = getInput(1, 2);
 				while (option == -1) {
 					System.out.println("Would you like to name your " + animal.getType() + "?\n");
-					System.out.println("[1] Yes i would like to name my " + animal.getType() + ",\n"
+					System.out.println("[1] Yes  would like to name my " + animal.getType() + ",\n"
 							         + "[2] No thank you im fine with " + animal.getName() + ",\n");
 					option = getInput(1, 2);
 					

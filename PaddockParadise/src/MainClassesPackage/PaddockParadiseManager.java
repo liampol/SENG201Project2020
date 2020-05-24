@@ -43,14 +43,15 @@ public class PaddockParadiseManager {
 	 */
 	public PaddockParadiseManager() {
 		activitiesLeft = 2;
-		options = createOptionList(4);
+		options = createOptionList(5);
 		Setup setup = new Setup(this);
 		totalDays = currentDay;
 		optionString = "What would you like to do?\n"
 				+	"[1] View " + newFarm.getName() + "\n"
 				+	"[2] Perform an action\n"
 				+	"[3] Visit the General Store\n"
-				+   "[4] Skip to next day?\n";
+				+   "[4] Skip to next day?\n"
+				+ 	"[5] Help\n";
 		
 		initRandomOccurences();
 		// runtime loop
@@ -96,15 +97,15 @@ public class PaddockParadiseManager {
 	
 	private void initRandomOccurences() {
 		
+		randomOccurences.add("None");		   // No events
 		randomOccurences.add("None");
-		randomOccurences.add("None");
-		randomOccurences.add("None");          // Have added 3x None to give more chances of nothing happening
+		randomOccurences.add("None");          
 		randomOccurences.add("Thief");         // Lose 40% of money
 		randomOccurences.add("None");
 		randomOccurences.add("Drought");       // Lose a random amount of Crops
 		randomOccurences.add("None");
 		randomOccurences.add("Broken Fence");  // Lose a random amount of animals
-		randomOccurences.add("County Fair");   // Gets 200% Farm worth
+		randomOccurences.add("County Fair");   // Gets 200% farm worth
 
 	}
 	
@@ -125,7 +126,9 @@ public class PaddockParadiseManager {
 			break;
 		case 4:
 			skipDay();
-		}	
+		case 5:
+			howToPlay();
+		}
 
 	}
 	
@@ -144,6 +147,27 @@ public class PaddockParadiseManager {
 			choice = getInput(gameScanner);
 		}
 		return choice;
+	}
+	
+	public int getValidInput(ArrayList<Integer> optionList, String errorMessage, int function) {
+		int choice = getInput(gameScanner);
+		while (!isValidInput(optionList, choice)) {
+			runFunction(function);
+			System.out.println(errorMessage);
+			choice = getInput(gameScanner);
+		}
+		return choice;
+	}
+	
+	public void runFunction(int functionNum) {
+		switch (functionNum) {
+		case 1:
+			foodAvailable();
+			break;
+		case 2:
+			itemAvailable();
+			break;
+		}
 	}
 	
 	public int getInput(Scanner scanner) {
@@ -207,6 +231,44 @@ public class PaddockParadiseManager {
 
 	public void leaveMarket() {
 		//openMarket.closeWindow()
+	}
+	
+	public void howToPlay() {
+		System.out.println("------ Paddock Paradise ------\n"
+						+"\nWelcome to Paddock Paradise! "
+						+ "You are a farmer trying to make "
+						+ "as \nmuch money as possible from your farm "
+						+ "lifestyle. The best way to \ndo this is by running "
+						+ "your farm as successfully as possible; \nwhich means "
+						+ "keeping your animals happy and healthy, and "
+						+ "growing as \nmany crops as you can. "
+						+ "But although your main priority will be to \nmake money, "
+						+ "your score at the end will be determined by the\namount of "
+						+ "animals you have and their conditions, as well as your "
+						+ "\nextra crops. "
+						+ "Now that you have begun your game, you can visit the "
+						+ "\ngeneral store to buy crops, animals, and supplies. "
+						+ "You can use two \nactions per day, and they can be spent "
+						+ "performing a variety of tasks \nthat will help you maintain "
+						+ "a successful farm. Once you are out of \nactions, you need to go "
+						+ "to the next day to refresh them (and \nprogress the game!).\n\n"
+						+ "\n1) Animals - Farm animals give you extra at the end of "
+						+ "\neach day. This bonus depends on the emotional state of the animal, so "
+						+ "\nmake sure you keep them happy! Make sure you keep your farm animals "
+						+ "\nfed as well, otherwise they'll starve!\n"
+						+ "\n2) Crops - Crops require a certain amount of time (days) to grow, but "
+						+ "\nwill give you extra amount of money once they are ripe and are "
+						+ "\nharvested!\n"
+						+ "\n3) Actions - You can perform 2 actions a day, which can be any of the "
+						+ "\nfollowing tasks - feeding an animal, playing with an animal, tending "
+						+ "\nto a crop, harvesting a crop, or tending the land.\n"
+						+ "\n4) Viewing your farm - You can view the status of your farm at anytime. "
+						+ "\nThis will give you all the information you need on your crops, animals, "
+						+ "\nthe state of your farm and much more.\n"
+						+ "\n5) Events - At the start of each day, you may find that an event has "
+						+ "\noccurred. These may not all be good or bad, but anything can happen out "
+						+ "\non the farm so be prepared!\n"
+						+ "\nAnd that's all the basics of it. Happy farming!\n");
 	}
 	
 	private void rollRandomOccurence() {
@@ -294,7 +356,7 @@ public class PaddockParadiseManager {
 			if (foodAvailable()) {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(3);
-				choice = getValidInput(nextOptionList, askUser);
+				choice = getValidInput(nextOptionList, askUser, 1);
 				Supplies itemChoice;
 				boolean successfullyFed = true;
 				switch (choice) {
@@ -414,7 +476,7 @@ public class PaddockParadiseManager {
 			if (itemAvailable()) {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(4);
-				choice = getValidInput(nextOptionList, askUser);
+				choice = getValidInput(nextOptionList, askUser, 2);
 				Supplies itemChoice;
 				switch (choice) {
 				case 2:
@@ -446,7 +508,7 @@ public class PaddockParadiseManager {
 			} else {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(2);
-				choice = getValidInput(nextOptionList, askUser);
+				choice = getValidInput(nextOptionList, askUser, 2);
 				if (choice == 1) {
 					TendCrops cropTended = new TendCrops(this, cropChosen, null);
 					cropTended.performAction();
@@ -487,7 +549,8 @@ public class PaddockParadiseManager {
 		outputStr +=    ("[1] Water - Grows crops faster by 1 day, (UNLIMITED)\n"
 						+ "[2] Horse Dung - Grows crops faster by 2 day, (x" + horseDungCount+ ")\n"
 						+ "[3] Fertiliser - Grows crop faster by 3 days, (x" + fertiliserCount + ")\n"
-						+ "[4] Root Boost - Grows crop faster by 4 days, (x" + rootBoostCount + ")\n");
+						+ "[4] Root Boost - Grows crop faster by 4 days, (x" + rootBoostCount + ")\n")
+						+ "[5] No item - go back.";
 		System.out.println(outputStr);
 		return true;
 	}

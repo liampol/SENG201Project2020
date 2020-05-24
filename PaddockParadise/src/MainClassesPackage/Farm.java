@@ -365,7 +365,7 @@ public class Farm {
 	public String viewSupplies() {
 		String status = "";
 		if (currentSupplies.isEmpty()) {
-			status = "Sorry but you have no 'Supplies' to view,";
+			status = "Sorry but you have no supplies to view,";
 		}else {
 			status += "The current supplies that are in the farm are:";
 			for (int i = 0; i < currentSupplies.size(); i++) {
@@ -478,7 +478,7 @@ public class Farm {
 	
 	private void getCountyFairBonus() {
 		
-		double bonus = 0;
+		double bonus = getFarmWorth();
 		
 		// 2xthe farms worth
 		bonus = (2*bonus);
@@ -547,6 +547,7 @@ public class Farm {
 	 */
 	public String viewFarmStatus() {
 		return "Farmer: " + currentFarmer.getName() + ",\n"
+				+ "Farm Type: " + type + "\n"
 				+ "Money: " + viewWallet() + "\n"
 				+ "Crops: " + viewCropsStatus() + "\n" 
 				+ "Animals: " + viewAnimals() + "\n"

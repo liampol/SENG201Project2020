@@ -119,12 +119,16 @@ public class Setup {
 		switch (newInt) {
 		case 1:
 			newType = "Male Farmer";
+			break;
 		case 2:
 			newType = "Female Farmer";
+			break;
 		case 3:
 			newType = "Alien Farmer";
+			break;
 		default:
 			newType = "Alien Farmer";
+			break;
 		} 
 		return newType;
 		
@@ -176,12 +180,16 @@ public class Setup {
 			switch (newInt) {
 			case 1:
 				newType = "Money Tree";
+				break;
 			case 2:
 				newType = "Faster Crop Growth";
+				break;
 			case 3:
 				newType = "Happy Animal";
+				break;
 			case 4:
 				newType = "Discount Store";
+				break;
 			default:
 				newType = "Money Tree";
 			}

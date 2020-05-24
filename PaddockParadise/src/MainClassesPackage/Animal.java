@@ -65,7 +65,6 @@ public class Animal {
 	}
 	
 	public void addHealthBonus() {
-		healthTracker += 2;
 		emotionTracker += 2;
 	}
 	
@@ -138,7 +137,7 @@ public class Animal {
 		}
 	}
 	/**
-	 * This method returns the amount of profit received bassed on the emotionalState of the animal
+	 * This method returns the amount of profit received based on the emotionalState of the animal
 	 * @return
 	 */
 	public double getWorth() {
