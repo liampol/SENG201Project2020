@@ -2,15 +2,11 @@ package mainClassesPackage;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import actions.*;
 import baseUtility.*;
 import suppliesExtend.*;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -32,7 +28,7 @@ public class PaddockParadiseManager {
 	private static Farm newFarm;
 	private static int currentDay;
 	private static ArrayList<Integer> options;
-	private static int activitiesLeft;
+	private int activitiesLeft;
 	private String optionString;
 	private ArrayList<String> randomOccurences = new ArrayList<String>();
 	private Scanner gameScanner = new Scanner(System.in);
@@ -54,8 +50,8 @@ public class PaddockParadiseManager {
 				+	"[3] Visit the General Store\n"
 				+   "[4] Skip to next day?\n"
 				+ 	"[5] Help\n";
-		// Make random occurences possible
-		initRandomOccurences();
+		// Make random occurrences possible
+		initRandomOccurrences();
 		// runtime loop
 		runGame();
 		// Only closes once game is finished, i.e all calls of playGame() is finished.
@@ -79,7 +75,7 @@ public class PaddockParadiseManager {
 		}
 	}
 	
-	public static void launchWelcomeWindow(PaddockParadiseManager manager) {
+	public static void welcomeUser(PaddockParadiseManager manager) {
 		System.out.println("Welcome to Paddock Paradise");
 	}
 	
@@ -110,7 +106,7 @@ public class PaddockParadiseManager {
 	 * of a new day.
 	 * 
 	 */
-	private void initRandomOccurences() {
+	private void initRandomOccurrences() {
 		
 		randomOccurences.add("None");		   // No events
 		randomOccurences.add("None");
@@ -184,8 +180,7 @@ public class PaddockParadiseManager {
 	 */
 	public int getValidInput(ArrayList<Integer> optionList, String errorMessage) {
 		int choice = getInput(gameScanner);
-		while (!isValidInput(optionList, choice)) {
-			System.out.println(errorMessage);
+		while (!isValidInput(optionList, choice)) { // Iterate as long as choice is not valid
 			choice = getInput(gameScanner);
 		}
 		return choice;
@@ -204,7 +199,7 @@ public class PaddockParadiseManager {
 	 */
 	public int getValidInput(ArrayList<Integer> optionList, String errorMessage, int function) {
 		int choice = getInput(gameScanner);
-		while (!isValidInput(optionList, choice)) {
+		while (!isValidInput(optionList, choice)) { // Iterate as long as choice is not valid
 			runFunction(function);
 			System.out.println(errorMessage);
 			choice = getInput(gameScanner);
@@ -482,22 +477,22 @@ public class PaddockParadiseManager {
 	public void feedAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
 			String output = newFarm.viewAnimals() + "\nChoose an animal to feed!"+ "\n[" 
-												+ (newFarm.getAnimals().size()+1)+"] Go back.\n"; // Add go back option at the end
+												+ (newFarm.getAnimals().size()+1)+"] Go back.\n";
 			System.out.println(output);
 			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size() + 1);
-			int choice = getValidInput(optionsList, output);
-			if (choice == (newFarm.getAnimals().size()+1)) { // Gets input from user on what animal to feed
+			int choice = getValidInput(optionsList, output);	// Gets input from user on what animal to feed
+			if (choice == (newFarm.getAnimals().size()+1)) { 
 				return;
 			}
 			Animal animalChosen = newFarm.getAnimals().get(choice - 1);
 			String askUser = "What food would you like to use?\n";
-			if (foodAvailable()) { // Checks if valid Supplies objects are in the farm, and displays output
+			if (foodAvailable()) { 		// Checks if valid Supplies objects are in the farm, and displays output
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(3);
-				choice = getValidInput(nextOptionList, askUser, 1); // Gets input from user on what food to use
+				choice = getValidInput(nextOptionList, askUser, 1); 	// Gets input from user on what food to use
 				Supplies itemChoice;
 				boolean successfullyFed = true;
-				switch (choice) { // Checks what type of food
+				switch (choice) { 		// Checks what type of food
 				case 1:
 					itemChoice = new Hay();
 					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
@@ -605,10 +600,10 @@ public class PaddockParadiseManager {
 	public void playWithAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
 			String output = newFarm.viewAnimals() + "\nChoose an animal to play with!"+ "\n[" 
-							+ (newFarm.getAnimals().size()+1)+"] Go back.\n";
+							+ (newFarm.getAnimals().size()+1)+"] Go back.\n"; 
 			System.out.println(output);
 			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size() + 1);
-			int choice = getValidInput(optionsList, output);
+			int choice = getValidInput(optionsList, output); // Input on what animal to play with
 			if (choice == (newFarm.getAnimals().size()+1)) {
 				return;
 			}
@@ -640,7 +635,7 @@ public class PaddockParadiseManager {
 			Crop cropChosen = newFarm.getCrops().get(choice - 1);
 			String askUser = "What item would you like to use?\n";
 			boolean successfullyTended = true;
-			if (itemAvailable()) {
+			if (itemAvailable()) { // Checks and displays items available if there is any
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(4); 
 				choice = getValidInput(nextOptionList, askUser, 2); // Gets input from user on what item to use, if there is one

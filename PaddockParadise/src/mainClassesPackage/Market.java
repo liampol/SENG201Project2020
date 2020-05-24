@@ -1,7 +1,6 @@
 package mainClassesPackage;
 import animalExtend.*;
 import cropExtend.*;
-import mainClassesPackage.*;
 import suppliesExtend.*;
 
 import java.util.ArrayList;
@@ -12,19 +11,20 @@ import java.util.regex.Pattern;
 
 
 /**
- * The Market Class that implements the shop that allows the player to purchase 'SUPPLIES', 'ANIMALS', and 'CROPS',
- * The player is also able to Sell crops that have a 'HARVESTED" State
+ * <h2>Market</h2>
+ * 
+ * <p>The Market Class  implements the shop that allows the player to purchase supplies, animals, and crops
+ * 
  * @author Te Wehenga Johnson
  *
  */
 public class Market {
 	
 	
-	
 	PaddockParadiseManager manager;
 	private ArrayList<Crop> cropCart;            // This variable is used to keep track of Crops added to cart
-	private ArrayList<Animal> animalCart;        // This variable is used to keep track of Crops added to cart
-	private ArrayList<Supplies> suppliesCart;    // This variable is used to keep track of Crops added to cart
+	private ArrayList<Animal> animalCart;        // This variable is used to keep track of Animals added to cart
+	private ArrayList<Supplies> suppliesCart;    // This variable is used to keep track of Supplies added to cart
 	private double cartCost;
 	private Farm farmOwner;
 	private Scanner input = new Scanner(System.in);
@@ -53,29 +53,30 @@ public class Market {
 	Vitamins vitamin = new Vitamins();
 	
 	// track amount of each item added to cart
-	int carrotCount = 0;
-	int broccoliCount = 0;
-	int cauliCount = 0;
-	int avoCount = 0;
-	int potaCount = 0;
-	int capsCount = 0;
-	int rootBoostCount = 0;
-	int fertCount = 0;
-	int grainCount = 0;
-	int dungCount = 0;
-	int hayCount = 0;
-	int vitCount =0;
-	int cowCount = 0;
-	int sheepCount =0;
-	int pigCount = 0;
+	private int carrotCount = 0;
+	private int broccoliCount = 0;
+	private int cauliCount = 0;
+	private int avoCount = 0;
+	private int potaCount = 0;
+	private int capsCount = 0;
+	private int rootBoostCount = 0;
+	private int fertCount = 0;
+	private int grainCount = 0;
+	private int dungCount = 0;
+	private int hayCount = 0;
+	private int vitCount =0;
+	private int cowCount = 0;
+	private int sheepCount =0;
+	private int pigCount = 0;
 	
-	private Pattern letter = Pattern.compile("[a-zA-z]");
     private Pattern nums = Pattern.compile("[0-9]");
     private Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
 	
 	
 	/**
-	 * Instantiates a Market to purchase supplies, Crops, and Animals for your farm
+	 * <h2>Market</h2>
+	 * 
+	 * <p>Instantiates a Market to purchase supplies, crops, and animals for your farm
 	 */
 	public Market(PaddockParadiseManager incoming) {
 		
@@ -95,19 +96,20 @@ public class Market {
 	}
 	
 	/**
-	 * This is the main menu for the Market where the user is shown:
-	 * All items for sale,
-	 * Farms current cash balance, and What is currently in the cart
-	 * The user is also given different options that they can choose from by pressing the corresponding number to the option they would like to choose,
+	 * <h2>viewMarketOptions</h2>
+	 * 
+	 * <p>This is the main menu.
+	 *  The user is shown all the items for sale,
+	 * their farms current cash balance, and what is currently in the cart.
+	 * They have options that they can choose from by pressing the corresponding number to the option they would like to choose.
 	 * The options are:
 	 * 		[1] Buy Crops
 	 *		[2] Buy Animals
 	 *		[3] Buy Farm Supplies
-	 *		[4] Sell Crops
-	 *		[5] Remove items from cart
-	 *      [6] Checkout
-	 *      [7] View Bag
-	 *		[8] EXIT SHOP
+	 *		[4] Remove items from cart
+	 *      [5] Checkout
+	 *      [6] View Bag
+	 *		[7] EXIT SHOP </p>
 	 */
 	public void viewMarketOptions() {
 		System.out.println("WELCOME TO THE GENERAL MARKET!!\n\nThis is the 'FRONT DESK' How can I help you today?");
@@ -157,7 +159,7 @@ public class Market {
 					+ "[4] Remove items from cart\n"
 					+ "[5] Checkout\n"
 					+ "[6] View Bag\n"
-					+ "[7] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
+					+ "[7] EXIT SHOP\n");
 			option = getInput(1, 7);
 			switch(option) {
 			case 1:
@@ -172,10 +174,6 @@ public class Market {
 				buySupplies();
 				correct = true;
 				break;
-//			case 4: CAN BE SOLD VIA "Harvest Crop" Action
-//				sellCrops();
-//				correct = true;
-//				break;
 			case 4:
 				removeFromCart();
 				correct = true;
@@ -200,14 +198,14 @@ public class Market {
 		
 	}
 	
-	public int getValidInput(int lowB, int upB) {
-		int newInput;
-		do {
-			newInput = getInput(lowB, upB);
-		} while (newInput == -1);
-		return newInput;
-	}
-	
+	/**
+	 * <h2>getValidInput</h2>
+	 * 
+	 * <p> Returns valid input from the user
+	 * 
+	 * @return valid string input
+	 * 
+	 */
 	public String getValidInput() {
 		String newInput;
 		do {
@@ -216,7 +214,8 @@ public class Market {
 		return newInput;
 	}
 	
-	public int getInput(int lowerInclusiveBoundary, int upperInclusiveBoundary) {
+	
+	private int getInput(int lowerInclusiveBoundary, int upperInclusiveBoundary) {
 		if (input.hasNextInt()) {
 			int intInput = input.nextInt();
 			if (intInput >= lowerInclusiveBoundary && intInput <= upperInclusiveBoundary) {
@@ -232,7 +231,16 @@ public class Market {
 		}
 	}
 	
-public String getInput() {
+
+	/**
+	 * <h2>getInput</h2>
+	 * 
+	 * <p> Returns valid input from the user
+	 * 
+	 * @return valid string input
+	 * 
+	 */
+	public String getInput() {
 		boolean invalid = false;
 		String newName ="";
 		
@@ -256,10 +264,18 @@ public String getInput() {
 		return newName;
 	}
 
+
+	/**
+ 	* <h2>buyCrops</h2>
+ 	* 
+ 	* <p> Lets the user buy crops from the store (or multiple crops in succession)
+ 	* 
+ 	* 
+ 	*/
 	public void buyCrops() {
 		
 		int added = 0;
-		boolean endSwitch = true; // Should always be true to end switch
+		boolean endSwitch = true;  // Should always be true to end switch
 		boolean endDo = false;     // Only true when Do-while ends and returns to previous menu
 		do {
 			System.out.println("\nPlease choose option by typing the corresponding number, and adding one item at a time, \n"
@@ -307,7 +323,13 @@ public String getInput() {
 		viewMarketOptions();
 		
 	}
-	
+	/**
+	 * <h2>buyAnimals</h2>
+	 * 
+	 * <p> Lets the user buy animals from the store (or multiple animals in succession)
+	 * 
+	 * 
+	 */
 	public void buyAnimals() {
 		
 		int added = 0;
@@ -342,6 +364,13 @@ public String getInput() {
 		
 	}
 	
+	/**
+	 * <h2>buySupplies</h2>
+	 * 
+	 * <p> Lets the user buy supplies from the store (or multiple supplies in succession)
+	 * 
+	 * 
+	 */
 	public void buySupplies() {
 		
 		int added = 0;
@@ -568,8 +597,10 @@ public String getInput() {
 	}
 	
 	/**
-	 * Gets the current cost of the cart as a Type "Double"
-	 * @return
+	 * <h2>getCartCost</h2>
+	 * 
+	 * <p>Gets the current cost of the cart
+	 * @return cost of cart
 	 */
 	public double getCartCost() {
 		return cartCost;
@@ -888,107 +919,16 @@ public String getInput() {
 			}
 	}
 	
-	/**
-	 * User interface to get inputs for what 'Crop' to sell
-	 */
-	private void sellCrops() {
-		
-		int sell = 0;
-		boolean endDo = false;    // Ends the do-while loop only when a suitable optional has been chosen 
-		boolean endSwitch = true; // Switch ends after every iteration
-		
-		do {
-		System.out.println("What Crop would you like to sell?");
-		System.out.println("[1] Carrot\n"
-				         + "[2] Capsicum\n"
-				         + "[3] Broccoli\n"
-				         + "[4] Potato\n"
-			           	 + "[5] Avocado\n"
-				         + "[6] Cauliflower\n"
-				         + "[7] Return to 'REMOVE ITEM MENU'");
-		sell = getInput(1, 7);
-		
-			switch(sell) {
-			case 1:
-				exchangeCrop("Carrot");
-				break;
-			case 2:
-				exchangeCrop("Capsicum");
-				break;
-			case 3:
-				exchangeCrop("Broccoli");
-				break;
-			case 4:
-				exchangeCrop("Potato");
-				break;
-			case 5:
-				exchangeCrop("Avocado");
-				break;
-			case 6:
-				exchangeCrop("Cauliflower");
-				break;
-			case 7:
-				endDo = true;
-				break;
-			}while(!endSwitch);
-		}while(!endDo);
-		
-		removeFromCart();
-	}
-	
-	/**
-	 * Removes the specified crop from the cart
-	 * @param item
-	 */
-	private void exchangeCrop(String item) {
-		boolean invalid = true;           // If item is not in farmsCrops the invalid is true
-		double profit = 0.00;             // Initialize cost
-		
-		for (Crop toSell : farmOwner.getCrops()) {         
-			if (toSell.getType().equals(item) && toSell.getState().equals("Harvest")) {   // Finds 'Crop' to sell, once found it checks if the 'State' is 'Harvest'
-				profit = toSell.getSellPrice();                                     // Gets the price of item to remove
-				farmOwner.removeCrop(toSell);                                   // removes item object from cart
-				System.out.println(item + " has been SOLD\n");
-				invalid = false;                                                // Item was in cart,invalid is false
-				break;                                                          // End loop
-				}
-		}
-		farmOwner.addToWallet(profit);                                          // Increases profit of farm by 'sellPrice'
-
-		// Decrements the corresponding Crop counter
-		if (item == "Carrot" && carrotCount > 0) {
-			carrotCount --;
-		}else if ( item == "Broccoli"  && broccoliCount > 0) {
-			broccoliCount --;
-		}else if ( item == "Cauliflower" && cauliCount > 0) {
-			cauliCount --;
-		}else if ( item == "Capsicum"  && capsCount > 0) {
-			capsCount --;
-		}else if ( item == "Avocado" && avoCount > 0) {
-			avoCount --;
-		}else if ( item == "Potato" && potaCount > 0){
-			potaCount --;
-		}
-		if (invalid) {    // If item is not in cart
-		System.out.println("Sorry " + item +" is not in your cart");
-		}
-	}
 	
 	/**
 	 * User interface to get input for checkout
 	 */
 	private void checkout() {
 		
-//		if (farmOwner.getType().equals("Discount Store")) {
-//			cartCost = cartCost-(cartCost*0.4);
-//			System.out.println("Your 'Discount Store Bonus has been applied, \n"
-//					+ "The amount you paid was $" + cartCost + ",\n");
-//		}
-		
+
 		int option = 0;
 		
-		//Check to see if farmOwner can afford the items in the cart 
-		// newCartCost will ONLY be greater than 0 if the user chose discount as the farm bonus
+		// Check to see if farmOwner can afford the items in the cart 
 		if (farmOwner.getMoney() >= cartCost) {
 			
 		} else if (hasDiscount && farmOwner.getMoney() >= newCartCost) {
@@ -1087,7 +1027,7 @@ public String getInput() {
 					case 1:
 						input.nextLine();
 						newName = getInput();
-						animal.setName(newName);     // GETTING SCANNER ERROR WHEN NAMING
+						animal.setName(newName);
 						break;
 					case 2:
 						break;
@@ -1106,47 +1046,4 @@ public String getInput() {
 		// rest of the methods on call stack
 	}
 	
-	public static void main(String[] args) {
-		
-		//Implemented for testing
-		
-		
-		
-//		Market openMarket = new Market(newFarm); // Test Market()
-//openMarket.printCart();                  // Test printCart() with no items
-		
-//		// Test for adding Animals
-//		openMarket.addCow();                     // Test addCow() 
-//		openMarket.addSheep();                   // Test addSheep()
-//		openMarket.addPig();                     // Test addPig()
-//		openMarket.printCart();                  // Test printCart() with multiple items
-//		openMarket.printCartCost();              // Test printCartCost() with multiple items in cart
-//		
-//		// Test for adding Crops
-//		openMarket.addCarrots();                 // Test addCarrots
-//		openMarket.addPotato();                  // Test addCarrots
-//		openMarket.addBroccoli();                // Test addBroccoli
-//		openMarket.addCapsicum();                // Test addCapsicum
-//		openMarket.addCauliflower();             // Test addCauliflower
-//		openMarket.addAvocado();                 // Test addAvocado
-//		openMarket.printCart();                  // Test printCart() with multiple items
-//		openMarket.printCartCost();              // Test printCartCost() with multiple items in cart
-//		
-//		//Test for adding Supplies
-//		openMarket.addFertiliser();
-//		openMarket.addGrains();
-//		openMarket.addHorseDung();
-//		openMarket.addRootBoost();
-//		openMarket.addHay();
-//		openMarket.addVitamins();
-//		
-//		//Test remove items
-//		openMarket.removeAnimal("Cow");
-//		openMarket.removeCrop("Carrot");
-//		openMarket.removeCrop("Carrot");
-//		openMarket.removeSupply("Fertiliser");
-//		openMarket.removeSupply("Vitamins");
-//		openMarket.viewMarketOptions();
-		
-	}
 }

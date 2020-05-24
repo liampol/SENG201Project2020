@@ -24,8 +24,7 @@ public class Crop {
 	private double buyPrice;                // Price to buy vegetable
 	private int daysToHarvest;              // Amount of days to harvest
 	private String state;                   // Plants current state ("Harvest", "Sprout") 
-	private int stateTracker;               
-	private boolean farmBonus;
+
 	
 	/**
 	 * Constructor of Crop with parameters passed in from the class of vegetable being created 

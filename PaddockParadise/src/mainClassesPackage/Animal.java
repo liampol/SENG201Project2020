@@ -1,6 +1,5 @@
 package mainClassesPackage;
 import animalExtend.*;
-import baseUtility.*;
 
 /**
  * <h2>Animal</h2>
