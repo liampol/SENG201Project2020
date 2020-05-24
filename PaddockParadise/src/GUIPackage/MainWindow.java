@@ -54,6 +54,18 @@ public class MainWindow {
 	private void viewFarm() {
 		manager.openViewFarm();
 	}
+	
+	private void openMarket() {
+		manager.visitMarket();
+	}
+	
+	public void closeWindow() {
+		frameMainWindow.dispose();
+	}
+	
+	private void finishedWindow() {
+		manager.closeMainWindow(this);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -125,6 +137,11 @@ public class MainWindow {
 		frameMainWindow.getContentPane().add(visitMarketLbl);
 		
 		JButton visitMarketBtn = new JButton("Open Market");
+		visitMarketBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openMarket();
+			}
+		});
 		visitMarketBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		visitMarketBtn.setBounds(365, 305, 152, 45);
 		visitMarketBtn.setBorder(BorderFactory.createRaisedBevelBorder());

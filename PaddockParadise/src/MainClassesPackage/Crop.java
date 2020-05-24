@@ -79,11 +79,11 @@ public class Crop {
 	 * @return
 	 */
 	public String getDetails() {
-		String details = type + ":" 
-	+ " [State] " + state + ", " 
-	+ " [Buy price] $" + buyPrice
-	+ " [Sell price (Only when harvested)] $" + sellPrice + ", " 
-	+ " [Days till harvest] " + daysToHarvest + ", \n" ;
+		String details = type + ":\n" 
+	+ " [State] " + state + ",\n" 
+	+ " [Buy price] $" + buyPrice + ",\n"
+	+ " [Sell price (Only when harvested)] $" + sellPrice + ",\n" 
+	+ " [Days till harvest] " + daysToHarvest + ",\n" ;
 		
 		return details;
 	}
@@ -103,7 +103,7 @@ public class Crop {
 		Avocado avo = new Avocado();
 		avo.alterCropTime(2);
 		System.out.println(avo.getDaysToHarvest());
-		carrot.getDetails();
+		System.out.println(carrot.getDetails());
 		
 	}
 }

@@ -198,13 +198,8 @@ public class PaddockParadiseManager {
 		} catch(NullPointerException npe) {
 			// try-catch used to abort instantiation and return;
 		}
-		leaveMarket();
-	
 	}
 
-	public void leaveMarket() {
-		//openMarket.closeWindow()
-	}
 	
 	private void rollRandomOccurence() {
 		
@@ -395,8 +390,9 @@ public class PaddockParadiseManager {
 		viewFarmScreen.closeWindow();
 	}
 	
-	public void closeMainWindow() {
-		//launchMainWindow.closeWindow();
+	
+	public void closeMainWindow(MainWindow mainWindowScreen) {
+		mainWindowScreen.closeWindow();
 		
 	}
 	

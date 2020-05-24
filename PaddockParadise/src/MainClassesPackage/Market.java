@@ -25,25 +25,25 @@ public class Market {
 	private Scanner input = new Scanner(System.in);
 	
 	// Crops on display
-	Cauliflower cauliflower = new Cauliflower();
-	Carrot carrot = new Carrot();
-	Potato potato = new Potato();
-	Capsicum capsicum = new Capsicum();
-	Avocado avocado = new Avocado();
-	Broccoli broccoli = new Broccoli();
+	public Cauliflower cauliflower = new Cauliflower();
+	public Carrot carrot = new Carrot();
+	public Potato potato = new Potato();
+	public Capsicum capsicum = new Capsicum();
+	public Avocado avocado = new Avocado();
+	public Broccoli broccoli = new Broccoli();
 	
 	// Animals on display
-	Pig pig = new Pig();
-	Cow cow = new Cow();
-	Sheep sheep = new Sheep();
+	public Pig pig = new Pig();
+	public Cow cow = new Cow();
+	public Sheep sheep = new Sheep();
 	
 	//Supplies on  display
-	RootBoost rootBoost = new RootBoost();
-	Fertiliser fertiliser = new Fertiliser();
-	HorseDung horseDung = new HorseDung();
-	Grains grain = new Grains();
-	Hay hay = new Hay();
-	Vitamins vitamin = new Vitamins();
+	public RootBoost rootBoost = new RootBoost();
+	public Fertiliser fertiliser = new Fertiliser();
+	public HorseDung horseDung = new HorseDung();
+	public Grains grain = new Grains();
+	public Hay hay = new Hay();
+	public Vitamins vitamin = new Vitamins();
 	
 	// track amount of each item added to cart
 	int carrotCount = 0;
@@ -76,7 +76,7 @@ public class Market {
 		suppliesCart = new ArrayList<Supplies>();
 		cartCost = 0.00;
 		manager = incoming;
-		viewMarketOptions();
+		launchOpenMarket();
 	}
 	
 	/**
@@ -304,7 +304,7 @@ public class Market {
 		viewMarketOptions();
 		
 	}
-	private void addFertiliser() {
+	public void addFertiliser() {
 			Fertiliser addedFertiliser = new Fertiliser();
 			cartCost += addedFertiliser.getPrice(); 
 			suppliesCart.add(addedFertiliser);
@@ -315,7 +315,7 @@ public class Market {
 	/**
 	 * Adds Horse-Dung to cart as well as adds the cost to cartCost
 	 */
-	private void addHorseDung() {
+	public void addHorseDung() {
 		HorseDung addedHorseDung= new HorseDung();
 		cartCost += addedHorseDung.getPrice(); 
 		suppliesCart.add(addedHorseDung);
@@ -326,7 +326,7 @@ public class Market {
 	/**
 	 * Adds Root-Boost to cart as well as adds the cost to cartCost
 	 */
-	private void addRootBoost() {
+	public void addRootBoost() {
 		RootBoost addedRootBoost= new RootBoost();
 		cartCost += addedRootBoost.getPrice(); 
 		suppliesCart.add(addedRootBoost);
@@ -337,7 +337,7 @@ public class Market {
 	/**
 	 * Adds grains to cart as well as adds the cost to cartCost
 	 */
-	private void addGrains() {
+	public void addGrains() {
 			Grains addedGrains = new Grains();
 			cartCost += addedGrains.getPrice(); 
 			suppliesCart.add(addedGrains);
@@ -348,7 +348,7 @@ public class Market {
 	/**
 	 * Adds Vitamins to cart as well as adds the cost to cartCost
 	 */
-	private void addVitamins() {
+	public void addVitamins() {
 			Vitamins addedVitamins = new Vitamins();
 			cartCost += addedVitamins.getPrice(); 
 			suppliesCart.add(addedVitamins);
@@ -359,7 +359,7 @@ public class Market {
 	/**
 	 * Adds Hay to cart as well as adds the cost to cartCost
 	 */
-	private void addHay() {
+	public void addHay() {
 		Hay addedHay = new Hay();
 		cartCost += addedHay.getPrice(); 
 		suppliesCart.add(addedHay);
@@ -370,7 +370,7 @@ public class Market {
 	/**
 	 * Adds Cow to cart as well as adds the cost to cartCost
 	 */
-	private void addCow() {
+	public void addCow() {
 		Cow addedCow = new Cow();
 		cartCost += addedCow.getPrice();
 		animalCart.add(addedCow);
@@ -381,7 +381,7 @@ public class Market {
 	/**
 	 * Adds Sheep to cart as well as adds the cost to cartCost
 	 */
-	private void addSheep() {
+	public void addSheep() {
 		Sheep addedSheep = new Sheep();
 		cartCost += addedSheep.getPrice();
 		animalCart.add(addedSheep);
@@ -392,7 +392,7 @@ public class Market {
 	/**
 	 * Adds Pig to cart as well as adds the cost to cartCost
 	 */
-	private void addPig() {
+	public void addPig() {
 		Pig addedPig = new Pig();
 		cartCost += addedPig.getPrice();
 		animalCart.add(addedPig);
@@ -403,7 +403,7 @@ public class Market {
 	/**
 	 * Adds Carrots to cart as well as adds the cost to cartCost
 	 */
-	private void addCarrots() {
+	public void addCarrots() {
 		Carrot addedCarrots = new Carrot();
 		cartCost += addedCarrots.getPrice();
 		cropCart.add(addedCarrots);
@@ -414,7 +414,7 @@ public class Market {
 	/**
 	 * Adds Capsicum to cart as well as adds the cost to cartCost
 	 */
-	private void addCapsicum() {
+	public void addCapsicum() {
 		Capsicum addedCapsicum = new Capsicum();
 		cartCost += addedCapsicum.getPrice();
 		cropCart.add(addedCapsicum);
@@ -425,7 +425,7 @@ public class Market {
 	/**
 	 * Adds Potato's to cart as well as adds the cost to cartCost
 	 */
-	private void addPotato() {
+	public void addPotato() {
 		Potato addedPotatos = new Potato();
 		cartCost += addedPotatos.getPrice();
 		cropCart.add(addedPotatos);
@@ -436,7 +436,7 @@ public class Market {
 	/**
 	 * Adds Broccoli to cart as well as adds the cost to cartCost
 	 */
-	private void addBroccoli() {
+	public void addBroccoli() {
 		Broccoli addedBroccoli = new Broccoli();
 		cartCost += addedBroccoli.getPrice();
 		cropCart.add(addedBroccoli);
@@ -447,7 +447,7 @@ public class Market {
 	/**
 	 * Adds Cauliflower to cart as well as adds the cost to cartCost
 	 */
-	private void addCauliflower() {
+	public void addCauliflower() {
 		Cauliflower addedCauliflower = new Cauliflower();
 		cartCost += addedCauliflower.getPrice();
 		cropCart.add(addedCauliflower);
@@ -458,7 +458,7 @@ public class Market {
 	/**
 	 * Adds Avocado to cart as well as adds the cost to cartCost
 	 */
-	private void addAvocado() {
+	public void addAvocado() {
 		Avocado addedAvocado = new Avocado();
 		cartCost += addedAvocado.getPrice();
 		cropCart.add(addedAvocado);
@@ -604,7 +604,9 @@ public class Market {
 	 * Removes the specified crop from the cart
 	 * @param item
 	 */
-	private void removeCrop(String item) {
+	public String removeCrop(String item) {
+		String message = "";
+		
 		boolean invalid = true;                      // If item is not in cart the invalid is true
 		for (Crop toRemove : cropCart) {         
 			if (toRemove.getType() == item) {        // Compares each type to the item parameter to ensure the correct item is removed
@@ -632,8 +634,14 @@ public class Market {
 			potaCount --;
 		}
 		if (invalid) {                                // If item is not in cart
-		System.out.println("Sorry " + item +" is not in your cart");
+		message = "Sorry " + item +" is not in your cart";
+		
+		}else {
+			message = item + " has been removed from cart!";
 		}
+		
+		return message;
+		
 	}
 	
 	/*
@@ -761,9 +769,9 @@ public class Market {
 	 * Removes the 'Animal' chosen from 'removeAnimalFromCart() interface
 	 * @param item
 	 */
-	private void removeAnimal(String item) {
+	public String removeAnimal(String item) {
 		boolean empty = true;
-
+		String message = "";
 		for (Animal toRemove : animalCart) {
 			if (toRemove.getType() == item) {
 				double cost = toRemove.getPrice();
@@ -783,8 +791,11 @@ public class Market {
 			pigCount --;
 		}
 		if (empty) {
-			System.out.println("Sorry " + item + " is not in your cart");
+			message = "Sorry " + item + " is not in your cart";
+			}else {
+				message = item + " has been removed from cart!";
 			}
+		return message;
 	}
 	
 	/**
@@ -986,6 +997,39 @@ public class Market {
 			animalCart.clear();
 			viewMarketOptions();
 		}
+	}
+	
+	private void launchOpenMarket() {
+		OpenMarket openMarketScreen = new OpenMarket(this);
+	}
+	
+	public void launchMarketCrops() {
+		MarketCrops marketCropsScreen = new MarketCrops(this);
+	}
+	
+	public void closeMarketCrops(MarketCrops marketCropsScreen) {
+		marketCropsScreen.closeWindow();
+		launchOpenMarket();
+	}
+	
+	public void launchMarketAnimals() {
+		MarketAnimals marketAnimalsScreen = new MarketAnimals(this);
+		
+	}
+	
+	public void closeMarketAnimals(MarketAnimals marketAnimalsScreen) {
+		marketAnimalsScreen.closeWindow();
+		launchOpenMarket();
+	}
+	
+	
+	public void closeMarketWindow(OpenMarket openMarketScreen) {
+		openMarketScreen.closeWindow();
+		manager.launchMainWindow();
+	}
+	
+	public PaddockParadiseManager getManager() {
+		return manager;
 	}
 	
 	public static void exit() {

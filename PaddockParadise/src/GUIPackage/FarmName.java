@@ -137,7 +137,7 @@ public class FarmName {
 		 borderLbl.setBorder(border);
 		farmNameWindow.getContentPane().add( borderLbl);
 		
-		JLabel speechLbl = new JLabel("<html>Farmer Bill:<br><br><em>What would you like to name your new Farm?</em></html>");
+		JLabel speechLbl = new JLabel("<html>Farmer Bill:<br><br>What would you like to name your new Farm?</html>");
 		speechLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
 		speechLbl.setBounds(240, 21, 240, 108);
 		farmNameWindow.getContentPane().add(speechLbl);
