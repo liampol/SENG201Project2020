@@ -233,15 +233,20 @@ public class PaddockParadiseManager {
 	
 	public void feedAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
-			String output = newFarm.viewAnimals() + "\nChoose an animal to feed!\n";
+			String output = newFarm.viewAnimals() + "\nChoose an animal to feed!"+ "\n[" 
+												+ (newFarm.getAnimals().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
-			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getAnimals().size()+1)) {
+				return;
+			}
+			Animal animalChosen = newFarm.getAnimals().get(choice - 1);
 			String askUser = "What food would you like to use?\n";
 			if (foodAvailable()) {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(3);
-				int choice = getValidInput(nextOptionList, askUser);
+				choice = getValidInput(nextOptionList, askUser);
 				Supplies itemChoice;
 				boolean successfullyFed = true;
 				switch (choice) {
@@ -280,6 +285,8 @@ public class PaddockParadiseManager {
 			}
 		
 	}
+		
+	}
 	
 	private boolean foodAvailable() {
 		String outputStr = "Animal food available: \n";
@@ -302,8 +309,8 @@ public class PaddockParadiseManager {
 		if (hayCount == 0 && grainsCount == 0 && vitaminsCount == 0) {
 			return false;
 		}
-		outputStr +=    ("[1] Hay - Keeps animals Happier for 2 days, (x" + hayCount + ")\n"
-						+ "[2] Grains - Keeps animals Healthier for 2 days, (x" + grainsCount + ")\n"
+		outputStr +=    ("[1] Hay - Keeps animals Happier for 3 days, (x" + hayCount + ")\n"
+						+ "[2] Grains - Keeps animals Healthier for 3 days, (x" + grainsCount + ")\n"
 						+ "[3] Vitamins - Keeps animals Healthier and Happy for 3 days, (x" + vitaminsCount + ")\n");
 		System.out.println(outputStr);
 		return true;
@@ -311,10 +318,15 @@ public class PaddockParadiseManager {
 
 	public void harvestCrops() {
 		if (!newFarm.getCrops().isEmpty()) {
-			String output = newFarm.viewCropsStatus() + "\nChoose a crop to harvest!\n";
+			String output = newFarm.viewCropsStatus() + "\nChoose a crop to harvest!"+ "\n[" 
+					+ (newFarm.getCrops().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size());
-			Crop cropChosen = newFarm.getCrops().get(getValidInput(optionsList, output) - 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getCrops().size()+1)) {
+				return;
+			}
+			Crop cropChosen = newFarm.getCrops().get(choice - 1);
 			HarvestCrops cropHarvest = new HarvestCrops(this, cropChosen);
 			cropHarvest.performAction();
 		} else {
@@ -324,10 +336,15 @@ public class PaddockParadiseManager {
 	
 	public void playWithAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
-			String output = newFarm.viewAnimals() + "\nChoose an animal to play with!\n";
+			String output = newFarm.viewAnimals() + "\nChoose an animal to play with!"+ "\n[" 
+							+ (newFarm.getAnimals().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
-			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getAnimals().size()+1)) {
+				return;
+			}
+			Animal animalChosen = newFarm.getAnimals().get(choice - 1);
 			PlayWithAnimals animalPlay = new PlayWithAnimals(this, animalChosen);
 			animalPlay.performAction();
 		} else {
@@ -336,11 +353,130 @@ public class PaddockParadiseManager {
 	}
 	
 	public void tendCrops(Crop crop, Supplies item) {
+public void tendCrops() {
+		if (!newFarm.getCrops().isEmpty()) {
+			String output = newFarm.viewCropsStatus() + "\nChoose a crop to tend!"+ "\n[" 
+														+ (newFarm.getCrops().size()+1)+"] Go back.\n";
+			System.out.println(output);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getCrops().size()+1)) {
+				return;
+			}
+			Crop cropChosen = newFarm.getCrops().get(choice - 1);
+			String askUser = "What item would you like to use?\n";
+			boolean successfullyTended = true;
+			if (itemAvailable()) {
+				System.out.println(askUser);
+				ArrayList<Integer> nextOptionList = createOptionList(4);
+				choice = getValidInput(nextOptionList, askUser);
+				Supplies itemChoice;
+				switch (choice) {
+				case 2:
+					itemChoice = new HorseDung();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyTended = false;
+					}
+					break;
+				case 3:
+					itemChoice = new Fertiliser();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyTended = false;
+					}
+					break;
+				case 4:	
+					itemChoice = new RootBoost();
+					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
+						successfullyTended = false;
+					}
+					break;
+				default:
+					itemChoice = null;
+				}
+				if (successfullyTended) {
+					TendCrops cropTended = new TendCrops(this, cropChosen, itemChoice);
+					cropTended.performAction();
+				}
+				
+			} else {
+				System.out.println(askUser);
+				ArrayList<Integer> nextOptionList = createOptionList(2);
+				choice = getValidInput(nextOptionList, askUser);
+				if (choice == 1) {
+					TendCrops cropTended = new TendCrops(this, cropChosen, null);
+					cropTended.performAction();
+				} else {
+					throw new NullPointerException();
+				}
+			}
+			
+		} else {
+			System.out.println("There are no crops!\n");
+			}
+	}
 		
 	}
+         private boolean itemAvailable() {
+		String outputStr = "Crop items available: \n";
+		int horseDungCount = 0;
+		int rootBoostCount = 0;
+		int fertiliserCount = 0;
+		for (Supplies supply: newFarm.getCurrentSupplies()) {
+			switch (supply.getName()) {
+			case "Horse Dung":
+				horseDungCount += 1;
+				break;
+			case "Fertiliser":
+				fertiliserCount += 1;
+				break;
+			case "Root Boost":
+				rootBoostCount += 1;
+				break;
+			}
+		}
+		if (horseDungCount == 0 && rootBoostCount == 0 && fertiliserCount == 0) {
+			outputStr += "[1] Water - Grows crops faster by 1 day, (UNLIMITED)\n"
+						+"[2] No item - go back.";
+			System.out.println(outputStr);
+			return false;
+		}
+		outputStr +=    ("[1] Water - Grows crops faster by 1 day, (UNLIMITED)\n"
+						+ "[2] Horse Dung - Grows crops faster by 2 day, (x" + horseDungCount+ ")\n"
+						+ "[3] Fertiliser - Grows crop faster by 3 days, (x" + fertiliserCount + ")\n"
+						+ "[4] Root Boost - Grows crop faster by 4 days, (x" + rootBoostCount + ")\n");
+		System.out.println(outputStr);
+		return true;
+	}
+
 	
 	public void tendLand() {
+		TendLand landTended = new TendLand(this);
+		landTended.performAction();
+	}
+        public void displayScoreboard() {
+		System.out.println("---------------");
+		int playerScore = getScore();
+		int[] scoreMilestones = {(int) (16000 / totalDays),
+								(int) (12000 / totalDays),
+								(int) (5000 / totalDays)};
+		String title;
+		if (playerScore > scoreMilestones[0]) {
+			title = "Legendary Farmer";
+		} else if (playerScore > scoreMilestones[1] && playerScore <= scoreMilestones[0]) {
+			title = "Master Farmer";
+		} else if (playerScore > scoreMilestones[2] && playerScore <= scoreMilestones[1]) {
+			title = "Amateur Farmer";
+		} else {
+			title = "Rookie Farmer";
+		}
+		System.out.println("Your score is " + playerScore + ", and you have reached the title of "
+							+ title +".\n\nThanks for playing Paddock Paradise!");
 		
+	}
+		
+	public int getScore() {
+		int score = (int) (((newFarm.getMoney() + newFarm.getFarmWorth()) / 2) / totalDays);
+		return score;
 	}
 	
 	public void endGame(PaddockParadiseManager manager) {

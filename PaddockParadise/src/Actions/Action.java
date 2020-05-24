@@ -9,7 +9,7 @@ import MainClassesPackage.Supplies;
 public abstract class Action {
 	
 	protected PaddockParadiseManager manager;
-	public final int COST_OF_ACTION = 1;
+	private final int COST_OF_ACTION = 1;
 	
 	public Action(PaddockParadiseManager incoming) {
 		manager = incoming;
