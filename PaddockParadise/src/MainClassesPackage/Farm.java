@@ -25,6 +25,7 @@ public class Farm {
 	private String state;
 	private String name;
 	private String type;
+	private String imageType;
 	private Farmer currentFarmer;
 	private ArrayList<Crop> currentCrops;
 	private ArrayList<Animal> currentAnimals;
@@ -83,6 +84,14 @@ public class Farm {
 	 */
 	public void setType(String newType) {
 		type = newType;
+	}
+	
+	public void setImageType(String newImageType) {
+		imageType = newImageType;
+	}
+	
+	public String getImageType() {
+		return imageType;
 	}
 	
 	/**

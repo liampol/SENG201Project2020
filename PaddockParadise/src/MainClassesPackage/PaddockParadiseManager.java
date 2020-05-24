@@ -381,7 +381,18 @@ public class PaddockParadiseManager {
 	}
 	
 	public void launchMainWindow() {
+		MainWindow mainMenuWindow = new MainWindow(this);
+		
 		//String currentCrops = newFarm.viewCrops();
+	}
+	
+	public void openViewFarm() {
+		ViewFarm viewFarmScreen = new ViewFarm(this);
+		
+	}
+	
+	public void closeViewFarm(ViewFarm viewFarmScreen) {
+		viewFarmScreen.closeWindow();
 	}
 	
 	public void closeMainWindow() {

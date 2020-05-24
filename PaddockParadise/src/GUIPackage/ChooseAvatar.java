@@ -88,23 +88,23 @@ public class ChooseAvatar {
 	private void initialize() {
 		chooseAvatarWindow = new JFrame();
 		chooseAvatarWindow.setTitle("Choose Avatar");
-		chooseAvatarWindow.setBounds(100, 100, 784, 482);
+		chooseAvatarWindow.setBounds(100, 100, 665, 396);
 		chooseAvatarWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		chooseAvatarWindow.getContentPane().setLayout(null);
 		
 		JLabel femaleAvatar = new JLabel("");
 		femaleAvatar.setIcon(new ImageIcon(ChooseAvatar.class.getResource("/Images/FemaleFarmerHeadResized.jpg")));
-		femaleAvatar.setBounds(93, 137, 200, 164);
+		femaleAvatar.setBounds(64, 176, 131, 101);
 		chooseAvatarWindow.getContentPane().add(femaleAvatar);
 		
 		JLabel maleAvatar = new JLabel("");
 		maleAvatar.setIcon(new ImageIcon(ChooseAvatar.class.getResource("/Images/MaleHead.jpg")));
-		maleAvatar.setBounds(303, 126, 193, 175);
+		maleAvatar.setBounds(247, 155, 141, 122);
 		chooseAvatarWindow.getContentPane().add(maleAvatar);
 		
 		JLabel alienAvatar = new JLabel("");
 		alienAvatar.setIcon(new ImageIcon(ChooseAvatar.class.getResource("/Images/AlienResized.jpg")));
-		alienAvatar.setBounds(506, 126, 193, 175);
+		alienAvatar.setBounds(430, 155, 155, 122);
 		chooseAvatarWindow.getContentPane().add(alienAvatar);
 		
 		/**
@@ -121,7 +121,7 @@ public class ChooseAvatar {
 			}
 		});
 		femaleAvatarBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
-		femaleAvatarBtn.setBounds(119, 312, 125, 23);
+		femaleAvatarBtn.setBounds(70, 288, 125, 23);
 		femaleAvatarBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		chooseAvatarWindow.getContentPane().add(femaleAvatarBtn);
 		
@@ -139,7 +139,7 @@ public class ChooseAvatar {
 			}
 		});
 		maleAvatarBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
-		maleAvatarBtn.setBounds(348, 312, 115, 23);
+		maleAvatarBtn.setBounds(273, 288, 115, 23);
 		maleAvatarBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		chooseAvatarWindow.getContentPane().add(maleAvatarBtn);
 		
@@ -158,14 +158,14 @@ public class ChooseAvatar {
 			}
 		});
 		alienAvatarBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
-		alienAvatarBtn.setBounds(554, 312, 107, 23);
+		alienAvatarBtn.setBounds(481, 288, 107, 23);
 		alienAvatarBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		chooseAvatarWindow.getContentPane().add(alienAvatarBtn);
 		
 		JLabel chooseFarmerLbl = new JLabel("Please choose Farmer to play as:");
 		chooseFarmerLbl.setFont(new Font("Tahoma", Font.BOLD, 30));
 		chooseFarmerLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		chooseFarmerLbl.setBounds(119, 46, 542, 41);
+		chooseFarmerLbl.setBounds(64, 39, 542, 41);
 		chooseAvatarWindow.getContentPane().add(chooseFarmerLbl);
 		
 	}

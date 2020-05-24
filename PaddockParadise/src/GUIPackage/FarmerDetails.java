@@ -203,8 +203,8 @@ public class FarmerDetails {
 		farmerDetailsWindow.getContentPane().add(getsName);
 		getsName.setColumns(10);
 		
-		JLabel oldManImg = new JLabel("New label");
-		oldManImg.setIcon(new ImageIcon(FarmerDetails.class.getResource("/Images/copy/newOldMAnCropped.jpg")));
+		JLabel oldManImg = new JLabel("");
+		oldManImg.setIcon(new ImageIcon(FarmerDetails.class.getResource("/Images/newOldMAnCropped.jpg")));
 		oldManImg.setBounds(25, 70, 192, 122);
 		farmerDetailsWindow.getContentPane().add(oldManImg);
 		

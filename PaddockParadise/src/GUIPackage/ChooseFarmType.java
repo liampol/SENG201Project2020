@@ -54,6 +54,11 @@ public class ChooseFarmType {
 	
 	private void setFarmType(String newType) {
 		farm.setType(newType);
+		
+	}
+	
+	private void setFarmTypeImage(String newImageType) {
+		farm.setImageType(newImageType);
 	}
 	
 
@@ -61,7 +66,6 @@ public class ChooseFarmType {
 	public void farmTypeConfirm(String type) {
 		int choice = JOptionPane.showConfirmDialog(chooseFarmType, "Are you sure you want  " + type + "Farm?", "Choose Yes or No", JOptionPane.YES_NO_OPTION);
 		if (choice == JOptionPane.YES_OPTION) {
-			setFarmType(type);
 			finishedWindow();
 		} else if (choice == JOptionPane.NO_OPTION) {                                                                    // Deleting Object created
 			JOptionPane.showMessageDialog(chooseFarmType, "Please re-choose Farm Type");        // Re-choosing Farmer
@@ -127,6 +131,8 @@ public class ChooseFarmType {
 		JButton speedCropButton = new JButton("Speed Crop");
 		speedCropButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setFarmType("Faster Crop Growth");
+				setFarmTypeImage("/Images/FarmTypeImages/SpeedCropImage.jpg");
 				farmTypeConfirm("Faster Crop growth");
 			}
 		});
@@ -146,6 +152,8 @@ public class ChooseFarmType {
 		JButton happyAnimalBtn = new JButton("Animal Welfare");
 		happyAnimalBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setFarmType("Happy Animal");
+				setFarmTypeImage("/Images/FarmTypeImages/HappyAnimalImage.png");
 				farmTypeConfirm("Happy Animal");
 			}
 		});
@@ -164,6 +172,7 @@ public class ChooseFarmType {
 		JButton moneyTreeBtn = new JButton("Money Tree");
 		moneyTreeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setFarmType("MoneyTree");
 				farmTypeConfirm("Money Tree");
 			}
 		});
@@ -183,6 +192,7 @@ public class ChooseFarmType {
 		JButton discountStoreBtn = new JButton("Thrift Farm");
 		discountStoreBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setFarmType("Discount Store");
 				farmTypeConfirm("Discount Store");
 			}
 		});

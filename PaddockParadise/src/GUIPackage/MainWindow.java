@@ -13,6 +13,8 @@ import javax.swing.border.Border;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainWindow {
 
@@ -48,6 +50,10 @@ public class MainWindow {
 		initialize();
 		frameMainWindow.setVisible(true);
 	}
+	
+	private void viewFarm() {
+		manager.openViewFarm();
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -62,28 +68,28 @@ public class MainWindow {
 		
 		JLabel farmerImage = new JLabel("");
 		farmerImage.setIcon(new ImageIcon(MainWindow.class.getResource(farmer.getImageType())));
-		farmerImage.setBounds(10, 31, 130, 107);
+		farmerImage.setBounds(10, 11, 166, 122);
 		farmerImage.setBorder(border);
 		frameMainWindow.getContentPane().add(farmerImage);
 		
 		JLabel moneyLbl = new JLabel("Current Cash: $" + farm.getMoney());
 		moneyLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-		moneyLbl.setBounds(566, 70, 132, 21);
+		moneyLbl.setBounds(532, 70, 166, 21);
 		frameMainWindow.getContentPane().add(moneyLbl);
 		
 		JLabel farmNameLbl = new JLabel("Farm Name: " + farm.getName());
 		farmNameLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-		farmNameLbl.setBounds(176, 31, 408, 28);
+		farmNameLbl.setBounds(196, 31, 321, 28);
 		frameMainWindow.getContentPane().add(farmNameLbl);
 		
 		JLabel farmTypeLbl = new JLabel("Farm Type: " + farm.getType());
 		farmTypeLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-		farmTypeLbl.setBounds(176, 70, 408, 28);
+		farmTypeLbl.setBounds(196, 66, 321, 28);
 		frameMainWindow.getContentPane().add(farmTypeLbl);
 		
 		JLabel farmerNameLbl = new JLabel("Farmer Name: " + farmer.getName());
 		farmerNameLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-		farmerNameLbl.setBounds(176, 109, 312, 28);
+		farmerNameLbl.setBounds(196, 105, 312, 28);
 		frameMainWindow.getContentPane().add(farmerNameLbl);
 		
 		JLabel viewFarmStatus = new JLabel("View Status of the farm");
@@ -92,6 +98,11 @@ public class MainWindow {
 		frameMainWindow.getContentPane().add(viewFarmStatus);
 		
 		JButton viewFarmBtn = new JButton("View Farm");
+		viewFarmBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewFarm();
+			}
+		});
 		viewFarmBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		viewFarmBtn.setBounds(20, 305, 132, 45);
 		viewFarmBtn.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -158,12 +169,12 @@ public class MainWindow {
 		
 		JLabel lblNewLabel = new JLabel("Days Left: " + manager.getDays());
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel.setBounds(566, 31, 103, 28);
+		lblNewLabel.setBounds(532, 31, 137, 28);
 		frameMainWindow.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Actions Left: " + manager.getActivitiesLeft() );
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_1.setBounds(566, 98, 175, 28);
+		lblNewLabel_1.setBounds(532, 98, 209, 28);
 		frameMainWindow.getContentPane().add(lblNewLabel_1);
 	}
 
