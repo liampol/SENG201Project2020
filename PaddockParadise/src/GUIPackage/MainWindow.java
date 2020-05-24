@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import MainClassesPackage.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -104,7 +105,7 @@ public class MainWindow {
 		farmerNameLbl.setBounds(196, 105, 312, 28);
 		frameMainWindow.getContentPane().add(farmerNameLbl);
 		
-		JLabel viewFarmStatus = new JLabel("View Status of the farm");
+		JLabel viewFarmStatus = new JLabel("<html>View Status of the farm</html>");
 		viewFarmStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		viewFarmStatus.setBounds(22, 176, 130, 118);
 		frameMainWindow.getContentPane().add(viewFarmStatus);
@@ -120,9 +121,9 @@ public class MainWindow {
 		viewFarmBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		frameMainWindow.getContentPane().add(viewFarmBtn);
 		
-		JLabel performActionLbl = new JLabel("Perform An Action");
+		JLabel performActionLbl = new JLabel("<html>Perform An Action</html>");
 		performActionLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		performActionLbl.setBounds(186, 176, 142, 118);
+		performActionLbl.setBounds(198, 176, 130, 118);
 		frameMainWindow.getContentPane().add(performActionLbl);
 		
 		JButton performActionBtn = new JButton("Perform Actions");
@@ -131,7 +132,7 @@ public class MainWindow {
 		performActionBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		frameMainWindow.getContentPane().add(performActionBtn);
 		
-		JLabel visitMarketLbl = new JLabel("Visit the Market");
+		JLabel visitMarketLbl = new JLabel("<html>Visit the Market</html>");
 		visitMarketLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		visitMarketLbl.setBounds(365, 176, 152, 118);
 		frameMainWindow.getContentPane().add(visitMarketLbl);
@@ -153,6 +154,16 @@ public class MainWindow {
 		frameMainWindow.getContentPane().add(skipDayLbl);
 		
 		JButton skipDayBtn = new JButton("Skip Day");
+		skipDayBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int choice = JOptionPane.showConfirmDialog(frameMainWindow, "<html>Are you sure you want skip to next day?"
+						+ "<br>Any <i>'UNUSED'</i> actions will be lost!","Choose Yes or No", JOptionPane.YES_NO_OPTION);
+					if (choice == JOptionPane.YES_OPTION) {
+						manager.skipDay();
+						JOptionPane.showMessageDialog(frameMainWindow, "Welcome to the new day!", "Morning!", JOptionPane.ERROR_MESSAGE);
+					}
+			}
+		});
 		skipDayBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		skipDayBtn.setBounds(566, 305, 152, 45);
 		skipDayBtn.setBorder(BorderFactory.createRaisedBevelBorder());

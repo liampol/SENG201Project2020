@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import MainClassesPackage.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -56,15 +57,41 @@ public class OpenMarket {
 	}
 	
 	private void addCrops() {
-		manager.launchMarketCrops();
+		manager.launchMarketCrops(this);
 	}
 	
 	private void addAnimals() {
-		manager.launchMarketAnimals();
+		manager.launchMarketAnimals(this);
 	}
 	
 	private void addSupplies() {
-		manager.launchMarketSupplies();
+		manager.launchMarketSupplies(this);
+	}
+	
+	private void viewCart() {
+		manager.launchCartWindow(this);
+	}
+	
+	private void checkout(){
+		
+		if (farm.getMoney() < manager.getCartCost()) {
+			JOptionPane.showMessageDialog(openMarketWindow, "<html>Sorry you do not have enough money,<br>please remove some stuff from your cart !"
+					, "Oops!", JOptionPane.ERROR_MESSAGE);
+			
+		}else {
+			int choice = JOptionPane.showConfirmDialog(openMarketWindow, "Are you sure you would like to checkout?",
+					"Choose Yes or No", JOptionPane.YES_NO_OPTION);
+			if (choice == JOptionPane.YES_OPTION) {
+				manager.launchCheckout(this);
+			}
+		}
+		
+	}
+	
+	private void emptyCart() {
+		manager.animalCart = null;
+		manager.cropCart = null;
+		manager.suppliesCart = null;
 	}
 	
 	
@@ -102,7 +129,7 @@ public class OpenMarket {
 		
 		JLabel border1 = new JLabel("");
 		border1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		border1.setBounds(10, 46, 346, 125);
+		border1.setBounds(10, 46, 523, 125);
 		border1.setBorder(border);
 		openMarketWindow.getContentPane().add(border1);
 		
@@ -112,6 +139,15 @@ public class OpenMarket {
 		openMarketWindow.getContentPane().add(andyDialog);
 		
 		JButton exitBtn = new JButton("Exit Market");
+		exitBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int choice = JOptionPane.showConfirmDialog(openMarketWindow, "<html>Are you sure you want leave?","Choose Yes or No", JOptionPane.YES_NO_OPTION);
+					if (choice == JOptionPane.YES_OPTION) {
+						emptyCart();
+						finishedWindow();
+					}
+			}
+		});
 		exitBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		exitBtn.setBounds(375, 529, 158, 38);
 		exitBtn.setForeground(Color.RED);
@@ -152,6 +188,11 @@ public class OpenMarket {
 		openMarketWindow.getContentPane().add(buySuppliesBtn);
 		
 		JButton viewCartBtn = new JButton("View Cart");
+		viewCartBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewCart();
+			}
+		});
 		viewCartBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
 		viewCartBtn.setBounds(36, 534, 147, 33);
 		viewCartBtn.setBorder(raiseBorder);
@@ -163,6 +204,11 @@ public class OpenMarket {
 		openMarketWindow.getContentPane().add(cartCostLbl);
 		
 		JButton checkoutBtn = new JButton("Checkout");
+		checkoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				checkout();
+			}
+		});
 		checkoutBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
 		checkoutBtn.setBounds(199, 534, 149, 33);
 		checkoutBtn.setBorder(raiseBorder);

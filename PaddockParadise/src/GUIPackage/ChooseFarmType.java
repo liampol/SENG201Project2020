@@ -174,6 +174,7 @@ public class ChooseFarmType {
 		moneyTreeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setFarmType("MoneyTree");
+				setFarmTypeImage("/Images/FarmTypeImages/MoneyTree.jpg");
 				farmTypeConfirm("Money Tree");
 			}
 		});
@@ -190,10 +191,11 @@ public class ChooseFarmType {
 		moneyTreeStatsLbl.setBorder(border);
 		chooseFarmType.getContentPane().add(moneyTreeStatsLbl);
 		
-		JButton discountStoreBtn = new JButton("Thrift Farm");
+		JButton discountStoreBtn = new JButton("Discount Store");
 		discountStoreBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setFarmType("Discount Store");
+				setFarmTypeImage("/Images/FarmTypeImages/DiscountFarmImage.jpg");
 				farmTypeConfirm("Discount Store");
 			}
 		});

@@ -94,7 +94,7 @@ public class ViewFarm {
 			}
 		});
 		closeBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
-		closeBtn.setBounds(780, 604, 164, 24);
+		closeBtn.setBounds(780, 597, 164, 31);
 		closeBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		viewFarmWindow.getContentPane().add(closeBtn);
 		
@@ -114,11 +114,9 @@ public class ViewFarm {
 		farmerDetailsTitle.setBounds(169, 18, 169, 31);
 		viewFarmWindow.getContentPane().add(farmerDetailsTitle);
 		
-		JLabel farmerDetails = new JLabel("<html>Name:<i> " + farmer.getName() 
-		        +" </i><br><br>Age: <i>" + farmer.getAge() 
-				+ "</i> <br><br>Farmer Type: <i>"+ farmer.getType()+"</i>");
+		JLabel farmerDetails = new JLabel("<html>Name:<dynamic> <br><br>Age: 0 <br><br>Farmer Type: <dynamic>");
 		farmerDetails.setFont(new Font("Tahoma", Font.BOLD, 14));
-		farmerDetails.setBounds(171, 60, 348, 100);
+		farmerDetails.setBounds(171, 60, 274, 100);
 		viewFarmWindow.getContentPane().add(farmerDetails);
 
 		
@@ -133,7 +131,7 @@ public class ViewFarm {
 		viewFarmWindow.getContentPane().add(borderLbl2);
 		
 		JLabel farmImage = new JLabel("");
-		farmImage.setBounds(494, 46, 131, 111);
+		farmImage.setBounds(494, 21, 169, 136);
 		farmImage.setIcon(new ImageIcon(ViewFarm.class.getResource(farm.getImageType())));
 		viewFarmWindow.getContentPane().add(farmImage);
 		
@@ -143,11 +141,9 @@ public class ViewFarm {
 		farmDetailsTitle.setBounds(665, 21, 137, 31);
 		viewFarmWindow.getContentPane().add(farmDetailsTitle);
 		
-		JLabel farmDetails = new JLabel("<html>Farm Name:<i>" + farm.getName() 
-		+ "</i><br><br>Farm Type:<i> "+ farm.getType() 
-		+ "</i><br><br>Current Cash: <i>" + farm.getMoney() + "</i></html>");
+		JLabel farmDetails = new JLabel("<html>Farm Name:<dynamic><br><br>Farm Type:<dynamic><br><br>Current Cash: $ 0.0</html>");
 		farmDetails.setFont(new Font("Tahoma", Font.BOLD, 14));
-		farmDetails.setBounds(634, 46, 298, 100);
+		farmDetails.setBounds(675, 46, 257, 100);
 		viewFarmWindow.getContentPane().add(farmDetails);
 		
 		JLabel cropsTitle = new JLabel("Crops:");
@@ -174,7 +170,7 @@ public class ViewFarm {
 		
 		JLabel suppliesStatus = new JLabel("<html> " + farm.viewSupplies()+ "</html>");
 		suppliesStatus.setHorizontalAlignment(SwingConstants.LEFT);
-		suppliesStatus.setBounds(372, 419, 207, 197);
+		suppliesStatus.setBounds(335, 226, 269, 353);
 		viewFarmWindow.getContentPane().add(suppliesStatus);
 		
 		JLabel borderLbl5 = new JLabel("");

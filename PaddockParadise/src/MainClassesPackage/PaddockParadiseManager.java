@@ -49,12 +49,7 @@ public class PaddockParadiseManager {
 		
 		activitiesLeft = 2;
 		options = createOptionList(4);
-		Setup1 setup = new Setup1(this);
-//		optionString = "What would you like to do?\n"
-//				+	"[1] View " + newFarm.getName() + "\n"
-//				+	"[2] Perform an action\n"
-//				+	"[3] Visit the General Store\n"
-//				+   "[4] Skip to next day?\n";
+		Setup1 setup = new Setup1(this);	
 		initRandomOccurences();
 		// make a runtime loop, so that when a method finishes it isn't required to call playGame() again
 		runGame();
@@ -242,16 +237,16 @@ public class PaddockParadiseManager {
 	}
 	
 	public void skipDay() {
-		System.out.println("Welcome to the new day");
 		currentDay -= 1; 
 		if (currentDay < 0) {
 			endGame(this); // need to implement end game
 		}else {
 			newFarm.startNewDay();
 			setActivitiesLeft(2);
-//			rollRandomOccurence();
-			// Need to implement a random occurrence for extra credit that occurs every 3rd day??
+			rollRandomOccurence(); // Calls the random Occurences method
+			
 		}
+		
 	}
 	
 	public void feedAnimal() {
