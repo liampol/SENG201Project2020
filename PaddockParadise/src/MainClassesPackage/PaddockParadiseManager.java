@@ -6,8 +6,6 @@ import baseutility.*;
 import extendSupplies.*;
 
 import java.util.Scanner;
-import GUIPackage.*;
-import GUIPackage.ChooseFarmer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -804,32 +802,6 @@ public class PaddockParadiseManager {
 	public int getScore() {
 		int score = (int) (((newFarm.getMoney() + newFarm.getFarmWorth()) / 2) / totalDays);
 		return score;
-	}
-	
-	public void closeWelcomeScreen(WelcomeScreen welcomeWindow) {
-		//welcomeWindow.closeWindow();
-		//launchChooseFarmer();
-	}
-	
-	public void launchChooseFarmer() {
-		//ChooseFarmer chooseFarmerScreen = new ChooseFarmer(this);
-	}
-		
-	public void closeChooseFarmerScreen(ChooseFarmer chooseFarmerScreen) {
-		//chooseFarmerScreen.closeWindow();
-		//launchChooseFarmType();
-	}
-	
-	public void closeChooseFarmType(ChooseFarmType chooseFarmTypeScreen) {
-//		chooseFarmTypeScreen.closeWindow();
-	}
-	public void launchMainWindow() {
-		//String currentCrops = newFarm.viewCrops();
-	}
-	
-	public void closeMainWindow() {
-		//launchMainWindow.closeWindow();
-		
 	}
 	
 	public String toString(String message) {
