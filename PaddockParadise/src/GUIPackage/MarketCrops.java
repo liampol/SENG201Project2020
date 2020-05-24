@@ -43,8 +43,6 @@ public class MarketCrops {
 	 */
 	public MarketCrops(Market newManager) {
 		manager = newManager;
-		
-
 		initialize();
 		marketCropsWindow.setVisible(true);
 	}

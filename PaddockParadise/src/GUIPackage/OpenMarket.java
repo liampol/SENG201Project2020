@@ -63,6 +63,10 @@ public class OpenMarket {
 		manager.launchMarketAnimals();
 	}
 	
+	private void addSupplies() {
+		manager.launchMarketSupplies();
+	}
+	
 	
 	public void closeWindow() {
 		openMarketWindow.dispose();
@@ -137,6 +141,11 @@ public class OpenMarket {
 		openMarketWindow.getContentPane().add(buyAnimalBtn);
 		
 		JButton buySuppliesBtn = new JButton("Buy Supplies");
+		buySuppliesBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addSupplies();
+			}
+		});
 		buySuppliesBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buySuppliesBtn.setBounds(375, 343, 158, 38);
 		buySuppliesBtn.setBorder(raiseBorder);

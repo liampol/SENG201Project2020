@@ -93,171 +93,171 @@ public class Market {
 	 *      [6] Checkout
 	 *		[7] EXIT SHOP
 	 */
-	public void viewMarketOptions() {
-		System.out.println("WELCOME TO THE GENERAL MARKET!!\n\nThis is the 'FRONT DESK' How can I help you today?");
-		System.out.println("(If your farm type is either:\n"
-				+ "'Discount Store' or 'Faster Crop Growth', these bonuses will be shown at checkout)\n");
-		System.out.println("The items sold here are:\n"
-				//String cauliDets = cauli.getDetails();
-				+ "Crops:\n"
-				+ cauliflower.getDetails()
-				+ avocado.getDetails()
-				+ potato.getDetails() 
-				+ broccoli.getDetails()
-				+ capsicum.getDetails()
-				+ carrot.getDetails() + "\n"
-				+ "Animals:(Animals give money only if tended to)\n"
-				+ cow.getDetails() 
-				+ sheep.getDetails()
-				+ pig.getDetails() + "\n"
-				+ "Supplies:\n"
-				+ "(For Crops)\n"
-				+ rootBoost.getDetails()
-				+ fertiliser.getDetails()
-				+ horseDung.getDetails()
-				+ "(For Animals)\n"
-				+ grain.getDetails()
-				+ vitamin.getDetails()
-				+ hay.getDetails() + "\n");
-		System.out.printf("YOUR CURRENT BALANCE: $" + farmOwner.getMoney()+ "\n");
-		System.out.println("CURRENT CART COST: $" + cartCost);
-		System.out.println("Your Current Cart:");
-		printCart();
-		
-		int option = 0;
-		boolean correct = false; 
-		
-		do {
-			System.out.println("Please choose option by typing the corresponding number,");
-			System.out.println("Would you like to:\n"
-					+ "[1] Buy Crops\n"
-					+ "[2] Buy Animals\n"
-					+ "[3] Buy Farm Supplies\n"
-					+ "[4] Sell Crops\n"
-					+ "[5] Remove items from cart\n"
-					+ "[6] Checkout\n"
-					+ "[7] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
-			option = input.nextInt();
-			switch(option) {
-			case 1:
-				buyCrops();
-				correct = true;
-				break;
-			case 2:
-				buyAnimals();
-				correct = true;
-				break;
-			case 3:
-				buySupplies();
-				correct = true;
-				break;
-			case 4:
-				sellCrops();
-				correct = true;
-				break;
-			case 5:
-				removeFromCart();
-				correct = true;
-				break;
-			case 6:
-				checkout();
-				correct = true;
-				break;
-			case 7:
-				correct = true;
-				System.out.print("You left the market\n");
-				exit();
-				break;
-				}
-			}while (!(correct));
-		
-		
-	}
+//	public void viewMarketOptions() {
+//		System.out.println("WELCOME TO THE GENERAL MARKET!!\n\nThis is the 'FRONT DESK' How can I help you today?");
+//		System.out.println("(If your farm type is either:\n"
+//				+ "'Discount Store' or 'Faster Crop Growth', these bonuses will be shown at checkout)\n");
+//		System.out.println("The items sold here are:\n"
+//				//String cauliDets = cauli.getDetails();
+//				+ "Crops:\n"
+//				+ cauliflower.getDetails()
+//				+ avocado.getDetails()
+//				+ potato.getDetails() 
+//				+ broccoli.getDetails()
+//				+ capsicum.getDetails()
+//				+ carrot.getDetails() + "\n"
+//				+ "Animals:(Animals give money only if tended to)\n"
+//				+ cow.getDetails() 
+//				+ sheep.getDetails()
+//				+ pig.getDetails() + "\n"
+//				+ "Supplies:\n"
+//				+ "(For Crops)\n"
+//				+ rootBoost.getDetails()
+//				+ fertiliser.getDetails()
+//				+ horseDung.getDetails()
+//				+ "(For Animals)\n"
+//				+ grain.getDetails()
+//				+ vitamin.getDetails()
+//				+ hay.getDetails() + "\n");
+//		System.out.printf("YOUR CURRENT BALANCE: $" + farmOwner.getMoney()+ "\n");
+//		System.out.println("CURRENT CART COST: $" + cartCost);
+//		System.out.println("Your Current Cart:");
+//		printCart();
+//		
+//		int option = 0;
+//		boolean correct = false; 
+//		
+//		do {
+//			System.out.println("Please choose option by typing the corresponding number,");
+//			System.out.println("Would you like to:\n"
+//					+ "[1] Buy Crops\n"
+//					+ "[2] Buy Animals\n"
+//					+ "[3] Buy Farm Supplies\n"
+//					+ "[4] Sell Crops\n"
+//					+ "[5] Remove items from cart\n"
+//					+ "[6] Checkout\n"
+//					+ "[7] EXIT SHOP\n");  // Need to implement some notification to double check user would like to 
+//			option = input.nextInt();
+//			switch(option) {
+//			case 1:
+//				buyCrops();
+//				correct = true;
+//				break;
+//			case 2:
+//				buyAnimals();
+//				correct = true;
+//				break;
+//			case 3:
+//				buySupplies();
+//				correct = true;
+//				break;
+//			case 4:
+//				sellCrops();
+//				correct = true;
+//				break;
+//			case 5:
+//				removeFromCart();
+//				correct = true;
+//				break;
+//			case 6:
+//				checkout();
+//				correct = true;
+//				break;
+//			case 7:
+//				correct = true;
+//				System.out.print("You left the market\n");
+//				exit();
+//				break;
+//				}
+//			}while (!(correct));
+//		
+//		
+//	}
+//	
+//	/**
+//	 * Adds Fertiliser to cart as well as adds the cost to cartCost
+//	 */
 	
-	/**
-	 * Adds Fertiliser to cart as well as adds the cost to cartCost
-	 */
-	
-	public void buyCrops() {
-		
-		int added = 0;
-		boolean endSwitch = true; // Should always be true to end switch
-		boolean endDo = false;     // Only true when Do-while ends and returns to previous menu
-		do {
-		System.out.println("\nPlease choose option by typing the corresponding number, and adding one item at a time, \n"
-			             + "(EXAMPLE : press 1, then enter, for carrot, then press 2, then enter to also add broccoli)\n ");
-
-		System.out.println("What crops would you like to add to cart?\n"
-				+ "[1] Carrot      $10.00\n"
-				+ "[2] Broccoli    $15.00\n"
-				+ "[3] Capsicum    $20.00\n"
-				+ "[4] Avocado     $30.00\n"
-				+ "[5] Potato      $15.00\n"
-				+ "[6] Cauliflower $30.00\n"
-				+ "[7] Return to 'FRONT DESK'");
-		added = input.nextInt();
-		switch(added) {
-		case 1:
-			addCarrots();
-			break;
-		case 2:
-			addBroccoli();
-			break;
-		case 3:
-			addCapsicum();
-			break;
-		case 4:
-			addAvocado();
-			break;
-		case 5:
-			addPotato();
-			break;
-		case 6:
-			addCauliflower();
-			break;
-		case 7:
-			endDo = true;
-			break;
-			}while(!endSwitch);  // End switch when endSwitch is true
-		}while(!endDo);          // End do-while loop while endDo is true
-		
-		viewMarketOptions();
-		
-	}
-	
-	public void buyAnimals() {
-		
-		int added = 0;
-		boolean endSwitch = true; // Always ends through each iteration
-		boolean endDo = false;    // Ends only when user wants to return to "FRONT DESK"
-		
-		do {
-			System.out.println("What animals would you like to add to cart?\n"
-					+ "[1] Sheep $20.00\n"
-					+ "[2] Cow   $50.00\n"
-					+ "[3] Pig  $10.00\n"
-					+ "[4] Return to 'FRONT DESK'");
-			added = input.nextInt();
-			switch(added) {
-			case 1:
-				addSheep();
-				break;
-			case 2:
-				addCow();
-				break;
-			case 3:
-				addPig();
-				break;
-			case 4:
-				endDo = true;
-				break;
-			}while(!(endSwitch));
-		}while(!(endDo));
-		
-		viewMarketOptions();
-		
-		
-	}
+//	public void buyCrops() {
+//		
+//		int added = 0;
+//		boolean endSwitch = true; // Should always be true to end switch
+//		boolean endDo = false;     // Only true when Do-while ends and returns to previous menu
+//		do {
+//		System.out.println("\nPlease choose option by typing the corresponding number, and adding one item at a time, \n"
+//			             + "(EXAMPLE : press 1, then enter, for carrot, then press 2, then enter to also add broccoli)\n ");
+//
+//		System.out.println("What crops would you like to add to cart?\n"
+//				+ "[1] Carrot      $10.00\n"
+//				+ "[2] Broccoli    $15.00\n"
+//				+ "[3] Capsicum    $20.00\n"
+//				+ "[4] Avocado     $30.00\n"
+//				+ "[5] Potato      $15.00\n"
+//				+ "[6] Cauliflower $30.00\n"
+//				+ "[7] Return to 'FRONT DESK'");
+//		added = input.nextInt();
+//		switch(added) {
+//		case 1:
+//			addCarrots();
+//			break;
+//		case 2:
+//			addBroccoli();
+//			break;
+//		case 3:
+//			addCapsicum();
+//			break;
+//		case 4:
+//			addAvocado();
+//			break;
+//		case 5:
+//			addPotato();
+//			break;
+//		case 6:
+//			addCauliflower();
+//			break;
+//		case 7:
+//			endDo = true;
+//			break;
+//			}while(!endSwitch);  // End switch when endSwitch is true
+//		}while(!endDo);          // End do-while loop while endDo is true
+//		
+//		viewMarketOptions();
+//		
+//	}
+//	
+//	public void buyAnimals() {
+//		
+//		int added = 0;
+//		boolean endSwitch = true; // Always ends through each iteration
+//		boolean endDo = false;    // Ends only when user wants to return to "FRONT DESK"
+//		
+//		do {
+//			System.out.println("What animals would you like to add to cart?\n"
+//					+ "[1] Sheep $20.00\n"
+//					+ "[2] Cow   $50.00\n"
+//					+ "[3] Pig  $10.00\n"
+//					+ "[4] Return to 'FRONT DESK'");
+//			added = input.nextInt();
+//			switch(added) {
+//			case 1:
+//				addSheep();
+//				break;
+//			case 2:
+//				addCow();
+//				break;
+//			case 3:
+//				addPig();
+//				break;
+//			case 4:
+//				endDo = true;
+//				break;
+//			}while(!(endSwitch));
+//		}while(!(endDo));
+//		
+//		viewMarketOptions();
+//		
+//		
+//	}
 	
 	public void buySupplies() {
 		
@@ -301,7 +301,7 @@ public class Market {
 			}while(!(endSwitch));
 		}while(!(endDo));
 		
-		viewMarketOptions();
+//		viewMarketOptions();
 		
 	}
 	public void addFertiliser() {
@@ -551,7 +551,7 @@ public class Market {
 				break;
 				}while(!endSwitch);
 		}while(!endDo);
-		viewMarketOptions();
+//		viewMarketOptions();
 	}
 	
 	/*
@@ -696,8 +696,8 @@ public class Market {
 	 * Removes the specified supply,
 	 * @param
 	 */
-	private void removeSupply(String item) {
-		
+	public String removeSupply(String item) {
+		String  message = "";
 		boolean empty = true; 
 		for (Supplies toRemove : suppliesCart) {
 			if (toRemove.getName() == item) {
@@ -726,8 +726,11 @@ public class Market {
 		}
 		
 		if (empty) {
-			System.out.println("Sorry " + item + " is not in your cart");
+			message = "Sorry " + item + " is not in your cart";
+		}else {
+			message = item + " has been removed from cart!";
 		}
+		return message;
 	}
 	
 	/**
@@ -896,7 +899,7 @@ public class Market {
 		}else {
 			System.out.println("Sorry you do not have enough money, "
 					         + "Please remove some items from the cart");
-			viewMarketOptions();
+//			viewMarketOptions();
 		}
 		
 		// Can afford items, so continue
@@ -919,7 +922,7 @@ public class Market {
 			}while(!endSwitch);
 		}while(!endDo);
 		
-		viewMarketOptions();
+//		viewMarketOptions();
 	}
 	
 	
@@ -995,7 +998,7 @@ public class Market {
 				farmOwner.addAnimal(animal);  // add to farms animals
 				}
 			animalCart.clear();
-			viewMarketOptions();
+//			viewMarketOptions();
 		}
 	}
 	
@@ -1019,6 +1022,15 @@ public class Market {
 	
 	public void closeMarketAnimals(MarketAnimals marketAnimalsScreen) {
 		marketAnimalsScreen.closeWindow();
+		launchOpenMarket();
+	}
+	
+	public void launchMarketSupplies() {
+		MarketSupplies marketSuppliesWindow = new MarketSupplies(this);
+	}
+	
+	public void closeMarketSuppliesWindow(MarketSupplies marketSuppliesScreen) {
+		marketSuppliesScreen.closeWindow();
 		launchOpenMarket();
 	}
 	
