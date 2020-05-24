@@ -26,10 +26,10 @@ public class FeedAnimals extends Action {
 		if (actionsAvailable()) {
 			switch (foodToUse.getName()) {
 			case "Hay":
-				animalToFeed.alterEmotionalState(1);
+				animalToFeed.alterEmotionalState(3);
 				break;
 			case "Grains":
-				animalToFeed.alterHealthState(2);
+				animalToFeed.alterHealthState(3);
 				break;
 			case "Vitamins":
 				animalToFeed.alterHealthState(3);

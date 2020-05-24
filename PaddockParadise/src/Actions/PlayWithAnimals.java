@@ -15,7 +15,7 @@ public class PlayWithAnimals extends Action {
 	@Override
 	public void performAction() {
 		if (actionsAvailable()) {
-			animalToPlayWith.alterEmotionalState(1);
+			animalToPlayWith.alterEmotionalState(2);
 			System.out.println("You play with the " + animalToPlayWith.getName() + "!\n");
 			System.out.println("The state of " + animalToPlayWith.getName() + " is now - Emotional State: " 
 			+ animalToPlayWith.getEmotionalState() 

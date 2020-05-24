@@ -273,15 +273,40 @@ public class Farm {
 		if (currentAnimals.isEmpty()) {
 			return "Sorry but you have no animals to view,";
 		}else {
+		
 		returnString = "The current animals that are in the farm are:";
 		for (int i = 0; i < currentAnimals.size(); i++) {
+			String emotionString = (currentAnimals.get(i).getEmotionalState() == "Sad") ? "" :
+								" (" + daysLeftOfEmotionState(currentAnimals.get(i)) + " days left)";
 			returnString += "\n[" +  (i+1) + "] " + currentAnimals.get(i).getName() + " the "
 						+  currentAnimals.get(i).getType() 
-						+ " - Emotional State: " + currentAnimals.get(i).getEmotionalState()
+						+ " - Emotional State: " + currentAnimals.get(i).getEmotionalState() 
+						+ emotionString
 						+ ", Health State: " + currentAnimals.get(i).getHealthState()
+						+ " (" + daysLeftOfHealthState(currentAnimals.get(i)) + " days left)"
 						+ ",";
 		}
 		return returnString;
+		}
+	}
+	
+	private int daysLeftOfEmotionState(Animal animal) {
+		if (animal.getEmotionTracker() >= 3) {
+			return (animal.getEmotionTracker() - 3);
+		} else if (animal.getEmotionTracker() <= 2 && animal.getEmotionTracker() > 0) {
+			return animal.getEmotionTracker() - 1;
+		} else {
+			return (int) 10;
+		}
+	}
+	
+	private int daysLeftOfHealthState(Animal animal) {
+		if (animal.getHealthTracker() >= 3) {
+			return (animal.getHealthTracker() - 3);
+		} else if (animal.getHealthTracker() <= 2 && animal.getHealthTracker() > 0) {
+			return animal.getHealthTracker() - 1;
+		} else {
+			return -1;
 		}
 	}
 	

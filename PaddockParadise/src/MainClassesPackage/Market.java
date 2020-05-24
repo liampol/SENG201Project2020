@@ -343,12 +343,12 @@ public String getInput() {
 		do {
 				
 			System.out.println("What supplies would you like to add to cart?\n"
-					+ "[1] Grains:     [Cost] $100.00, [Attribute] Keeps animal healthier for 2 days,\n"
-					+ "[2] Vitamins:   [Cost] $300.00, [Attribute] Keeps animal happy and healthier for 3 days,\n"
-					+ "[3] Hay:        [Cost] $100.00, [Attribute] Keeps animal happy for 1 day,\n"
-					+ "[4] Root Boost: [Cost] $55.00,  [Attribute] Boosts chosen crop by 3 days,\n"
-					+ "[5] Fertiliser: [Cost] $20.00,  [Attribute] Boosts chosen crop by 2 days,\n"
-					+ "[6] Horse-Dung: [Cost] $10.00,  [Attribute] Boosts chosen crop by 1 days,\n"
+					+ "[1] Grains:     [Cost] $100.00, [Attribute] Keeps animal healthier for 3 days,\n"
+					+ "[2] Vitamins:   [Cost] $450.00, [Attribute] Keeps animal happy and healthier for 3 days,\n"
+					+ "[3] Hay:        [Cost] $100.00, [Attribute] Keeps animal happy for 3 days,\n"
+					+ "[4] Root Boost: [Cost] $550.00,  [Attribute] Boosts chosen crop by 3 days,\n"
+					+ "[5] Fertiliser: [Cost] $200.00,  [Attribute] Boosts chosen crop by 2 days,\n"
+					+ "[6] Horse-Dung: [Cost] $100.00,  [Attribute] Boosts chosen crop by 1 days,\n"
 					+ "[7] Return to 'FRONT DESK'");
 			
 			added = getInput(1, 7);

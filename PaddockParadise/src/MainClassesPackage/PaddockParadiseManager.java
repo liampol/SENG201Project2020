@@ -46,7 +46,6 @@ public class PaddockParadiseManager {
 		options = createOptionList(4);
 		Setup setup = new Setup(this);
 		totalDays = currentDay;
-		
 		optionString = "What would you like to do?\n"
 				+	"[1] View " + newFarm.getName() + "\n"
 				+	"[2] Perform an action\n"
@@ -54,7 +53,7 @@ public class PaddockParadiseManager {
 				+   "[4] Skip to next day?\n";
 		
 		initRandomOccurences();
-		// make a runtime loop, so that when a method finishes it isn't required to call playGame() again
+		// runtime loop
 		runGame();
 		// Only closes once game is finished, i.e all calls of playGame() is finished.
 	}
@@ -220,38 +219,43 @@ public class PaddockParadiseManager {
 	}
 
 	public void performActivity() {
-		String optionsStr = "What action would you like to perform?\n" 
-							+ "[1] Feed a farm animal (Increases the animals healthiness)\n"
-							+ "[2] Play with a farm animal (Increases the animals happiness)\n" 
-							+ "[3] Tend to a crop (Decreases the time until it can be harvested)\n"
-							+ "[4] Tend to the farmland (Allows more crops to be grown)\n"
-							+ "[5] Harvest a crop (Harvest and sell a fully grown crop)\n"
-							+ "[6] No action - go back.\n";
-		System.out.println(optionsStr);
-		ArrayList<Integer> activityOptions = createOptionList(6);
-		int choice = getValidInput(activityOptions, optionsStr);
-		switch (choice) {
-		case 1:
-			feedAnimal();
-			break;
-		case 2:
-			playWithAnimal();
-			break;
-		case 3:
-			try {
-				tendCrops();
-			} catch(NullPointerException npe) {
-				
+		if (activitiesLeft > 0) {
+			String optionsStr = "What action would you like to perform?\n" 
+					+ "[1] Feed a farm animal (Increases the animals healthiness)\n"
+					+ "[2] Play with a farm animal (Increases the animals happiness)\n" 
+					+ "[3] Tend to a crop (Decreases the time until it can be harvested)\n"
+					+ "[4] Tend to the farmland (Allows more crops to be grown)\n"
+					+ "[5] Harvest a crop (Harvest and sell a fully grown crop)\n"
+					+ "[6] No action - go back.\n";
+			System.out.println(optionsStr);
+			ArrayList<Integer> activityOptions = createOptionList(6);
+			int choice = getValidInput(activityOptions, optionsStr);
+			switch (choice) {
+			case 1:
+				feedAnimal();
+				break;
+			case 2:
+				playWithAnimal();
+				break;
+			case 3:
+				try {
+					tendCrops();
+				} catch(NullPointerException npe) {
+		
+				}
+				break;
+			case 4:
+				tendLand();
+				break;
+			case 5:
+				harvestCrops();
+			case 6:
+				return;
 			}
-			break;
-		case 4:
-			tendLand();
-			break;
-		case 5:
-			harvestCrops();
-		case 6:
-			return;
+		} else {
+			System.out.println("You don't have any actions left for the day!");
 		}
+
 	}
 	
 	public void skipDay() {
@@ -277,15 +281,20 @@ public class PaddockParadiseManager {
 	
 	public void feedAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
-			String output = newFarm.viewAnimals() + "\nChoose an animal to feed!\n";
+			String output = newFarm.viewAnimals() + "\nChoose an animal to feed!"+ "\n[" 
+												+ (newFarm.getAnimals().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
-			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getAnimals().size()+1)) {
+				return;
+			}
+			Animal animalChosen = newFarm.getAnimals().get(choice - 1);
 			String askUser = "What food would you like to use?\n";
 			if (foodAvailable()) {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(3);
-				int choice = getValidInput(nextOptionList, askUser);
+				choice = getValidInput(nextOptionList, askUser);
 				Supplies itemChoice;
 				boolean successfullyFed = true;
 				switch (choice) {
@@ -346,8 +355,8 @@ public class PaddockParadiseManager {
 		if (hayCount == 0 && grainsCount == 0 && vitaminsCount == 0) {
 			return false;
 		}
-		outputStr +=    ("[1] Hay - Keeps animals Happier for 2 days, (x" + hayCount + ")\n"
-						+ "[2] Grains - Keeps animals Healthier for 2 days, (x" + grainsCount + ")\n"
+		outputStr +=    ("[1] Hay - Keeps animals Happier for 3 days, (x" + hayCount + ")\n"
+						+ "[2] Grains - Keeps animals Healthier for 3 days, (x" + grainsCount + ")\n"
 						+ "[3] Vitamins - Keeps animals Healthier and Happy for 3 days, (x" + vitaminsCount + ")\n");
 		System.out.println(outputStr);
 		return true;
@@ -355,10 +364,15 @@ public class PaddockParadiseManager {
 
 	public void harvestCrops() {
 		if (!newFarm.getCrops().isEmpty()) {
-			String output = newFarm.viewCropsStatus() + "\nChoose a crop to harvest!\n";
+			String output = newFarm.viewCropsStatus() + "\nChoose a crop to harvest!"+ "\n[" 
+					+ (newFarm.getCrops().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size());
-			Crop cropChosen = newFarm.getCrops().get(getValidInput(optionsList, output) - 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getCrops().size()+1)) {
+				return;
+			}
+			Crop cropChosen = newFarm.getCrops().get(choice - 1);
 			HarvestCrops cropHarvest = new HarvestCrops(this, cropChosen);
 			cropHarvest.performAction();
 		} else {
@@ -368,10 +382,15 @@ public class PaddockParadiseManager {
 	
 	public void playWithAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
-			String output = newFarm.viewAnimals() + "\nChoose an animal to play with!\n";
+			String output = newFarm.viewAnimals() + "\nChoose an animal to play with!"+ "\n[" 
+							+ (newFarm.getAnimals().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size());
-			Animal animalChosen = newFarm.getAnimals().get(getValidInput(optionsList, output) - 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getAnimals().size()+1)) {
+				return;
+			}
+			Animal animalChosen = newFarm.getAnimals().get(choice - 1);
 			PlayWithAnimals animalPlay = new PlayWithAnimals(this, animalChosen);
 			animalPlay.performAction();
 		} else {
@@ -381,31 +400,36 @@ public class PaddockParadiseManager {
 	
 	public void tendCrops() {
 		if (!newFarm.getCrops().isEmpty()) {
-			String output = newFarm.viewCropsStatus() + "\nChoose a crop to tend!\n";
+			String output = newFarm.viewCropsStatus() + "\nChoose a crop to tend!"+ "\n[" 
+														+ (newFarm.getCrops().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size());
-			Crop cropChosen = newFarm.getCrops().get(getValidInput(optionsList, output) - 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size() + 1);
+			int choice = getValidInput(optionsList, output);
+			if (choice == (newFarm.getCrops().size()+1)) {
+				return;
+			}
+			Crop cropChosen = newFarm.getCrops().get(choice - 1);
 			String askUser = "What item would you like to use?\n";
 			boolean successfullyTended = true;
 			if (itemAvailable()) {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(4);
-				int choice = getValidInput(nextOptionList, askUser);
+				choice = getValidInput(nextOptionList, askUser);
 				Supplies itemChoice;
 				switch (choice) {
-				case 1:
+				case 2:
 					itemChoice = new HorseDung();
 					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
 						successfullyTended = false;
 					}
 					break;
-				case 2:
+				case 3:
 					itemChoice = new Fertiliser();
 					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
 						successfullyTended = false;
 					}
 					break;
-				case 3:	
+				case 4:	
 					itemChoice = new RootBoost();
 					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
 						successfullyTended = false;
@@ -422,7 +446,7 @@ public class PaddockParadiseManager {
 			} else {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(2);
-				int choice = getValidInput(nextOptionList, askUser);
+				choice = getValidInput(nextOptionList, askUser);
 				if (choice == 1) {
 					TendCrops cropTended = new TendCrops(this, cropChosen, null);
 					cropTended.performAction();
@@ -481,14 +505,16 @@ public class PaddockParadiseManager {
 	public void displayScoreboard() {
 		System.out.println("---------------");
 		int playerScore = getScore();
-		int[] scoreMilestones = {(int) (25000 / totalDays),
-								(int) (15000 / totalDays),
+		int[] scoreMilestones = {(int) (16000 / totalDays),
+								(int) (12000 / totalDays),
 								(int) (5000 / totalDays)};
 		String title;
 		if (playerScore > scoreMilestones[0]) {
 			title = "Legendary Farmer";
-		} else if (playerScore > scoreMilestones[1]) {
+		} else if (playerScore > scoreMilestones[1] && playerScore <= scoreMilestones[0]) {
 			title = "Master Farmer";
+		} else if (playerScore > scoreMilestones[2] && playerScore <= scoreMilestones[1]) {
+			title = "Amateur Farmer";
 		} else {
 			title = "Rookie Farmer";
 		}
@@ -498,7 +524,7 @@ public class PaddockParadiseManager {
 	}
 		
 	public int getScore() {
-		int score = (int) ((newFarm.getMoney() + (newFarm.getFarmWorth()) / 2) / totalDays);
+		int score = (int) (((newFarm.getMoney() + newFarm.getFarmWorth()) / 2) / totalDays);
 		return score;
 	}
 	
@@ -541,6 +567,7 @@ public class PaddockParadiseManager {
 				+ newFarm.viewFarmStatus()
 				+ "\nDays left to play: " + currentDay + ","
 				+ "\nCrop capacity: " + newFarm.getCropLimit() + ","
+				+ "\nActions remaining: " + activitiesLeft
 				+ "\nState of Farm: " + newFarm.getState() + ","
 				+ farmStateString;
 		

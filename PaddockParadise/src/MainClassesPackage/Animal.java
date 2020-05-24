@@ -31,6 +31,15 @@ public class Animal {
 		healthTracker = 3;  // init as "Healthy"
 		emotionTracker = 3; // init as "Happy"
 	}
+	
+	public int getEmotionTracker() {
+		return this.emotionTracker;
+	}
+	
+	public int getHealthTracker() {
+		return this.healthTracker;
+	}
+	
 	/**
 	 * Returns the name of the animal
 	 * @return
