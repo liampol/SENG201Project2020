@@ -51,6 +51,7 @@ public class Farm {
 		type = "Money Tree";
 		currentCrops = new ArrayList<Crop>();
 		currentAnimals = new ArrayList<Animal>();
+		currentSupplies =new ArrayList<Supplies>();
 		money =  500.00; 
 	}
 
@@ -318,7 +319,7 @@ public class Farm {
 	public String getAnimalsStatus() {
 		String status = "";
 		if (currentAnimals.isEmpty()) {
-			status = "Sorry but you have no Animals to view";
+			return "Sorry but you have no Animals to view";
 		}else {
 			for (Animal animal: currentAnimals) {
 				status += animal.getName() 
@@ -343,7 +344,7 @@ public class Farm {
 	public String viewSupplies() {
 		String status = "";
 		if (currentSupplies.isEmpty()) {
-			status = "Sorry but you have no 'Supplies' to view,";
+			return "Sorry but you have no 'Supplies' to view,";
 		}else {
 			status += "The current supplies that are in the farm are:";
 			for (int i = 0; i < currentSupplies.size(); i++) {
@@ -493,31 +494,31 @@ public class Farm {
 	public static void main(String[] args) {
 		
 		// Implemented for testing
-		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
-		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
-		Cow moo = new Cow("Truce");
-		Cow moo1 = new Cow("Trail");
-		Cow moo2 = new Cow("trace");
-		Cow moo3 = new Cow("Trump");
-		Cow moo4 = new Cow("Boris");
-		Cow moo5 = new Cow("Bettsy");
-		Sheep barbra = new Sheep("Benny");
-		Sheep barbra1 = new Sheep("Bootsie");
-		Sheep barbra2 = new Sheep("Bail");
-		Sheep barbra3 = new Sheep("Hoops");
-		newFarm.addAnimal(moo);
-		newFarm.addAnimal(barbra);
-		newFarm.addAnimal(moo);
-		newFarm.addAnimal(moo1);
-		newFarm.addAnimal(moo2);
-		newFarm.addAnimal(moo3);
-		newFarm.addAnimal(moo4);
-		newFarm.addAnimal(moo5);
-		newFarm.addAnimal(barbra1);
-		newFarm.addAnimal(barbra2);
-		newFarm.addAnimal(barbra3);
-		
-		System.out.println(newFarm.viewAnimals());
+//		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
+//		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
+//		Cow moo = new Cow("Truce");
+//		Cow moo1 = new Cow("Trail");
+//		Cow moo2 = new Cow("trace");
+//		Cow moo3 = new Cow("Trump");
+//		Cow moo4 = new Cow("Boris");
+//		Cow moo5 = new Cow("Bettsy");
+//		Sheep barbra = new Sheep("Benny");
+//		Sheep barbra1 = new Sheep("Bootsie");
+//		Sheep barbra2 = new Sheep("Bail");
+//		Sheep barbra3 = new Sheep("Hoops");
+//		newFarm.addAnimal(moo);
+//		newFarm.addAnimal(barbra);
+//		newFarm.addAnimal(moo);
+//		newFarm.addAnimal(moo1);
+//		newFarm.addAnimal(moo2);
+//		newFarm.addAnimal(moo3);
+//		newFarm.addAnimal(moo4);
+//		newFarm.addAnimal(moo5);
+//		newFarm.addAnimal(barbra1);
+//		newFarm.addAnimal(barbra2);
+//		newFarm.addAnimal(barbra3);
+//		
+//		System.out.println(newFarm.viewAnimals());
 
 		
 //		newFarm.viewAnimalStatus();
@@ -527,28 +528,28 @@ public class Farm {
 //		newFarm.checkForDeadAnimals();
 //		newFarm.viewAnimalStatus();
 		
-		System.out.println(newFarm.viewAnimals());
-		Carrot carrot = new Carrot();
-		Carrot carrot1 = new Carrot();
-		Carrot carrot2 = new Carrot();
-		Carrot carrot3 = new Carrot();
-		Broccoli broc = new Broccoli();
-		Potato potato = new Potato();
-		
-		newFarm.addCrop(carrot);
-		newFarm.addCrop(carrot1);
-		newFarm.addCrop(carrot2);
-		newFarm.addCrop(carrot3);
-		newFarm.addCrop(broc);
-		newFarm.addCrop(potato);
-		System.out.println(newFarm.viewCrops());
-		
-		// Test runOccurences()
-		newFarm.runOccurence("Drought");
-		System.out.println(newFarm.viewCrops());
-		newFarm.runOccurence("Broken Fence");
-		System.out.println(newFarm.viewAnimals());
-		
+//		System.out.println(newFarm.viewAnimals());
+//		Carrot carrot = new Carrot();
+//		Carrot carrot1 = new Carrot();
+//		Carrot carrot2 = new Carrot();
+//		Carrot carrot3 = new Carrot();
+//		Broccoli broc = new Broccoli();
+//		Potato potato = new Potato();
+//		
+//		newFarm.addCrop(carrot);
+//		newFarm.addCrop(carrot1);
+//		newFarm.addCrop(carrot2);
+//		newFarm.addCrop(carrot3);
+//		newFarm.addCrop(broc);
+//		newFarm.addCrop(potato);
+//		System.out.println(newFarm.viewCrops());
+//		
+//		// Test runOccurences()
+//		newFarm.runOccurence("Drought");
+//		System.out.println(newFarm.viewCrops());
+//		newFarm.runOccurence("Broken Fence");
+//		System.out.println(newFarm.viewAnimals());
+//		
 		
 //		System.out.printf("You have $%.2f left\n", newFarm.getMoney());  // Print to 2 d.p
 //		newFarm.viewCrops();

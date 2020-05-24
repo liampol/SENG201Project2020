@@ -31,6 +31,11 @@ public class ViewFarm {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+//		PaddockParadiseManager newerManager = new PaddockParadiseManager();
+//		newerManager.openViewFarm();
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -47,7 +52,8 @@ public class ViewFarm {
 	 * Create the application.
 	 */
 	public ViewFarm(PaddockParadiseManager newManager) {
-		manager =newManager;
+		
+		manager = newManager;
 		farm = manager.getFarm();
 		farmer = manager.getFarmer();
 		initialize();
@@ -93,7 +99,7 @@ public class ViewFarm {
 		viewFarmWindow.getContentPane().add(closeBtn);
 		
 		JLabel farmerImgLbl = new JLabel("");
-		farmerImgLbl.setIcon(new ImageIcon(MainWindow.class.getResource(farmer.getImageType())));
+		farmerImgLbl.setIcon(new ImageIcon(ViewFarm.class.getResource(farmer.getImageType())));
 		farmerImgLbl.setBounds(28, 46, 131, 111);
 		viewFarmWindow.getContentPane().add(farmerImgLbl);
 		
@@ -128,7 +134,7 @@ public class ViewFarm {
 		
 		JLabel farmImage = new JLabel("");
 		farmImage.setBounds(494, 46, 131, 111);
-		farmerImgLbl.setIcon(new ImageIcon(MainWindow.class.getResource(farm.getImageType())));
+		farmImage.setIcon(new ImageIcon(ViewFarm.class.getResource(farm.getImageType())));
 		viewFarmWindow.getContentPane().add(farmImage);
 		
 		JLabel farmDetailsTitle = new JLabel("Farm Details:");
@@ -150,8 +156,9 @@ public class ViewFarm {
 		cropsTitle.setBounds(123, 199, 92, 16);
 		viewFarmWindow.getContentPane().add(cropsTitle);
 		
-		JLabel cropsStatus = new JLabel(farm.viewCropsStatus());
-		cropsStatus.setBounds(28, 226, 298, 361);
+		JLabel cropsStatus = new JLabel("<html>" + farm.viewCropsStatus()+ "</html>");
+		cropsStatus.setHorizontalAlignment(SwingConstants.LEFT);
+		cropsStatus.setBounds(28, 226, 261, 353);
 		viewFarmWindow.getContentPane().add(cropsStatus);
 		
 		JLabel borderLbl4 = new JLabel("");
@@ -165,7 +172,8 @@ public class ViewFarm {
 		suppliesTitle.setBounds(429, 195, 116, 24);
 		viewFarmWindow.getContentPane().add(suppliesTitle);
 		
-		JLabel suppliesStatus = new JLabel(farm.viewSupplies());
+		JLabel suppliesStatus = new JLabel("<html> " + farm.viewSupplies()+ "</html>");
+		suppliesStatus.setHorizontalAlignment(SwingConstants.LEFT);
 		suppliesStatus.setBounds(372, 419, 207, 197);
 		viewFarmWindow.getContentPane().add(suppliesStatus);
 		
@@ -180,7 +188,8 @@ public class ViewFarm {
 		animalsTitle.setBounds(730, 201, 92, 14);
 		viewFarmWindow.getContentPane().add(animalsTitle);
 		
-		JLabel animalsStatus = new JLabel(farm.getAnimalsStatus());
+		JLabel animalsStatus = new JLabel("<html> " + farm.getAnimalsStatus()+ "</html>");
+		animalsStatus.setHorizontalAlignment(SwingConstants.LEFT);
 		animalsStatus.setBounds(634, 226, 298, 353);
 		viewFarmWindow.getContentPane().add(animalsStatus);
 	}

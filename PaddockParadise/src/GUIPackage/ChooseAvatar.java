@@ -99,12 +99,12 @@ public class ChooseAvatar {
 		
 		JLabel maleAvatar = new JLabel("");
 		maleAvatar.setIcon(new ImageIcon(ChooseAvatar.class.getResource("/Images/MaleHead.jpg")));
-		maleAvatar.setBounds(247, 155, 141, 122);
+		maleAvatar.setBounds(224, 165, 141, 122);
 		chooseAvatarWindow.getContentPane().add(maleAvatar);
 		
 		JLabel alienAvatar = new JLabel("");
 		alienAvatar.setIcon(new ImageIcon(ChooseAvatar.class.getResource("/Images/AlienResized.jpg")));
-		alienAvatar.setBounds(430, 155, 155, 122);
+		alienAvatar.setBounds(393, 165, 141, 122);
 		chooseAvatarWindow.getContentPane().add(alienAvatar);
 		
 		/**
@@ -139,7 +139,7 @@ public class ChooseAvatar {
 			}
 		});
 		maleAvatarBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
-		maleAvatarBtn.setBounds(273, 288, 115, 23);
+		maleAvatarBtn.setBounds(234, 288, 115, 23);
 		maleAvatarBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		chooseAvatarWindow.getContentPane().add(maleAvatarBtn);
 		
@@ -158,7 +158,7 @@ public class ChooseAvatar {
 			}
 		});
 		alienAvatarBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
-		alienAvatarBtn.setBounds(481, 288, 107, 23);
+		alienAvatarBtn.setBounds(403, 288, 107, 23);
 		alienAvatarBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		chooseAvatarWindow.getContentPane().add(alienAvatarBtn);
 		
