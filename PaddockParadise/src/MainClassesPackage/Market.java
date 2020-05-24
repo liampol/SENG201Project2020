@@ -1076,7 +1076,7 @@ public String getInput() {
 				
 				// Checks to see if bonus applies
 				if (happyAnimal) {
-					animal.addHealthBonus();
+					animal.addEmotionBonus();
 				}
 				option = getInput(1, 2);
 				while (option == -1) {

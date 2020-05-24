@@ -4,16 +4,23 @@ import MainClassesPackage.Crop;
 import MainClassesPackage.PaddockParadiseManager;
 import MainClassesPackage.Supplies;
 
+/**
+ * <h2>TendCrops</h2>
+ * 
+ * <p> The action to tend to a crop in the player's farm. Action is performed by creating a TendCrops instance and
+ * calling the performAction method.
+ * 
+ */
 public class TendCrops extends Action {
 
 	private Crop cropToTend;
 	private Supplies supplyToUse;
 	
-	/*
-	 *  Option to use with supply or not will be prompted from the performActions() function within 
-	 *  the environment. If using a supply, then TendCrops will be called with supplyToUse, otherwise
-	 *  null.
-	 *  cropToTend argument should always be passed in from the list of crops on the farm.
+	/**
+	 * 
+	 * @param incoming Game environment to give access to the state of the game
+	 * @param cropToTend Crop object chosen
+	 * @param supplyToUse Supplies object chosen
 	 */
 	
 	public TendCrops(PaddockParadiseManager incoming, Crop cropToTend, Supplies supplyToUse) {

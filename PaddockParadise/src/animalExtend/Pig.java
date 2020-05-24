@@ -3,10 +3,11 @@ import MainClassesPackage.Animal;
 
 
 /**
- * The 'Pig' class extends the animal class, and only has a default constructor() and a overload constructor(String name)
+ * <h2>Pig</h2>
+ * <p>The 'Pig' class extends the Animals class, and only has a default constructor() and a overload constructor(String name)
  * that takes a name as a parameter 
  * @author Te Wehenga Johnson
- *
+ * @see Animal
  */
 public class Pig extends Animal {
 	

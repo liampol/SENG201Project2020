@@ -3,20 +3,29 @@ package Actions;
 import MainClassesPackage.Crop;
 import MainClassesPackage.PaddockParadiseManager;
 
-/*
- * @author liam
- *  - To sell a crop, make a HarvestCrops object, and use the performAction method.
- *  - To be implemented in the playGame() method under case 2.
+/**
+ * <h2>HarvestCrops</h2>
+ * 
+ * <p> The action to harvest a crop in the player's farm. Action is performed by creating a HarvestCrops instance and
+ * calling the performAction method.
+ *  
  */ 
 public class HarvestCrops extends Action {
 	
 	private Crop cropToHarvest;
 	
+	/**
+	 * 
+	 * @param incoming Game environment to give access to the state of the game
+	 * @param cropToHarvest Crop object chosen
+	 */
 	public HarvestCrops(PaddockParadiseManager incoming, Crop cropToHarvest) {
 		super(incoming);
 		this.cropToHarvest = cropToHarvest;
 	}
-
+	/**
+	 * 
+	 */
 	@Override
 	public void performAction() {
 		if (actionsAvailable()) {

@@ -1,5 +1,12 @@
 package MainClassesPackage;
 
+/**
+ * <h2>Farmer</h2> 
+ * 
+ * <p> Creates a farmer object with a name, age, and type. Instantiated in the setup class
+ * 
+ * @see Setup
+ */
 public class Farmer {
 	
 	private String name;
@@ -13,7 +20,7 @@ public class Farmer {
 		type = newType;
 	}
 	
-	public Farmer() {
+	public Farmer() { // Default constructor for testing
 		name = "Farmer Doe";
 		age = 22;
 		type = "Male Farmer";
@@ -37,10 +44,5 @@ public class Farmer {
 				+ "Age: " + age + ",\n"
 				+ "Type: " + type + ",\n";
 	}
-	public static void main(String[] args) {
-		
-		// Implemented for testing
-		Farmer newFarmer = new Farmer();
-		System.out.println(newFarmer.getAge());
-	}
+
 }

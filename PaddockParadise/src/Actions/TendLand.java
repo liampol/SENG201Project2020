@@ -4,6 +4,13 @@ import MainClassesPackage.PaddockParadiseManager;
 
 public class TendLand extends Action {
 	
+	/**
+	 * <h2>TendLand</h2>
+	 * 
+	 * <p> The action to tend the player's farm. Action is performed by creating a TendLand instance and
+	 * calling the performAction method.
+	 *  
+	 */ 
 	public TendLand(PaddockParadiseManager incoming) {
 		super(incoming);
 	}
@@ -16,10 +23,10 @@ public class TendLand extends Action {
 			case "Unkept":
 				manager.getFarm().setState("Tidy");
 				break;
-			case "Tidy":
+			default:
 				break;
 			}
-			manager.getFarm().setDaysBeingTidy(1);
+			manager.getFarm().setDaysBeingTidy(1); // Reset counters to tell game environment when to make Untidy/Unkept again
 			manager.getFarm().setDaysBeingUnkept(1);
 			System.out.println("The state of " + manager.getFarm().getName() + " is now: " 
 								+ manager.getFarm().getState() + "\n");

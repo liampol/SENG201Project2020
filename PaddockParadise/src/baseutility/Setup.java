@@ -6,19 +6,29 @@ import java.util.regex.Pattern;
 import MainClassesPackage.*;
 
 /**
- * @author liam
- *
+ * <h2>Setup</h2>
+ * 
+ * <p> The setup class is instantiated by the game environment, PaddockParadiseManager, and contains all the methods 
+ * which ask the user for the input needed to setup various other objects.
+ * 
+ * @author Liam Pol
+ * @see PaddockParadiseManager
  */
 public class Setup {
 	
+	
 	private static PaddockParadiseManager manager;
 	Scanner input = new Scanner(System.in);
-	Pattern letter = Pattern.compile("[a-zA-z]");
-    Pattern nums = Pattern.compile("[0-9]");
-    Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+	Pattern letter = Pattern.compile("[a-zA-z]"); // Regex pattern to find any letter
+    Pattern nums = Pattern.compile("[0-9]"); // Regex pattern to find any number
+    Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]"); // Regex pattern to find any special character
     boolean invalid = false;
 	
-	
+	/**
+	 * Runs the methods to get the days, farmer name, farmer type, farmer age, farm name, and farm type
+	 * 
+	 * @param incomingManager The instance of the game environment
+	 */
 	public Setup(PaddockParadiseManager incomingManager) {
 		
 		manager = incomingManager;
@@ -47,19 +57,32 @@ public class Setup {
 		
 		
 	}
-	
+	/**
+	 * <h2>getDays</h2>
+	 * 
+	 * <p> Asks the user to input a valid number of days to play the game for. 
+	 * 
+	 * @return The number of days to play for
+	 */
 	public int getDays() {
 		
 		int dayNumber;
 		do {
 			System.out.println("How long would you like to play for? (Please type in a number between 5 and 10)\n");
 			dayNumber = returnValidInt(5, 10, "You didn't enter a number!");
-		}	while(dayNumber == -1);
+		}	while(dayNumber == -1); // Iterate for as long as number is invalid
 		System.out.println("Nice choice!");
-		input.nextLine();
+		input.nextLine(); // Clear the scanner buffer of the invalid input
 		return dayNumber;
 	}
 	
+	/**
+	 * <h2>getName</h2>
+	 * 
+	 * <p> Asks the user to input a valid name for the farmer/player. 
+	 * 
+	 * @return The name of the farmer/player
+	 */
 	public String getName() {
 		
 		String newName ="";
@@ -84,6 +107,13 @@ public class Setup {
 		return newName;
 	}
 	
+	/**
+	 * <h2>getAge</h2>
+	 * 
+	 * <p> Asks the user to input a valid number for the age of the farmer/player. 
+	 * 
+	 * @return The age of the farmer/player
+	 */
 	private int getAge() {
 		
 		int newAge = 0;
@@ -99,7 +129,7 @@ public class Setup {
 			
 		} while (newAge == -1);
 		System.out.println(message);
-		input.nextLine();
+		input.nextLine(); // clear the scanner buffer of the newline character
 		return newAge;
 	}
 	
@@ -134,7 +164,13 @@ public class Setup {
 		
 	}
 	
-	
+	/**
+	 * <h2>getName</h2>
+	 * 
+	 * <p> Asks the user to input a valid name for the farm. 
+	 * 
+	 * @return The name of the farm
+	 */
 	public String getFarmName() {
 		
 		String newName ="";
@@ -159,7 +195,13 @@ public class Setup {
 		return newName;
 	}
 	
-	
+	/**
+	 * <h2>getFarmType</h2>
+	 * 
+	 * <p> Asks the user to input a valid number, corresponding to the farm type they want.
+	 * 
+	 * @return The type of farm (farm bonus)
+	 */
 	public String getFarmType() {
 		
 		
@@ -171,11 +213,11 @@ public class Setup {
 					+ "[1] Money Tree:\n"
 					+ "Gives 20% Extra money bonus at the start of each day,\n"
 					+ "[2] Faster Crop Growth:\n"
-					+ "Decreases the days till harvest by 1,\n"                 // implemented
+					+ "Decreases the days till harvest by 1,\n"
 					+ "[3] Happy Animal:\n"
-					+ "Animals are happier for 2 extra days when purchased,\n"   // implemented
+					+ "Animals are happier for 2 extra days when purchased,\n"
 					+ "[4] Discount Store:\n"
-					+ "40% Discount added to carton checkout!\n\n"); // implemented
+					+ "40% Discount added to carton checkout!\n\n");
 			newInt = returnValidInt(1, 4, "You didn't enter a valid number!");
 			switch (newInt) {
 			case 1:
@@ -194,14 +236,25 @@ public class Setup {
 				newType = "Money Tree";
 			}
 		} while(newInt == -1);
-		input.nextLine();
+		input.nextLine(); // clear the scanner buffer of the newline character
 		return newType;
 	}
 	
+	/**
+	 * <h2>returnValidInt</h2>
+	 * 
+	 * <p> Helper method to ask the user for an integer number between lowerInclusiveBound and upperInclusiveBound. errorMessage
+	 * is displayed if the input was not an integer. 
+	 * 
+	 * @param lowerInclusiveBound the inclusive lower bound for the range of integers
+	 * @param upperInclusiveBound the inclusive upper bound for the range of integers
+	 * @param errorMessage the error message to display if the user did not enter an integer
+	 * @return The name of the farmer/player
+	 */
 	private int returnValidInt(int lowerInclusiveBound, int upperInclusiveBound, String errorMessage) {
 	
-			if (input.hasNextInt()) {
-				int number = input.nextInt();
+			if (input.hasNextInt()) { // true if the scanner sees an integer ahead
+				int number = input.nextInt(); 
 				if (number >= lowerInclusiveBound && number <= upperInclusiveBound) {
 					return number;
 				} else {
@@ -211,23 +264,9 @@ public class Setup {
 				
 			} else {
 				System.out.println(errorMessage);
-				input.next();
+				input.next(); // clear the scanner buffer
 				return -1;
 			}
 		}
-	
-	
-	private static void main(String[] args) {
-		
-		PaddockParadiseManager manager = new PaddockParadiseManager();
-		
-	//	Setup setup = new Setup();
-	//	setup.createFarmer(manager);
-	}
-	
-	
-	
-	
-	
 	
 }

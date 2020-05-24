@@ -6,13 +6,22 @@ import MainClassesPackage.Supplies;
 
 public class FeedAnimals extends Action {
 
+	/**
+	 * <h2>FeedAnimals</h2>
+	 * 
+	 * <p> The action to feed an animal in the player's farm. Action is performed by creating a FeedAnimals instance and
+	 * calling the performAction method.
+	 * 
+	 */
+	
 	private Animal animalToFeed;
 	private Supplies foodToUse;
 	
-	/*
-	 * performActoin in PaddockParidiseManager will need to contain error handling for if there is
-	 * no supplies which are food items.
+	/**
 	 * 
+	 * @param incoming Game environment to give access to the state of the game
+	 * @param animalToFeed Animal object chosen
+	 * @param foodToUse Supplies object chosen
 	 */
 	
 	public FeedAnimals(PaddockParadiseManager incoming, Animal animalToFeed, Supplies foodToUse) {
@@ -21,18 +30,21 @@ public class FeedAnimals extends Action {
 		this.foodToUse = foodToUse;
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public void performAction() {
 		if (actionsAvailable()) {
 			switch (foodToUse.getName()) {
 			case "Hay":
-				animalToFeed.alterEmotionalState(3);
+				animalToFeed.alterEmotionalState(3); // Hay = +3 Happiness
 				break;
 			case "Grains":
-				animalToFeed.alterHealthState(3);
+				animalToFeed.alterHealthState(3); // Grains = +3 Health
 				break;
 			case "Vitamins":
-				animalToFeed.alterHealthState(3);
+				animalToFeed.alterHealthState(3); // Vitamins = +3 Happiness & Health
 				animalToFeed.alterEmotionalState(3);
 				break;
 			} 

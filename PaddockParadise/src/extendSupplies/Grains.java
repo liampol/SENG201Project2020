@@ -1,6 +1,14 @@
 package extendSupplies;
 import MainClassesPackage.*;
 
+/**
+ * <h2>Grains</h2>
+ * <p>The 'Grains' class extends the Supplies class, and calls the Supplies constructor with values.
+ * 
+ * 
+ * @author Te Wehenga Johnson
+ * @see Supplies
+ */
 public class Grains extends Supplies{
 	
 	public Grains() {

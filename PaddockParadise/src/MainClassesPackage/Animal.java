@@ -3,21 +3,26 @@ import animalExtend.*;
 import baseutility.*;
 
 /**
- * The animal class
+ * <h2>Animal</h2>
+ * 
+ * <p> The animal class models a farm animal. It has a name,type, price, bonus, emotional state, and health state. The Market
+ * class creates instances of Animal subclasses - Cow, Pig, Sheep.
  * 
  * @author Te Wehenga Johnson
- * 
- *
+ * @see Market
+ * @see Cow
+ * @see Pig
+ * @see Sheep
  */
 public class Animal {
-	String name;                // Name of animal
-    String type;                // Types will be Cows, Sheep, Pigs
-	double price;               // Cost of animal
-	double profit;          	// Bonus received from each animal
-	String healthState;         // Current health state of animal ("Healthy", "Sick", "Die");
-	String emotionalState;      // Emotional state of animal ("Happy" "Saudade" or "Sad")
-	int healthTracker;          // Tracks the health state of the animal in days where (3+ = "Healthy, 2 = "Sick", 0 = "Dead")  
-	int emotionTracker;         // Tracks the emotional state of the animal in days where (3+ = "Happy", 2 = "Neutral", 0 = "Sad") 
+	private String name;                // Name of animal
+    private String type;                // Types will be Cows, Sheep, Pigs
+	private double price;               // Cost of animal
+	private double profit;          	// Bonus received from each animal
+	private String healthState;         // Current health state of animal ("Healthy", "Sick", "Die");
+	private String emotionalState;      // Emotional state of animal ("Happy" "Saudade" or "Sad")
+	private int healthTracker;          // Tracks the health state of the animal in days where (3+ = "Healthy, 2 = "Sick", 0 = "Dead")  
+	private int emotionTracker;         // Tracks the emotional state of the animal in days where (3+ = "Happy", 2 = "Neutral", 0 = "Sad") 
 	
 	
 	
@@ -32,10 +37,16 @@ public class Animal {
 		emotionTracker = 3; // init as "Happy"
 	}
 	
+	/** 
+	 * @return integer value corresponding to emotional state of animal
+	 */
 	public int getEmotionTracker() {
 		return this.emotionTracker;
 	}
 	
+	/** 
+	 * @return integer value corresponding to health state of animal
+	 */
 	public int getHealthTracker() {
 		return this.healthTracker;
 	}
@@ -64,7 +75,11 @@ public class Animal {
 		return price;
 	}
 	
-	public void addHealthBonus() {
+	/**
+	 * Adds a emotion bonus to the animal
+	 * 
+	 */
+	public void addEmotionBonus() {
 		emotionTracker += 2;
 	}
 	
@@ -77,30 +92,48 @@ public class Animal {
 		return currentProfit;
 	}
 	
-	
+	/**
+	 * Returns the health state of the animal
+	 * @return
+	 */
 	public String getHealthState() {
 		return healthState;
-}
+	}
 
+	/**
+	 * Sets emotional state of the animal
+	 * @param emotionalState value to set emotional state to
+	 */
 	public void setEmotionalState(String emotionalState) {
 		this.emotionalState = emotionalState;
 	}
 	
+	/** 
+	 * Gets emotional state of the animal
+	 * @return 
+	 */
 	public String getEmotionalState() {
 		return emotionalState;
 	}
 	
+	/**
+	 * Sets the health state of the animal
+	 * @param healthState
+	 */
 	public void setState(String healthState) {
 		this.healthState = healthState;
 	}
 	
-
+	/**
+	 * Sets the name of the animal
+	 * @param newName
+	 */
 	public void setName(String newName) {
 		name = newName;
 	}
 	
 	/**
-	 * This method alters the healthState by the amount of days passed in as a parameter that changes the heathTracker,
+	 * Alters the healthState by the amount of days passed in as a parameter that changes the heathTracker,
 	 * the states are then changed based on the new healthTracker value,
 	 * 
 	 * @param change
@@ -119,7 +152,7 @@ public class Animal {
 	}
 	
 	/**
-	 * This method alters the emotionalState by the amount of days passed in as a parameter that changes the emotionTracker,
+	 * Alters the emotionalState by the amount of days passed in as a parameter that changes the emotionTracker,
 	 * The states are then changed based on the new emotionTracker value,
 	 * 
 	 * @param change
@@ -137,7 +170,7 @@ public class Animal {
 		}
 	}
 	/**
-	 * This method returns the amount of profit received based on the emotionalState of the animal
+	 * Returns the amount of profit received based on the emotionalState of the animal
 	 * @return
 	 */
 	public double getWorth() {
@@ -153,6 +186,10 @@ public class Animal {
 		return worth;
 	}
 	
+	/**
+	 * Gets the details of the animal as a string
+	 * @return details of the animal
+	 */
 	public String getDetails() {
 		String details = type + ": "
 	+ "[Name] " + name + ", "
@@ -163,20 +200,6 @@ public class Animal {
 		
 		return details;
 
-	}
-		
-	
-	public static void main(String[] args) {
-		
-		//Implemented for testing
-//		Cow cow = new Cow();
-//		Cow cow1 = new Cow("Belle");
-//		Pig pig = new Pig();
-//		Pig pig1 = new Pig("Sir-Oinks-alot");
-//		Sheep sheep = new Sheep();
-//		Sheep sheep1 = new Sheep("Baaabara");
-//		
-//		System.out.printf("your income for this Sheep is $%.2f per day ",sheep1.getMoneyBonus());
 	}
 
 }

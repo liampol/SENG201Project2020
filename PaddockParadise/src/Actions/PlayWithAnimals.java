@@ -3,10 +3,22 @@ package Actions;
 import MainClassesPackage.Animal;
 import MainClassesPackage.PaddockParadiseManager;
 
+/**
+ * <h2>PlayWithAnimals</h2>
+ * 
+ * <p> The action to play with an animal in the player's farm. Action is performed by creating a PlayWithAnimals instance and
+ * calling the performAction method.
+ *  
+ */ 
 public class PlayWithAnimals extends Action {
 	
 	private Animal animalToPlayWith;
 	
+	/**
+	 * 
+	 * @param incoming Game environment to give access to the state of the game
+	 * @param animalToPlayWith Animal object chosen
+	 */
 	public PlayWithAnimals(PaddockParadiseManager incoming, Animal animalToPlayWith) {
 		super(incoming);
 		this.animalToPlayWith = animalToPlayWith;
@@ -15,7 +27,7 @@ public class PlayWithAnimals extends Action {
 	@Override
 	public void performAction() {
 		if (actionsAvailable()) {
-			animalToPlayWith.alterEmotionalState(2);
+			animalToPlayWith.alterEmotionalState(2); // +2 Happiness to animal
 			System.out.println("You play with the " + animalToPlayWith.getName() + "!\n");
 			System.out.println("The state of " + animalToPlayWith.getName() + " is now - Emotional State: " 
 			+ animalToPlayWith.getEmotionalState() 

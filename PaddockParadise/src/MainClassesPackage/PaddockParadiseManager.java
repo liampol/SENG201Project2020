@@ -18,7 +18,12 @@ import java.util.regex.Pattern;
 
 
 /**
- * PaddockParadiseManager is the game environment,
+ * <h2>PaddockParadiseManager</h2>
+ * 
+ * <p> PaddockParadiseManager is the game environment, where the game is run from the playGame() runtime loop, and 
+ * contains the game logic and state. </p>
+ * 
+ * <p> The game is run in an instance of PaddockParadiseManager, which only instantiates completely at the end of the game.
  *
  * @author Te Wehenga Johnson
  * @author Liam Pol
@@ -37,13 +42,14 @@ public class PaddockParadiseManager {
 	private Scanner gameScanner = new Scanner(System.in);
 	
 	/**
-	 * Launches the WelcomeScreen that welcomes the user to the game
-	 *      and gets the amount of days the user would like to play for
+	 * <h2>PaddockParadiseManager</h2>
+	 * 
+	 * <p> Creates the game. Runs the setup to get the number of days to play for, the farmer, and the farm.
 	 * 
 	 */
 	public PaddockParadiseManager() {
 		activitiesLeft = 2;
-		options = createOptionList(5);
+		options = createOptionList(5); // Allows input of integers 1-5, and rejects all other input
 		Setup setup = new Setup(this);
 		totalDays = currentDay;
 		optionString = "What would you like to do?\n"
@@ -52,13 +58,20 @@ public class PaddockParadiseManager {
 				+	"[3] Visit the General Store\n"
 				+   "[4] Skip to next day?\n"
 				+ 	"[5] Help\n";
-		
+		// Make random occurences possible
 		initRandomOccurences();
 		// runtime loop
 		runGame();
 		// Only closes once game is finished, i.e all calls of playGame() is finished.
 	}
 	
+	/**
+	 * <h2>runGame</h2>
+	 * 
+	 * <p> The runtime loop for the game. Runs the playGame method, and catches the error which aborts the instantiation of 
+	 * the PaddockParadiseManager, thus ending the game and displaying the scoreboard.
+	 * 
+	 */
 	public void runGame() {
 		while (true) {
 			try {
@@ -71,7 +84,6 @@ public class PaddockParadiseManager {
 	}
 	
 	public static void launchWelcomeWindow(PaddockParadiseManager manager) {
-		//WelcomeScreen welcomeWindow = new WelcomeScreen(this);
 		System.out.println("Welcome to Paddock Paradise");
 	}
 	
@@ -95,6 +107,13 @@ public class PaddockParadiseManager {
 		return newFarm;
 	}
 	
+	/**
+	 * <h2>initRandomOccurrence</h2>
+	 * 
+	 * <p> Allows events to happen. Events are added to a list of all random occurences, and one is selected at the start 
+	 * of a new day.
+	 * 
+	 */
 	private void initRandomOccurences() {
 		
 		randomOccurences.add("None");		   // No events
@@ -109,13 +128,20 @@ public class PaddockParadiseManager {
 
 	}
 	
-	
+	/**
+	 * <h2>playGame</h2>
+	 * 
+	 * <p> Runtime loop method for the game. Allows users to view the farm, perform an activity, visit the market,
+	 * move to the next day or get instructions on how to play.
+	 * 
+	 * @param ran with gameScanner to get input from the user.
+	 */
 	public void playGame(Scanner scanner) {
 		System.out.println(optionString);
-		int choice = getValidInput(options, optionString);
+		int choice = getValidInput(options, optionString); // Gets valid input in range 1 - 5
 		switch (choice) {
 		case 1:
-			// CHANGED from viewFarmStatus()
+			// views the farms status/details
 			System.out.println(viewDetails());
 			break;
 		case 2:
@@ -132,6 +158,15 @@ public class PaddockParadiseManager {
 
 	}
 	
+	/**
+	 * 
+	 * <h2>createOptionList</h2>
+	 * 
+	 * <p> Creates and returns a list containing numbers for the options.
+	 * 
+	 * @param numOptions The number of options to be accepted
+	 * @return an ArrayList containing the numbers for each of the options
+	 */
 	public ArrayList<Integer> createOptionList(int numOptions) {
 		ArrayList<Integer> returnList = new ArrayList<Integer>();
 		for (int i = 1; i < numOptions + 1; i++) {
@@ -140,6 +175,17 @@ public class PaddockParadiseManager {
 		return returnList;
 	}
 	
+
+	/**
+	 * 
+	 * <h2>getValidInput</h2>
+	 * 
+	 * <p> Ensures that the user enters a valid integer. Returns the valid integer.
+	 * 
+	 * @param optionList containing the valid options
+	 * @param errorMessage the message to be displayed when the input is not an integer
+	 * @return first integer entered that is a valid option
+	 */
 	public int getValidInput(ArrayList<Integer> optionList, String errorMessage) {
 		int choice = getInput(gameScanner);
 		while (!isValidInput(optionList, choice)) {
@@ -149,6 +195,17 @@ public class PaddockParadiseManager {
 		return choice;
 	}
 	
+	/**
+	 * <h2>getValidInput</h2>
+	 *
+	 *<p> Ensures that the user enters a valid integer. Returns the valid integer. Runs a function available in 
+	 *the game environment if the input is not valid
+	 *
+	 * @param optionList optionList containing the valid options
+	 * @param errorMessage the message to be displayed when the input is not an integer
+	 * @param an integer corresponding to which function in the game environment to run
+	 * @return first integer entered that is a valid option
+	 */
 	public int getValidInput(ArrayList<Integer> optionList, String errorMessage, int function) {
 		int choice = getInput(gameScanner);
 		while (!isValidInput(optionList, choice)) {
@@ -159,6 +216,13 @@ public class PaddockParadiseManager {
 		return choice;
 	}
 	
+	/**
+	 * <h2>functionNum</h2>
+	 * 
+	 * <p>Helper function that runs one of two functions in the game environment 
+	 * 
+	 * @param functionNum integer corresponding to the function to be caleld 
+	 */
 	public void runFunction(int functionNum) {
 		switch (functionNum) {
 		case 1:
@@ -170,12 +234,20 @@ public class PaddockParadiseManager {
 		}
 	}
 	
+	/**
+	 * <h2>getInput</h2>
+	 * 
+	 * <p> Gets valid integer input from the user.
+	 * 
+	 * @param scanner scanner local to game environment
+	 * @return integer input
+	 */
 	public int getInput(Scanner scanner) {
 		if (scanner.hasNextInt()) {
 			int return_val = scanner.nextInt();
 			return return_val;
 			}
-		scanner.next();
+		scanner.next(); // clear the scanner buffer if the input is not an integer
 		return -1;
 		
 	}
@@ -188,7 +260,15 @@ public class PaddockParadiseManager {
 		return activitiesLeft;
 	}
 	
-	
+	/**
+	 * <h2>isValidInputs</h2>
+	 * 
+	 * <p> Checks whether the input is valid, i.e is contained in the ArrayList of all valid options
+	 * 
+	 * @param acceptedInputs ArrayList containing valid integer options
+	 * @param input integer being tested for validity
+	 * @return whether the integer is valid
+	 */
 	public boolean isValidInput(ArrayList<Integer> acceptedInputs, int input) {
 		if (acceptedInputs.contains(input)) {
 			return true;
@@ -198,6 +278,17 @@ public class PaddockParadiseManager {
 	return false;
 	}
 	
+	/**
+	 * 
+	 * <h2>existsByName</h2>
+	 * 
+	 * <p> Checks whether a given Supplies object is in a ArrayList of 'valid' Supplies, using the name of the array,
+	 * not the reference.
+	 * 
+	 * @param supply Supplies object being tested for validity
+	 * @param supplyList list containing all valid Supplies objects
+	 * @return whether the Supplies object is in the Supplies ArrayList
+	 */
 	public boolean existsByName(Supplies supply, ArrayList<Supplies> supplyList) {
 		for (Supplies supplyInList: supplyList) {
 			if (supplyInList.getName().equals(supply.getName())) {
@@ -207,6 +298,17 @@ public class PaddockParadiseManager {
 		return false;
 	}
 	
+	/**
+	 * <h2>hasSupply</h2>
+	 * 
+	 * <p> Checks whether an ArrayList containing Supplies objects has the given Supplies object, and displays an
+	 * error message otherwise
+	 * 
+	 * @param supply Supplies object being tested for validity
+	 * @param supplyList ArrayList containing all valid Supplies objects
+	 * @return whether the Supplies object is in the Supplies ArrayList
+	 * @see existsByName
+	 */
 	public boolean hasSupply(Supplies supply, ArrayList<Supplies> supplyList) {
 		if (!existsByName(supply, supplyList)) {
 			System.out.println("You don't have any " + supply.getName() + "!\n");
@@ -219,6 +321,13 @@ public class PaddockParadiseManager {
 		System.out.println(newFarm.viewFarmStatus());
 	}
 
+	/**
+	 * <h2>vistsMarket</h2>
+	 * 
+	 * <p> Creates a Market object to view the general store
+	 * 
+	 * @see Market
+	 */
 	public void visitMarket() {
 		try {
 			Market openMarket = new Market(this);
@@ -230,9 +339,15 @@ public class PaddockParadiseManager {
 	}
 
 	public void leaveMarket() {
-		//openMarket.closeWindow()
+		
 	}
 	
+	/**
+	 * <h2>howToPlay</h2>
+	 * 
+	 * <p> Displays output displaying the basic rules of Paddock Paradise
+	 * 
+	 */
 	public void howToPlay() {
 		System.out.println("------ Paddock Paradise ------\n"
 						+"\nWelcome to Paddock Paradise! "
@@ -271,6 +386,13 @@ public class PaddockParadiseManager {
 						+ "\nAnd that's all the basics of it. Happy farming!\n");
 	}
 	
+	/**
+	 * <h2>rollRandomOccurenc</h2>
+	 * 
+	 * <p> Gets a random number and picks an event from the list of occurences
+	 * 
+	 * @see Farm
+	 */
 	private void rollRandomOccurence() {
 		
 		Random random = new Random();
@@ -280,6 +402,12 @@ public class PaddockParadiseManager {
 		
 	}
 
+	/**
+	 * <h2>performActivity</h2>
+	 * 
+	 * <p> Prompts user to choose an action to perform.
+	 * 
+	 */
 	public void performActivity() {
 		if (activitiesLeft > 0) {
 			String optionsStr = "What action would you like to perform?\n" 
@@ -303,7 +431,7 @@ public class PaddockParadiseManager {
 				try {
 					tendCrops();
 				} catch(NullPointerException npe) {
-		
+					// throw exception to abort and go back to playGame
 				}
 				break;
 			case 4:
@@ -320,6 +448,12 @@ public class PaddockParadiseManager {
 
 	}
 	
+	/**
+	 * <h2>skipDay</h2>
+	 * 
+	 * <p> Goes to the next day, checking if there are no more days to play, otherwise processing all state changes for the new day
+	 * 
+	 */
 	public void skipDay() {
 		System.out.println("Welcome to the new day");
 		currentDay -= 1; 
@@ -341,25 +475,33 @@ public class PaddockParadiseManager {
 		}
 	}
 	
+	/**
+	 * <h2>feedAnimal</h2>
+	 * 
+	 * <p> performs activity to feed an animal in the farm. Asks what animal to feed, then what food to use, performing
+	 * validity checks along the way before creating a FeedAnimals object and performing the action.
+	 * 
+	 * 
+	 */
 	public void feedAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
 			String output = newFarm.viewAnimals() + "\nChoose an animal to feed!"+ "\n[" 
-												+ (newFarm.getAnimals().size()+1)+"] Go back.\n";
+												+ (newFarm.getAnimals().size()+1)+"] Go back.\n"; // Add go back option at the end
 			System.out.println(output);
 			ArrayList<Integer> optionsList = createOptionList(newFarm.getAnimals().size() + 1);
 			int choice = getValidInput(optionsList, output);
-			if (choice == (newFarm.getAnimals().size()+1)) {
+			if (choice == (newFarm.getAnimals().size()+1)) { // Gets input from user on what animal to feed
 				return;
 			}
 			Animal animalChosen = newFarm.getAnimals().get(choice - 1);
 			String askUser = "What food would you like to use?\n";
-			if (foodAvailable()) {
+			if (foodAvailable()) { // Checks if valid Supplies objects are in the farm, and displays output
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(3);
-				choice = getValidInput(nextOptionList, askUser, 1);
+				choice = getValidInput(nextOptionList, askUser, 1); // Gets input from user on what food to use
 				Supplies itemChoice;
 				boolean successfullyFed = true;
-				switch (choice) {
+				switch (choice) { // Checks what type of food
 				case 1:
 					itemChoice = new Hay();
 					if (!hasSupply(itemChoice, newFarm.getCurrentSupplies())) {
@@ -382,7 +524,7 @@ public class PaddockParadiseManager {
 					itemChoice = new Hay();
 				}
 				if (successfullyFed) {
-					FeedAnimals animalFed = new FeedAnimals(this, animalChosen, itemChoice);
+					FeedAnimals animalFed = new FeedAnimals(this, animalChosen, itemChoice); //Feed the animal
 					animalFed.performAction();
 				}
 				
@@ -396,6 +538,14 @@ public class PaddockParadiseManager {
 		
 	}
 	
+	/**
+	 *<h2>foodAvailable</h2>
+	 *
+	 * <p> checks if there is food available, and prompts user to choose food if it is available
+	 * 
+	 * @return
+	 * @see FeedAnimal
+	 */
 	private boolean foodAvailable() {
 		String outputStr = "Animal food available: \n";
 		int hayCount = 0;
@@ -423,25 +573,41 @@ public class PaddockParadiseManager {
 		System.out.println(outputStr);
 		return true;
 	}
-
+	
+	/**
+	 *<h2>harvestCrops</h2>
+	 *
+	 * <p> Checks if there is crops available and harvest the crops
+	 * 
+	 * @return
+	 * @see HarvestCrops
+	 */
 	public void harvestCrops() {
 		if (!newFarm.getCrops().isEmpty()) {
 			String output = newFarm.viewCropsStatus() + "\nChoose a crop to harvest!"+ "\n[" 
 					+ (newFarm.getCrops().size()+1)+"] Go back.\n";
 			System.out.println(output);
-			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size() + 1);
+			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size() + 1); // Gets input on what crop to harvest
 			int choice = getValidInput(optionsList, output);
 			if (choice == (newFarm.getCrops().size()+1)) {
 				return;
 			}
 			Crop cropChosen = newFarm.getCrops().get(choice - 1);
-			HarvestCrops cropHarvest = new HarvestCrops(this, cropChosen);
+			HarvestCrops cropHarvest = new HarvestCrops(this, cropChosen); // harvests crops
 			cropHarvest.performAction();
 		} else {
 			System.out.println("There are no crops!\n");
 		}
 	}
 	
+	/**
+	 *<h2>harvestCrops</h2>
+	 *
+	 * <p> Checks if there is crops available and harvest the crops
+	 * 
+	 * @return
+	 * @see HarvestCrops
+	 */
 	public void playWithAnimal() {
 		if (!newFarm.getAnimals().isEmpty()) {
 			String output = newFarm.viewAnimals() + "\nChoose an animal to play with!"+ "\n[" 
@@ -460,13 +626,21 @@ public class PaddockParadiseManager {
 		}
 	}
 	
+	/**
+	 *<h2>TendCrops</h2>
+	 *
+	 * <p> Checks if there is crops available and tends the crops either by watering or using an item
+	 * 
+	 * @return
+	 * @see TendCrops
+	 */
 	public void tendCrops() {
 		if (!newFarm.getCrops().isEmpty()) {
 			String output = newFarm.viewCropsStatus() + "\nChoose a crop to tend!"+ "\n[" 
 														+ (newFarm.getCrops().size()+1)+"] Go back.\n";
 			System.out.println(output);
 			ArrayList<Integer> optionsList = createOptionList(newFarm.getCrops().size() + 1);
-			int choice = getValidInput(optionsList, output);
+			int choice = getValidInput(optionsList, output); // Gets input from user on what crop to tend to
 			if (choice == (newFarm.getCrops().size()+1)) {
 				return;
 			}
@@ -475,8 +649,8 @@ public class PaddockParadiseManager {
 			boolean successfullyTended = true;
 			if (itemAvailable()) {
 				System.out.println(askUser);
-				ArrayList<Integer> nextOptionList = createOptionList(4);
-				choice = getValidInput(nextOptionList, askUser, 2);
+				ArrayList<Integer> nextOptionList = createOptionList(4); 
+				choice = getValidInput(nextOptionList, askUser, 2); // Gets input from user on what item to use, if there is one
 				Supplies itemChoice;
 				switch (choice) {
 				case 2:
@@ -508,7 +682,7 @@ public class PaddockParadiseManager {
 			} else {
 				System.out.println(askUser);
 				ArrayList<Integer> nextOptionList = createOptionList(2);
-				choice = getValidInput(nextOptionList, askUser, 2);
+				choice = getValidInput(nextOptionList, askUser, 2); // Ask whether user wants to water the crops, the free option
 				if (choice == 1) {
 					TendCrops cropTended = new TendCrops(this, cropChosen, null);
 					cropTended.performAction();
@@ -522,6 +696,15 @@ public class PaddockParadiseManager {
 			}
 	}
 	
+	
+	/**
+	 *<h2>itemAvailable</h2>
+	 *
+	 * <p> Checks if there is an item available to use, and asks the user if they'd like to use it. Otherwise, ask
+	 * whether the user would like to use the free option of watering the crops
+	 * 
+	 * @return whether there is a Supplies object to use on the crop
+	 */
 	private boolean itemAvailable() {
 		String outputStr = "Crop items available: \n";
 		int horseDungCount = 0;
@@ -555,16 +738,40 @@ public class PaddockParadiseManager {
 		return true;
 	}
 	
+	/**
+	 *<h2>TendLand</h2>
+	 *
+	 * <p> Tends the farm land, setting the state to Tidy if it was Unkept previously
+	 * 
+	 * @return
+	 * @see TendLand
+	 * @see Farm
+	 */
 	public void tendLand() {
 		TendLand landTended = new TendLand(this);
 		landTended.performAction();
 	}
 	
+	/**
+	 * <h2>endGame</h2>
+	 * 
+	 * <p> Finishes the game by aborting the instantiation of the game environment
+	 * 
+	 * @param manager
+	 * @exception NullPointerException
+	 */
 	public void endGame(PaddockParadiseManager manager) {
 		System.out.println("You have completed the game!");
 		throw new NullPointerException();
 	}
 	
+	/**
+	 *<h2>displayScoreboard</h2>
+	 *
+	 * <p> displays the scaled user score, and the rank they achieved
+	 * 
+	 * @return
+	 */
 	public void displayScoreboard() {
 		System.out.println("---------------");
 		int playerScore = getScore();
@@ -585,7 +792,15 @@ public class PaddockParadiseManager {
 							+ title +".\n\nThanks for playing Paddock Paradise!");
 		
 	}
-		
+	
+	
+	/**
+	 *<h2>getScore</h2>
+	 *
+	 * <p> Calculates and returns the score of the user
+	 * 
+	 * @return user's score
+	 */
 	public int getScore() {
 		int score = (int) (((newFarm.getMoney() + newFarm.getFarmWorth()) / 2) / totalDays);
 		return score;
@@ -638,21 +853,9 @@ public class PaddockParadiseManager {
 	
 	
 	public static void main(String[] args) {
-		PaddockParadiseManager manager = new PaddockParadiseManager();
-		manager.gameScanner.close();
-		
-		// MOVED launchWelcomeWindow to CONSTRUCTOR
-//		manager.getFarm();
-//		manager.viewDetails();
-//		Farmer Jack = new Farmer();
-//		Farm Johnson = new Farm(Jack);
-//		newFarmer = Jack;
-//		newFarm = Johnson;
-//		startGame();		
-// 
-		
-		
-		
+		PaddockParadiseManager manager = new PaddockParadiseManager(); // Starts the game
+		manager.gameScanner.close(); // Closes the system.in stream, and the scanner
+
 	}
 
 }

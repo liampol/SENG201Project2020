@@ -7,8 +7,10 @@ import animalExtend.*;
 import GUIPackage.*;
 
 /**
- * The Farm class that is called from the PaddockParadiseManager to initialise a farm, 
- * The Attributes of the Farm:
+ * <h2>Farm</h2>
+ * 
+ * <p> The Farm class that is called from the PaddockParadiseManager to initialise a farm, 
+ * The attributes of the farm:
  *        -name            (String)
  *        -type            (String)
  *        -currentFarmer   (Farmer)
@@ -18,10 +20,12 @@ import GUIPackage.*;
  *        -money           (double)
  *
  * @author Te wehenga Johnson
- *
+ * @see Setup
+ * @see PaddockParadiseManager
  */
 public class Farm {
 	
+	private int animalLimit;
 	private int cropLimit;
 	private int daysBeingTidy;
 	private int daysBeingUnkept;
@@ -47,8 +51,13 @@ public class Farm {
 		state = "Tidy";
 		daysBeingTidy = 1;
 		cropLimit = 3;
+		animalLimit = 5;
 	}
-	
+
+	/**
+	 * Default constructor for testing
+	 * @param newFarmer
+	 */
 	public Farm(Farmer newFarmer) {
 		
 		name = newFarmer.getName();
@@ -61,17 +70,22 @@ public class Farm {
 	}
 	
 	/**
-	 * retuns the number of crops available to purchase/grow currently;
+	 * Retuns the number of crops available to purchase/grow currently;
 	 * @return
 	 */
 	public int getCropLimit() {
 		return cropLimit;
 	}
-
+	
+	/**
+	 * Sets the number of crops available to purchase/grow currently;
+	 * @param cropLimit
+	 */
 	public void setCropLimit(int cropLimit) {
 		this.cropLimit = cropLimit; 
 	}
 	
+
 	public void setDaysBeingTidy(int days) {
 		daysBeingTidy = days;
 	} 
@@ -189,6 +203,13 @@ public class Farm {
 		this.state = state;
 	}
 	
+	/**
+	 * <h2>viewCrops</h2>
+	 * 
+	 * <p> Returns an output string detailing the number of crops
+	 * 
+	 * @return
+	 */
 	public String viewCrops() {
 		String returnString = "The current crops you have are:\n";
 		int numCarrots = 0;
@@ -265,8 +286,12 @@ public class Farm {
 	}
 	
 	/**
-	 * returns a string representation of what animals the farm currently has
+	 * <h2>viewAnimals</h2>
+	 * 
+	 * <p> Returns a string representation of what animals the farm currently has, and the information about them
+	 * 
 	 * @return
+	 * 
 	 */
 	public String viewAnimals() {
 		String returnString = "";
@@ -290,30 +315,54 @@ public class Farm {
 		}
 	}
 	
+	/**
+	 * <h2>daysLeftOFEmotionState</h2>
+	 * 
+	 * <p> Gets the number of days remaining of the emotional state of an animal.
+	 * 
+	 * @param animal
+	 * @return number of days of a certain emotion state
+	 */
 	private int daysLeftOfEmotionState(Animal animal) {
-		if (animal.getEmotionTracker() >= 3) {
+		if (animal.getEmotionTracker() >= 3) { // days left of 'Happy'
 			return (animal.getEmotionTracker() - 3);
-		} else if (animal.getEmotionTracker() <= 2 && animal.getEmotionTracker() > 0) {
+		} else if (animal.getEmotionTracker() <= 2 && animal.getEmotionTracker() > 0) { // days left of 'Saudade'
 			return animal.getEmotionTracker() - 1;
 		} else {
-			return (int) 10;
+			return (int) 10; // 'Sad', no number of days left
 		}
 	}
 	
+	/**
+	 * <h2>daysLeftOFHealthState</h2>
+	 * 
+	 * <p> Gets the number of days remaining of the health state of an animal.
+	 * 
+	 * @param animal
+	 * @return number of days of a certain health state
+	 */
 	private int daysLeftOfHealthState(Animal animal) {
-		if (animal.getHealthTracker() >= 3) {
+		if (animal.getHealthTracker() >= 3) { // days left of 'Healthy'
 			return (animal.getHealthTracker() - 3);
-		} else if (animal.getHealthTracker() <= 2 && animal.getHealthTracker() > 0) {
+		} else if (animal.getHealthTracker() <= 2 && animal.getHealthTracker() > 0) { //days left of 'Sick'
 			return animal.getHealthTracker() - 1;
 		} else {
-			return -1;
+			return -1; // Animal dies, no days left
 		}
 	}
 	
+	/**
+	 * <h2>growAnimals</h2>
+	 * 
+	 * <p> Decreases the emotional state and health state of the animal, depending on whether the state of the farm
+	 *  is 'Unkept' or 'Tidy'
+	 *  
+	 * @param state 
+	 */
 	private void growAnimals(String state) {
 		
 		for (Animal animal : currentAnimals) {
-			if (state.equals("Unkept")) {
+			if (state.equals("Unkept")) { // When state is unkept, emotional state is lost quicker
 				animal.alterEmotionalState(-2);
 				animal.alterHealthState(-1);
 			} else {
@@ -322,6 +371,7 @@ public class Farm {
 			}
 		}
 	}
+	
 	
 	private void getProfits() {
 		
@@ -332,6 +382,7 @@ public class Farm {
 	
 	
 	/**
+	 * 
 	 * returns the current state the animals are in:
 	 * -Emotional
 	 * -Health
@@ -359,8 +410,11 @@ public class Farm {
 	}
 	
 	/**
-	 * Returns a string of Supplies that the Farm owns
+	 * <h2>viewSupplies</h2>
+	 * 
+	 * <p> Returns a string of Supplies that the Farm owns.
 	 * @return
+	 * 
 	 */
 	public String viewSupplies() {
 		String status = "";
@@ -376,6 +430,14 @@ public class Farm {
 		return status;
 	}
 	
+	/**
+	 * <h2>runOccurence</h2>
+	 * 
+	 * <p> Runs an event depending on what the random number rolled is. Random number roll logic is in PaddockParadiseManager
+	 * 
+	 * @param occurence Name of one of the various random events
+	 * @see PaddockParadiseManager
+	 */
 	public void runOccurence(String occurence) {
 		
 		boolean valid = false;
@@ -388,7 +450,7 @@ public class Farm {
 				try {
 					loseCropsOccurence();
 				} catch(IllegalArgumentException noCrops) {
-					// If no crops, bound it 0 
+					// If there are no crops available, handle the exception for a random number with bound of 0
 				}
 				valid = true;
 				break;
@@ -396,7 +458,7 @@ public class Farm {
 				try {
 				loseAnimalsOccurence();
 				} catch (IllegalArgumentException noAnimals) {
-					// If no animals, bound is 0
+					// If there are no animals available, handle the exception for a random number with bound of 0
 				}
 				valid = true;
 				break;
@@ -414,6 +476,12 @@ public class Farm {
 		}while(!valid);	
 	}
 	
+	/**
+	 * <h2>loseCropsOccurence</h2>
+	 * 
+	 * <p> runs the 'drought' event, causing the farm to lose a random amount of crops
+	 * 
+	 */
 	private void loseCropsOccurence() {
 		
 		int lost = 0;
@@ -441,11 +509,16 @@ public class Farm {
 		}
 		
 		// Displays the Crops left
-		System.out.println(viewCrops());
-
-		
+		System.out.println(viewCrops());		
 	}
 	
+	/**
+	 * <h2>loseAnimalsOccurence</h2>
+	 * 
+	 * <p> runs the 'broken fence' event, causing the farm to lose a random amount of animals, and the happiness of the
+	 * remaining farm animals to decrease
+	 * 
+	 */
 	private void loseAnimalsOccurence() {
 		
 		// Initialise
@@ -463,6 +536,7 @@ public class Farm {
 		counter = gone;
 		System.out.println("Farewell to this list of animals gone: ");
 		
+		// Removes the animals from the farm
 		while (counter >= 0) {
 			Animal animal = currentAnimals.get(counter);
 			System.out.println(animal.getName());
@@ -474,7 +548,12 @@ public class Farm {
 		
 		System.out.println(viewAnimals());
 	}
-	
+	/**
+	 * <h2>getCountyFairBonus</h2>
+	 * 
+	 * <p> runs the 'county fair' event, giving the player twice what the farm is worth
+	 * 
+	 */
 	
 	private void getCountyFairBonus() {
 		
@@ -488,6 +567,13 @@ public class Farm {
 		System.out.println("Your prize has been adding to your wallet!");
 	}
 	
+	/**
+	 * <h2>getFarmWorth</h2>
+	 * 
+	 * <p> Gets how much the farm is worth is 'assets' - animals and crops
+	 *  
+	 * @return the worth of the farm
+	 */
 	public double getFarmWorth() {
 		
 		
@@ -503,6 +589,12 @@ public class Farm {
 		return bonus;
 	}
 	
+	/**
+	 * <h2>implementThiefOccurence</h2>
+	 * 
+	 * <p> runs the the 'thief' event, where money is stolen based on how much the farm is worth
+	 * 
+	 */
 	private void implementThiefOccurrence() {
 		
 		double stolenAmount = getFarmWorth();
@@ -517,6 +609,13 @@ public class Farm {
 		}
 	}
 	
+	/**
+	 * <h2>startNewDay</h2>
+	 * 
+	 * <p> Starts a new day on the farm, decreasing harvest time of crops, decreasing health and emotional state of animals,
+	 * and progressing towards an 'unkept' state
+	 * 
+	 */
 	public void startNewDay() {
 		if (state.equals("Tidy")) {
 			daysBeingTidy += 1;
@@ -535,15 +634,17 @@ public class Farm {
 			}
 		}
 		growCrops();
-		growAnimals(this.state);
+		growAnimals(this.state); // Decrease values given current state
 		checkForDeadAnimals();
 		getProfits();
 	}
 	
 	/**
-	 * Returns the status of 'Crops', 'Animals' and Supplies
-	 *  as well as the amount of money the farm has
-	 * @return
+	 * <h2>viewFarmStatus</h2>
+	 * 
+	 * <p> Returns the status of 'Crops', 'Animals' and Supplies
+	 * as well as the amount of money the farm has
+	 * @return string that shows the status of the farm
 	 */
 	public String viewFarmStatus() {
 		return "Farmer: " + currentFarmer.getName() + ",\n"
@@ -554,6 +655,12 @@ public class Farm {
 				+ "Supplies: " + viewSupplies();
 	}
 	
+	/**
+	 * <h2>checkForDeadAnimals</h2>
+	 * 
+	 * <p> Removes animals from the farm that have a health state of 0 (dead)
+	 * 
+	 */
 	public void checkForDeadAnimals() {
 		
 		ArrayList<Animal> deadAnimals = new ArrayList<Animal>();
@@ -571,77 +678,6 @@ public class Farm {
 		System.out.println(message);
 	}
 	
-	public static void main(String[] args) {
-		
-		// Implemented for testing
-		Farmer newFarmer = new Farmer("Johnson", 3, "Male Farmer");
-		Farm newFarm = new Farm("Johnsons", newFarmer, "Faster Crop Growth") ;
-		Cow moo = new Cow("Truce");
-		Cow moo1 = new Cow("Trail");
-		Cow moo2 = new Cow("trace");
-		Cow moo3 = new Cow("Trump");
-		Cow moo4 = new Cow("Boris");
-		Cow moo5 = new Cow("Bettsy");
-		Sheep barbra = new Sheep("Benny");
-		Sheep barbra1 = new Sheep("Bootsie");
-		Sheep barbra2 = new Sheep("Bail");
-		Sheep barbra3 = new Sheep("Hoops");
-		newFarm.addAnimal(moo);
-		newFarm.addAnimal(barbra);
-		newFarm.addAnimal(moo);
-		newFarm.addAnimal(moo1);
-		newFarm.addAnimal(moo2);
-		newFarm.addAnimal(moo3);
-		newFarm.addAnimal(moo4);
-		newFarm.addAnimal(moo5);
-		newFarm.addAnimal(barbra1);
-		newFarm.addAnimal(barbra2);
-		newFarm.addAnimal(barbra3);
-		
-		System.out.println(newFarm.viewAnimals());
-
-		
-//		newFarm.viewAnimalStatus();
-//		moo.alterHealthState(-3);
-//		moo.alterEmotionalState(2);
-//		newFarm.viewAnimalStatus();
-//		newFarm.checkForDeadAnimals();
-//		newFarm.viewAnimalStatus();
-		
-		System.out.println(newFarm.viewAnimals());
-		Carrot carrot = new Carrot();
-		Carrot carrot1 = new Carrot();
-		Carrot carrot2 = new Carrot();
-		Carrot carrot3 = new Carrot();
-		Broccoli broc = new Broccoli();
-		Potato potato = new Potato();
-		
-		newFarm.addCrop(carrot);
-		newFarm.addCrop(carrot1);
-		newFarm.addCrop(carrot2);
-		newFarm.addCrop(carrot3);
-		newFarm.addCrop(broc);
-		newFarm.addCrop(potato);
-		System.out.println(newFarm.viewCrops());
-		
-		// Test runOccurences()
-		newFarm.runOccurence("Drought");
-		System.out.println(newFarm.viewCrops());
-		newFarm.runOccurence("Broken Fence");
-		System.out.println(newFarm.viewAnimals());
-		
-		
-//		System.out.printf("You have $%.2f left\n", newFarm.getMoney());  // Print to 2 d.p
-//		newFarm.viewCrops();
-//		
-//		newFarm.removeCrop(carrot2);
-//		System.out.println(carrot3.getDaysToHarvest());
-//		newFarm.removeCrop(broc);
-//		newFarm.viewCrops();
-//		newFarm.viewAnimalsStatus();
-//		newFarm.viewCropsStatus();
-//		
-	}
 }
 	
 		

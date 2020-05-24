@@ -3,20 +3,29 @@ import cropExtend.*;
 
 
 /**
- * The Crop class
+ * <h2>Crop</h2>
+ * 
+ * <p> The animal class models a crop. It has a type (name), sell price, buy price, number of days till harvestable.
+ * The Market class creates instances of Crop subclasses - Avacado, Broccoli, Capsicum, Carrot, Cauliflower, Potato
  * 
  * @author Te Wehenga Johnson
- *
+ * @see Market
+ * @see Avacado
+ * @see Broccoli
+ * @see Capsicum
+ * @see Carrot
+ * @see Cauliflower
+ * @see Potato
  */
 public class Crop {
 	
 	String type;                    // Carrots, Potatos, Capsicum, Broccoli, Cauliflower, Avocado
-	double sellPrice;               // Price to sell vegetable
-	double buyPrice;                // Price to buy vegetable
-	int daysToHarvest;              // Amount of days to harvest
-	String state;                   // Plants current state ("Harvest", "Sprout") 
-	int stateTracker;               
-	boolean farmBonus;
+	private double sellPrice;               // Price to sell vegetable
+	private double buyPrice;                // Price to buy vegetable
+	private int daysToHarvest;              // Amount of days to harvest
+	private String state;                   // Plants current state ("Harvest", "Sprout") 
+	private int stateTracker;               
+	private boolean farmBonus;
 	
 	/**
 	 * Constructor of Crop with parameters passed in from the class of vegetable being created 
@@ -58,16 +67,25 @@ public class Crop {
 		return buyPrice;
 	}
 	
+	/**
+	 * Gets the money returned when a crop is harvested and solf
+	 * @return
+	 */
 	public double getSellPrice() {
 		return sellPrice;
 	}
 	
+	/**
+	 * Gets the state of the crop
+	 * @return
+	 */
 	public String getState() {
 		return state;
 	}
 	
 	/**
-	 *  State is called when days of crop is 0, which changes state of Crop to Harvest to allow the Crops to be sold
+	 *  setState is called when days of crop is 0, which changes state of Crop to Harvest to allow the Crops to be sold
+	 *  @return
 	 */
 	public void setState() {
 		state = "Harvest";
@@ -75,7 +93,7 @@ public class Crop {
 	
 	
 	/**
-	 *  Returns,days left till harvest, Current State, Crop type, 
+	 *  Returns days left till harvest, Current State, Crop type, 
 	 * @return
 	 */
 	public String getDetails() {
@@ -87,23 +105,16 @@ public class Crop {
 		
 		return details;
 	}
-
+	
+	/**
+	 * Subtracts a number of days away from the time till harvest of a crop
+	 * @param time
+	 */
 	public void alterCropTime(int time) {
 		daysToHarvest -= time;
 		if (daysToHarvest <= 0) {
 			state = "Harvest";
 		}
 	}
-	
-	public static void main(String[] args) {
-		
-		
-		//Implemented for testing
-		Carrot carrot = new Carrot();
-		Avocado avo = new Avocado();
-		avo.alterCropTime(2);
-		System.out.println(avo.getDaysToHarvest());
-		carrot.getDetails();
-		
-	}
+
 }
