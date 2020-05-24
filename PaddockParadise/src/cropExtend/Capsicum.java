@@ -1,5 +1,5 @@
 package cropExtend;
-import MainClassesPackage.Crop;
+import mainClassesPackage.Crop;
 
 /**
  * <h2>Capsicum</h2>

@@ -1,5 +1,5 @@
 package animalExtend;
-import MainClassesPackage.Animal;
+import mainClassesPackage.Animal;
 
 /**
  * <h2>Cow</h2>
