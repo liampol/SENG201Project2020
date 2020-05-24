@@ -5,12 +5,15 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import MainClassesPackage.Animal;
 import MainClassesPackage.Farm;
 import MainClassesPackage.Farmer;
 import MainClassesPackage.Market;
 import MainClassesPackage.PaddockParadiseManager;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -59,8 +62,8 @@ public class Checkout {
 		checkoutWindow.setVisible(true);
 	}
 	
-	private void applyBonus(String bonus) {
-		
+	public void launchNameNewAnimal(Animal animal) {
+		NameNewAnimal newAnimal = new NameNewAnimal(animal);
 	}
 	
 	
@@ -99,7 +102,7 @@ public class Checkout {
 		title.setFont(new Font("Tahoma", Font.BOLD, 26));
 		checkoutWindow.getContentPane().add(title);
 		
-		JLabel cartCost = new JLabel("Cart Cost: $");
+		JLabel cartCost = new JLabel("Cart Cost: $" + manager.getCartCost());
 		cartCost.setBounds(192, 63, 288, 30);
 		cartCost.setFont(new Font("Tahoma", Font.BOLD, 16));
 		checkoutWindow.getContentPane().add(cartCost);
@@ -107,10 +110,27 @@ public class Checkout {
 		JButton payBtn = new JButton("Pay for Cart");
 		payBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				manager.completeCheckout();
-				finishedWindow();
+				farm.addToWallet((-1)*manager.getCartCost());
+				manager.cartCost = 0;
+				if (!(manager.animalCart.isEmpty())){
+					for (Animal animal : manager.animalCart) {
+						launchNameNewAnimal(animal);
+					}
+				}
+				if (farm.getType() == "Happy Animal") {
+					manager.applyHappyAnimal();
+					JOptionPane.showMessageDialog(checkoutWindow , "Happy Animal has been applied!", "WooHoo!", JOptionPane.ERROR_MESSAGE);
+					finishedWindow();
+				}else if(farm.getType() == "Faster Crop Growth"){
+					manager.applyFasterCropGrowth();
+					JOptionPane.showMessageDialog(checkoutWindow , "Faster Crop Growth has been applied!", "WooHoo!", JOptionPane.ERROR_MESSAGE);
+					finishedWindow();
+				}else {
+					finishedWindow();
+				}
 			}
 		});
+		
 		payBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
 		payBtn.setBounds(306, 277, 184, 38);
 		payBtn.setBorder(raisedBorder);
@@ -140,10 +160,9 @@ public class Checkout {
 		if (farm.getType() == "Discount Store") {
 			 bonus = "Discount Store";
 			 farmBonus.setText("Farm Bonus :" + bonus);
-			 applyBonus(bonus);
+			 manager.applyDiscount();
 			 dialog.setForeground(Color.green);
 			 dialog.setText("Discount has been Applied!");
-			 
 		}else if (farm.getType() == "Faster Crop Growth") {
 			bonus = "Faster Crop Growth";
 			farmBonus.setText("Farm Bonus :" + bonus);

@@ -20,7 +20,7 @@ public class Market {
 	public ArrayList<Crop> cropCart;            // This variable is used to keep track of Crops added to cart
 	public ArrayList<Animal> animalCart;        // This variable is used to keep track of Crops added to cart
 	public ArrayList<Supplies> suppliesCart;    // This variable is used to keep track of Crops added to cart
-	private double cartCost;
+	public double cartCost;
 	private Farm farmOwner;
 	private Scanner input = new Scanner(System.in);
 	
@@ -449,121 +449,33 @@ public class Market {
 	}
 	
 
-	/**
-	 * User interface to get input for checkout
-	 */
-	private void checkout() {
+	public void applyDiscount() {
 		
-		int option = 0;
+		cartCost = cartCost-(cartCost*0.4);
 		
-		//Check to see if farmOwner can afford the items in the cart
-		if (farmOwner.getMoney() >= cartCost){
-		}else {
-			System.out.println("Sorry you do not have enough money, "
-					         + "Please remove some items from the cart");
-//			viewMarketOptions();
-		}
-		
-		// Can afford items, so continue
-		boolean endDo = false;     // Ends the do-while loop only when a suitable optional has been chosen 
-		boolean endSwitch = true;  // Switch ends after every iteration
-		do {
-		System.out.println("What would you like to do?");
-		System.out.println("[1] Pay for cart\n"
-				         + "[2] Return to 'FRONT DESK'");
-		option = input.nextInt();
-		
-		switch(option) {
-			case 1:
-				completeCheckout();
-				endDo = true;
-				break;
-			case 7:
-				endDo = true;
-				break;
-			}while(!endSwitch);
-		}while(!endDo);
-		
-//		viewMarketOptions();
 	}
 	
-	public String applyBonus(String bonus) {
+	public void applyHappyAnimal() {
 		
-		String message = "";
-		if (bonus == "Discount Store") {
-			cartCost = cartCost-(cartCost*0.4);
-		}
-		return message;
-	}
-	
-	
-	public void completeCheckout() {
-		
-		boolean end = false;
-		int option = 0;
-		String newName = "";
-		
-		boolean fasterCropGrowth = false;
-		boolean happyAnimal = false;
-		
-	
-		if (farmOwner.getType() == "Faster Crop Growth") {
-			fasterCropGrowth = true;
-		}else if (farmOwner.getType() == "Happy Animal") {
-			happyAnimal = true;
-		}
-		
-		farmOwner.addToWallet((-1)*cartCost);     // Removes the amount of cartCost from the farmOwners wallet
-		
-		// Resets cartCost back to zero
-		cartCost = 0;
-		// Checks the status of the crops in the cart
-		if (!(cropCart.isEmpty())) {
-			for (Crop vegetable : cropCart) {
-				// Checks to see if bonus applies
-				if (fasterCropGrowth) {
-					vegetable.alterCropTime(1);
-				}		
-				farmOwner.addCrop(vegetable);    // Adds crop to farm
-			}
-			cropCart.clear();                    // Clears the ccropCart
-		}
-		if (!(suppliesCart.isEmpty())) {
-			for (Supplies item : suppliesCart) {
-				farmOwner.addSupply(item);
-			}
-			suppliesCart.clear();                // Clears the suppliesCart
-		}
+
 		if (!(animalCart.isEmpty())) {
 			for (Animal animal : animalCart) {
-				end = true;
-				System.out.println("Would you like to name your " + animal.getType() + "?\n");
-				System.out.println("[1] Yes i would like to name my " + animal.getType() + ",\n"
-						         + "[2] No thank you im fine with " + animal.getName() + ",\n");
+				animal.addHealthBonus();
 				
-				// Checks to see if bonus applies
-				if (happyAnimal) {
-					animal.addHealthBonus();
-				}
-					
-				option = input.nextInt();
-				switch(option) {
-					case 1:
-						
-						System.out.println("Please Enter new name,");
-						newName = input.next();
-						animal.setName(newName);     // GETTING SCANNER ERROR WHEN NAMING
-						break;
-					case 2:
-						break;
-						
-				}while(!(end)); // end do-while
-				farmOwner.addAnimal(animal);  // add to farms animals
-				}
-			animalCart.clear();
-//			viewMarketOptions();
+			}
 		}
 	}
+	
+	public void applyFasterCropGrowth() {
+		
+		if (!(cropCart.isEmpty())) {
+			for (Crop vegetable : cropCart) {
+				vegetable.alterCropTime(1);
+			}
+		}
+	}
+
+		
 	
 	private void launchOpenMarket() {
 		OpenMarket openMarketScreen = new OpenMarket(this);

@@ -65,7 +65,7 @@ public class ChooseFarmType {
 
 	
 	public void farmTypeConfirm(String type) {
-		int choice = JOptionPane.showConfirmDialog(chooseFarmType, "Are you sure you want  " + type + "Farm?", "Choose Yes or No", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(chooseFarmType, "Are you sure you want  " + type + " Farm?", "Choose Yes or No", JOptionPane.YES_NO_OPTION);
 		if (choice == JOptionPane.YES_OPTION) {
 			finishedWindow();
 		} else if (choice == JOptionPane.NO_OPTION) {                                                                    // Deleting Object created
@@ -129,7 +129,7 @@ public class ChooseFarmType {
 		chooseFarmTypeLabel.setBounds(129, 11, 424, 43);
 		chooseFarmType.getContentPane().add(chooseFarmTypeLabel);
 		
-		JButton speedCropButton = new JButton("Speed Crop");
+		JButton speedCropButton = new JButton("Faster Crop Growth");
 		speedCropButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setFarmType("Faster Crop Growth");
@@ -150,7 +150,7 @@ public class ChooseFarmType {
 		speedCropStatsLabel.setBounds(10, 63, 337, 197);
 		chooseFarmType.getContentPane().add(speedCropStatsLabel);
 		
-		JButton happyAnimalBtn = new JButton("Animal Welfare");
+		JButton happyAnimalBtn = new JButton("Happy Animal");
 		happyAnimalBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setFarmType("Happy Animal");
@@ -239,7 +239,7 @@ public class ChooseFarmType {
 		lblNewLabel.setBounds(226, 111, 68, 26);
 		chooseFarmType.getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("<html>Decrease the days to harvest by one day</html>");
+		JLabel lblNewLabel_1 = new JLabel("<html>Decrease the days to harvest by 1 day</html>");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1.setBounds(213, 138, 108, 77);
 		chooseFarmType.getContentPane().add(lblNewLabel_1);
@@ -249,30 +249,30 @@ public class ChooseFarmType {
 		lblNewLabel_2.setBorder(lblBorder);
 		chooseFarmType.getContentPane().add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("Bonus:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(614, 111, 57, 26);
-		chooseFarmType.getContentPane().add(lblNewLabel_3);
+		JLabel bonusLbl3 = new JLabel("Bonus:");
+		bonusLbl3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		bonusLbl3.setHorizontalAlignment(SwingConstants.CENTER);
+		bonusLbl3.setBounds(614, 111, 57, 26);
+		chooseFarmType.getContentPane().add(bonusLbl3);
 		
-		JLabel lblNewLabel_4 = new JLabel("<html>Animals are happier for 2 extra days when purchased</html>");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_4.setBounds(592, 138, 108, 92);
-		chooseFarmType.getContentPane().add(lblNewLabel_4);
+		JLabel anmalBonDescrip = new JLabel("<html>Animals are happier for 2 extra days when purchased</html>");
+		anmalBonDescrip.setFont(new Font("Tahoma", Font.BOLD, 12));
+		anmalBonDescrip.setBounds(592, 138, 108, 92);
+		chooseFarmType.getContentPane().add(anmalBonDescrip);
 		
 		JLabel lblNewLabel_5 = new JLabel("");
 		lblNewLabel_5.setBounds(581, 286, 134, 173);
 		lblNewLabel_5.setBorder(lblBorder);
 		chooseFarmType.getContentPane().add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_6 = new JLabel("Bonus:");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_6.setBounds(614, 329, 50, 26);
-		chooseFarmType.getContentPane().add(lblNewLabel_6);
+		JLabel bonusLbl2 = new JLabel("Bonus:");
+		bonusLbl2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		bonusLbl2.setBounds(614, 329, 50, 26);
+		chooseFarmType.getContentPane().add(bonusLbl2);
 		
-		JLabel lblNewLabel_7 = new JLabel("<html>40% Discount added to cart on checkout from Market!</html>");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_7.setBounds(592, 354, 112, 77);
-		chooseFarmType.getContentPane().add(lblNewLabel_7);
+		JLabel discountDescrip = new JLabel("<html>40% Discount added to cart on checkout from Market!</html>");
+		discountDescrip.setFont(new Font("Tahoma", Font.BOLD, 12));
+		discountDescrip.setBounds(592, 354, 112, 77);
+		chooseFarmType.getContentPane().add(discountDescrip);
 	}
 }

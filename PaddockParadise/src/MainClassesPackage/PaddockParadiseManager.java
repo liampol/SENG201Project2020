@@ -52,15 +52,15 @@ public class PaddockParadiseManager {
 		Setup1 setup = new Setup1(this);	
 		initRandomOccurences();
 		// make a runtime loop, so that when a method finishes it isn't required to call playGame() again
-		runGame();
+		//runGame();
 		// Only closes once game is finished, i.e all calls of playGame() is finished.
 	}
 	
-	public void runGame() {
-		while (true) {
-			playGame(gameScanner);
-		}
-	}
+//	public void runGame() {
+//		while (true) {
+//			playGame(gameScanner);
+//		}
+//	}
 	
 	public void setDays(int day) {
 		currentDay = day;
@@ -101,25 +101,6 @@ public class PaddockParadiseManager {
 	}
 	
 	
-	public void playGame(Scanner scanner) {
-		System.out.println(optionString);
-		int choice = getValidInput(options, optionString);
-		switch (choice) {
-		case 1:
-			// CHANGED from viewFarmStatus()
-			System.out.println(viewDetails());
-			break;
-		case 2:
-			performActivity();
-			break;
-		case 3:
-			visitMarket();
-			break;
-		case 4:
-			skipDay();
-		}	
-
-	}
 	
 	public ArrayList<Integer> createOptionList(int numOptions) {
 		ArrayList<Integer> returnList = new ArrayList<Integer>();
@@ -384,6 +365,16 @@ public class PaddockParadiseManager {
 	
 	public void closeViewFarm(ViewFarm viewFarmScreen) {
 		viewFarmScreen.closeWindow();
+	}
+	
+	public void launchPerformActions(MainWindow mainWindow) {
+		mainWindow.closeWindow();
+		PerformActions performActionsWindow = new PerformActions(this);
+	}
+	
+	public void closePerformActions(PerformActions performActionsWindow) {
+		performActionsWindow.closeWindow();
+		launchMainWindow();
 	}
 	
 	

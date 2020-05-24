@@ -152,7 +152,16 @@ public class ViewFarm {
 		cropsTitle.setBounds(123, 199, 92, 16);
 		viewFarmWindow.getContentPane().add(cropsTitle);
 		
-		JLabel cropsStatus = new JLabel("<html>" + farm.viewCropsStatus()+ "</html>");
+		JLabel cropsStatus = new JLabel("");
+		String cropMessage = "";
+		if (farm.getCrops().isEmpty()){
+			cropMessage ="Sorry you have no 'Crops' to view,";
+		}else {
+			for (Crop vegie : farm.getCrops()) {
+				cropMessage +="<html>" + vegie.getType() + ": " + "<br>State: " + vegie.getState() + "<br>Days Till Harvest: " + vegie.getDaysToHarvest() + "<br><br></html>"; 
+			}
+		}
+		cropsStatus.setText(cropMessage);
 		cropsStatus.setHorizontalAlignment(SwingConstants.LEFT);
 		cropsStatus.setBounds(28, 226, 261, 353);
 		viewFarmWindow.getContentPane().add(cropsStatus);
@@ -168,7 +177,16 @@ public class ViewFarm {
 		suppliesTitle.setBounds(429, 195, 116, 24);
 		viewFarmWindow.getContentPane().add(suppliesTitle);
 		
-		JLabel suppliesStatus = new JLabel("<html> " + farm.viewSupplies()+ "</html>");
+		JLabel suppliesStatus = new JLabel("");
+		String supplyMessage = "";
+		if (farm.getCurrentSupplies().isEmpty()){
+			supplyMessage = "Sorry you have no 'Supplies' to view,";
+		}else {
+			for (Supplies tool: farm.getCurrentSupplies()) {
+				supplyMessage += "<html>" + tool.getName() + ": " + "<br>Attribute: " + tool.getBonus() + "<br><br></html>"; 
+			}
+		}
+		suppliesStatus.setText(supplyMessage);
 		suppliesStatus.setHorizontalAlignment(SwingConstants.LEFT);
 		suppliesStatus.setBounds(335, 226, 269, 353);
 		viewFarmWindow.getContentPane().add(suppliesStatus);
@@ -184,7 +202,20 @@ public class ViewFarm {
 		animalsTitle.setBounds(730, 201, 92, 14);
 		viewFarmWindow.getContentPane().add(animalsTitle);
 		
-		JLabel animalsStatus = new JLabel("<html> " + farm.getAnimalsStatus()+ "</html>");
+		JLabel animalsStatus = new JLabel("");
+		String animalMessage = "";
+		if (farm.getAnimals().isEmpty()){
+			animalMessage = "Sorry you have no 'Animals' to view,";
+		}else {
+			for (Animal animal: farm.getAnimals()) {
+				animalMessage +="<html>" + animal.getType() + ": " + "<br>Name: " + animal.getName() + ": " 
+			+ "<br>Health State: " + animal.getHealthState() 
+			+ "<br>Emotional State: " + animal.getEmotionalState()
+			+ "<br>Current Cash Bonus: $" + animal.getWorth()
+			+ "<br><br></html>"; 
+			}
+		}
+		animalsStatus.setText(animalMessage);
 		animalsStatus.setHorizontalAlignment(SwingConstants.LEFT);
 		animalsStatus.setBounds(634, 226, 298, 353);
 		viewFarmWindow.getContentPane().add(animalsStatus);

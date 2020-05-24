@@ -57,7 +57,11 @@ public class MainWindow {
 	}
 	
 	private void openMarket() {
-		manager.visitMarket();
+		manager.visitMarket(this);
+	}
+	
+	private void launchPerformActions() {
+		manager.launchPerformActions(this);
 	}
 	
 	public void closeWindow() {
@@ -106,6 +110,7 @@ public class MainWindow {
 		frameMainWindow.getContentPane().add(farmerNameLbl);
 		
 		JLabel viewFarmStatus = new JLabel("<html>View Status of the farm</html>");
+		viewFarmStatus.setFont(new Font("Tahoma", Font.BOLD, 17));
 		viewFarmStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		viewFarmStatus.setBounds(22, 176, 130, 118);
 		frameMainWindow.getContentPane().add(viewFarmStatus);
@@ -122,17 +127,24 @@ public class MainWindow {
 		frameMainWindow.getContentPane().add(viewFarmBtn);
 		
 		JLabel performActionLbl = new JLabel("<html>Perform An Action</html>");
+		performActionLbl.setFont(new Font("Tahoma", Font.BOLD, 17));
 		performActionLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		performActionLbl.setBounds(198, 176, 130, 118);
 		frameMainWindow.getContentPane().add(performActionLbl);
 		
 		JButton performActionBtn = new JButton("Perform Actions");
+		performActionBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				performActions();
+			}
+		});
 		performActionBtn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		performActionBtn.setBounds(196, 305, 142, 45);
 		performActionBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		frameMainWindow.getContentPane().add(performActionBtn);
 		
 		JLabel visitMarketLbl = new JLabel("<html>Visit the Market</html>");
+		visitMarketLbl.setFont(new Font("Tahoma", Font.BOLD, 18));
 		visitMarketLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		visitMarketLbl.setBounds(365, 176, 152, 118);
 		frameMainWindow.getContentPane().add(visitMarketLbl);
@@ -149,6 +161,7 @@ public class MainWindow {
 		frameMainWindow.getContentPane().add(visitMarketBtn);
 		
 		JLabel skipDayLbl = new JLabel("Skip to next day");
+		skipDayLbl.setFont(new Font("Tahoma", Font.BOLD, 18));
 		skipDayLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		skipDayLbl.setBounds(566, 176, 152, 118);
 		frameMainWindow.getContentPane().add(skipDayLbl);
