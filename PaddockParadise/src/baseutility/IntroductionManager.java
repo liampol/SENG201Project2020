@@ -5,7 +5,7 @@ import GUIPackage.HowToPlay;
 import GUIPackage.Introduction;
 import MainClassesPackage.*;
 /**
- * This class managers all G.U.I windows for introduction and how to play
+ * This class managers all G.U.I windows for introduction and how to play by calling the GUI's that show instructions
  * 
  * @author Te Wehenga Johnson
  *

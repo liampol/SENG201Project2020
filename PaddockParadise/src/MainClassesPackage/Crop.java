@@ -3,7 +3,7 @@ import cropExtend.*;
 
 
 /**
- * The Crop class
+ * The Crop class is used as the parent class for the different type of crops
  * 
  * @author Te Wehenga Johnson
  *

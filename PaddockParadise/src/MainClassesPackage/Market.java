@@ -99,7 +99,7 @@ public class Market {
 			cartCost += addedFertiliser.getPrice(); 
 			suppliesCart.add(addedFertiliser);
 			fertCount ++;
-			System.out.println("Fertiliser has been added to cart\n");
+
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class Market {
 		cartCost += addedHorseDung.getPrice(); 
 		suppliesCart.add(addedHorseDung);
 		dungCount ++;
-		System.out.println("Horse-Dung has been added to cart\n");
+
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class Market {
 		cartCost += addedRootBoost.getPrice(); 
 		suppliesCart.add(addedRootBoost);
 		rootBoostCount ++;
-		System.out.println("RootBoost has been added to cart\n");
+
 	}
 	
 	/**
@@ -132,7 +132,6 @@ public class Market {
 			cartCost += addedGrains.getPrice(); 
 			suppliesCart.add(addedGrains);
 			grainCount ++;
-			System.out.println("Grains have been added to cart\n");
 	}
 	
 	/**
@@ -143,7 +142,6 @@ public class Market {
 			cartCost += addedVitamins.getPrice(); 
 			suppliesCart.add(addedVitamins);
 			vitCount ++;
-			System.out.println("Vitamins have been added to cart\n");
 	}
 	
 	/**
@@ -154,7 +152,6 @@ public class Market {
 		cartCost += addedHay.getPrice(); 
 		suppliesCart.add(addedHay);
 		hayCount ++;
-		System.out.println("Hay has been added to cart\n");
 	}
 	
 	/**
@@ -165,7 +162,6 @@ public class Market {
 		cartCost += addedCow.getPrice();
 		animalCart.add(addedCow);
 		cowCount ++;
-		System.out.println("Cow has been added to cart\n");	
 	}
 	
 	/**
@@ -175,8 +171,7 @@ public class Market {
 		Sheep addedSheep = new Sheep();
 		cartCost += addedSheep.getPrice();
 		animalCart.add(addedSheep);
-		sheepCount ++;
-		System.out.println("Sheep has been added to cart\n");	
+		sheepCount ++;	
 	}
 	
 	/**
@@ -187,7 +182,7 @@ public class Market {
 		cartCost += addedPig.getPrice();
 		animalCart.add(addedPig);
 		pigCount ++;
-		System.out.println("Sheep has been added to cart\n");	
+	
 	}
 	
 	/**
@@ -198,7 +193,6 @@ public class Market {
 		cartCost += addedCarrots.getPrice();
 		cropCart.add(addedCarrots);
 		carrotCount  ++;
-		System.out.println("Carrot has been added to cart\n");	
 	}
 	
 	/**
@@ -208,8 +202,7 @@ public class Market {
 		Capsicum addedCapsicum = new Capsicum();
 		cartCost += addedCapsicum.getPrice();
 		cropCart.add(addedCapsicum);
-		capsCount ++;
-		System.out.println("Capsicum has been added to cart\n");	
+		capsCount ++;	
 	}
 	
 	/**
@@ -220,7 +213,6 @@ public class Market {
 		cartCost += addedPotatos.getPrice();
 		cropCart.add(addedPotatos);
 		potaCount ++;
-		System.out.println("Potatos has been added to cart\n");	
 	}
 	
 	/**
@@ -230,8 +222,7 @@ public class Market {
 		Broccoli addedBroccoli = new Broccoli();
 		cartCost += addedBroccoli.getPrice();
 		cropCart.add(addedBroccoli);
-		broccoliCount ++;
-		System.out.println("Broccoli has been added to cart\n");	
+		broccoliCount ++;	
 	}
 	
 	/**
@@ -242,7 +233,6 @@ public class Market {
 		cartCost += addedCauliflower.getPrice();
 		cropCart.add(addedCauliflower);
 		cauliCount ++;
-		System.out.println("Cauliflower has been added to cart\n");	
 	}
 	
 	/**
@@ -253,7 +243,6 @@ public class Market {
 		cartCost += addedAvocado.getPrice();
 		cropCart.add(addedAvocado);
 		avoCount ++;
-		System.out.println("Avocado has been added to cart\n");	
 	}
 	
 	/**

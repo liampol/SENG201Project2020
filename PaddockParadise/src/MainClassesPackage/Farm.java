@@ -198,6 +198,11 @@ public class Farm {
 		this.state = state;
 	}
 	
+	
+	/**
+	 * Returns a string representation of the crops in the farm
+	 * @return
+	 */
 	public String viewCrops() {
 		String returnString = "The current crops you have are:\n";
 		int numCarrots = 0;
@@ -256,6 +261,9 @@ public class Farm {
 		return status;
 	}
 	
+	/**
+	 * This method is used to decrease the amount of days to harvest crops
+	 */
 	public void growCrops() {
 		
 		for (Crop vegetable : currentCrops) {
@@ -293,6 +301,7 @@ public class Farm {
 		return returnString;
 		}
 	}
+	
 	
 	private void growAnimals() {
 		
@@ -356,7 +365,6 @@ public class Farm {
 	}
 	
 	public void runOccurence(String occurence) {
-		
 		boolean valid = false;
 		
 		switch(occurence) {

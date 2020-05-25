@@ -1,6 +1,12 @@
 package extendSupplies;
 import MainClassesPackage.*;
 
+
+/**
+ * This class creates a Vitamins object that extends Supplies
+ * @author Te WehengaJohnson
+ *
+ */
 public class Vitamins extends Supplies {
 	
 	public Vitamins() {

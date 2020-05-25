@@ -17,6 +17,15 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+
+/**
+ * The Main Window Class controls the Main Window GUI including, Opening the ViewFarm, Market, Skip to next Day and perform Actions
+ * The MainWindow also takes PaddockParadiseManager as a parameter
+ * 
+ * @author Te Wehenga Johnson
+ *
+ */
 public class MainWindow {
 
 	private JFrame frameMainWindow;
@@ -52,22 +61,37 @@ public class MainWindow {
 		frameMainWindow.setVisible(true);
 	}
 	
+	/**
+	 * Views the farms Crops, Supplies, and animals
+	 */
 	private void viewFarm() {
 		manager.openViewFarm();
 	}
 	
+	/**
+	 * Opens the market GUI from the PaddockParadiseManager
+	 */
 	private void openMarket() {
 		manager.visitMarket(this);
 	}
 	
+	/**
+	 * Open PerformActions GUI from the PaddockParadiseManager
+	 */
 	private void launchPerformActions() {
 		manager.launchPerformActions(this);
 	}
 	
+	/**
+	 * Closes the MainWindow frame
+	 */
 	public void closeWindow() {
 		frameMainWindow.dispose();
 	}
 	
+	/**
+	 * Passes control back to the PaddockParadiseManager to close the MainWindow frame
+	 */
 	private void finishedWindow() {
 		manager.closeMainWindow(this);
 	}
@@ -135,7 +159,7 @@ public class MainWindow {
 		JButton performActionBtn = new JButton("Perform Actions");
 		performActionBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				performActions();
+//				performActions();
 			}
 		});
 		performActionBtn.setFont(new Font("Tahoma", Font.BOLD, 13));

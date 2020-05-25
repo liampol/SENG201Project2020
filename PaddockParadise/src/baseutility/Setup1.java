@@ -4,6 +4,13 @@ package baseutility;
 	import GUIPackage.*;
 
 	/**
+	 * 
+	 * The Setup1 class is called to control the different GUIs used to receive the inital details from the user using different GUI,
+	 * - ChooseFarmer
+	 * - ChoosAvatar
+	 * - ChoosFarmType
+	 * - Input Farmer Name
+	 * - Input Farm Name
 	 * @author Te Wehenga Johnson
 	 *
 	 */

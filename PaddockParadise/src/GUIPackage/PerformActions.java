@@ -52,6 +52,28 @@ public class PerformActions {
 		initialize();
 		performActionFrame.setVisible(true);
 	}
+	private void launchFeedAnimal() {
+		launchFeedAnimal(manager);
+	}
+	
+	
+	private void harvestCrops() {
+		FeedAnimalWindow feedAnimalScreen = new FeedAnimalWindow(manager);
+	}
+	
+	
+	
+	private void tendToLand() {
+		manager.launchTendLand();
+	}
+	
+	private void tendToCrops() {
+		manager.launchTendCrops(manager);
+	}
+	
+	private void playWithAnimal() {
+		manager.launchPlayWithAnimal(manager);
+	}
 
 	public void closeWindow() {
 		performActionFrame.dispose();
@@ -67,23 +89,19 @@ public class PerformActions {
 	 */
 	private void initialize() {
 		performActionFrame = new JFrame();
-		performActionFrame.setBounds(100, 100, 910, 729);
+		performActionFrame.setTitle("Perform Action");
+		performActionFrame.setBounds(100, 100, 910, 673);
 		performActionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Border border = BorderFactory.createLineBorder(Color.black);
 		Border raiseBorder = BorderFactory.createRaisedBevelBorder();
 		performActionFrame.getContentPane().setLayout(null);
 		
-		JLabel cartCost = new JLabel("");
-		cartCost.setFont(new Font("Tahoma", Font.BOLD, 18));
-		cartCost.setBounds(504, 53, 331, 55);
-		performActionFrame.getContentPane().add(cartCost);
-		
-		
-		JLabel marketTitle = new JLabel("<html>Perform Actions</html>");
-		marketTitle.setFont(new Font("Tahoma", Font.BOLD, 27));
-		marketTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		marketTitle.setBounds(243, 11, 407, 31);
-		performActionFrame.getContentPane().add(marketTitle);
+	
+		JLabel actionsTitle = new JLabel("<html>Perform Actions</html>");
+		actionsTitle.setFont(new Font("Tahoma", Font.BOLD, 27));
+		actionsTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		actionsTitle.setBounds(243, 11, 407, 31);
+		performActionFrame.getContentPane().add(actionsTitle);
 		
 		JLabel border1 = new JLabel("");
 		border1.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -91,14 +109,14 @@ public class PerformActions {
 		border1.setBorder(border);
 		performActionFrame.getContentPane().add(border1);
 		
-		JLabel andyDialog = new JLabel("<html>What Actions should we perform today?</html>");
-		andyDialog.setHorizontalAlignment(SwingConstants.CENTER);
-		andyDialog.setFont(new Font("Tahoma", Font.BOLD, 18));
-		andyDialog.setBounds(161, 60, 444, 102);
-		performActionFrame.getContentPane().add(andyDialog);
+		JLabel avatarDialog = new JLabel("<html>What Actions should we perform today?</html>");
+		avatarDialog.setHorizontalAlignment(SwingConstants.CENTER);
+		avatarDialog.setFont(new Font("Tahoma", Font.BOLD, 18));
+		avatarDialog.setBounds(161, 60, 444, 102);
+		performActionFrame.getContentPane().add(avatarDialog);
 		
 		JLabel avatarImg = new JLabel("");
-		avatarImg.setIcon(new ImageIcon(OpenMarket.class.getResource("/Images/shopKeeper.png")));
+		avatarImg.setIcon(new ImageIcon(PerformActions.class.getResource(farmer.getImageType())));
 		avatarImg.setBounds(21, 60, 130, 102);
 		performActionFrame.getContentPane().add(avatarImg);
 		
@@ -122,276 +140,123 @@ public class PerformActions {
 		closeBtn.setBorder(raiseBorder);
 		performActionFrame.getContentPane().add(closeBtn);
 		
-		JButton addCarrot = new JButton("Add Carrots");
-		addCarrot.addActionListener(new ActionListener() {
+		JButton feedAnimBtn = new JButton("Feed Animal");
+		feedAnimBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				manager.addCarrots();
+				launchFeedAnimal();
+				manager.feedAnimal();
 				displayLbl.setForeground(Color.green);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
 				displayLbl.setText("Carrots has been added to cart!");
 			}
 		});
-		addCarrot.setBounds(18, 289, 120, 23);
-		addCarrot.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(addCarrot);
+		feedAnimBtn.setBounds(55, 279, 182, 33);
+		feedAnimBtn.setBorder(raiseBorder);
+		performActionFrame.getContentPane().add(feedAnimBtn);
 		
-		JButton btnAddBroccoli = new JButton("Add Broccoli");
-		btnAddBroccoli.addActionListener(new ActionListener() {
+		JButton playWithAnimalBtn = new JButton("Play With Farm Animal");
+		playWithAnimalBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				manager.addBroccoli();
+				manager.playWithAnimal();
 				displayLbl.setForeground(Color.green);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText("Broccoli has been added to cart!");
+				displayLbl.setText("");
 			}
 		});
-		btnAddBroccoli.setBounds(339, 289, 120, 23);
-		btnAddBroccoli.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnAddBroccoli);
+		playWithAnimalBtn.setBounds(378, 349, 167, 33);
+		playWithAnimalBtn.setBorder(raiseBorder);
+		performActionFrame.getContentPane().add(playWithAnimalBtn);
 		
-		JButton btnRemoveCarrots = new JButton("Remove Carrots");
-		btnRemoveCarrots.addActionListener(new ActionListener() {
+		JButton tendLAndBtn = new JButton("Tend Land");
+		tendLAndBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String message = manager.removeCrop("Carrot");
-				displayLbl.setForeground(Color.red);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText(message);
-				
-			}
-		});
-		btnRemoveCarrots.setBounds(158, 289, 120, 23);
-		btnRemoveCarrots.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnRemoveCarrots);
-		
-		JButton btnRemoveBroccoli = new JButton("Remove Broccoli");
-		btnRemoveBroccoli.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String message = manager.removeCrop("Broccoli");
-				displayLbl.setForeground(Color.red);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText(message);
-			}
-		});
-		btnRemoveBroccoli.setBounds(468, 289, 120, 23);
-		btnRemoveBroccoli.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnRemoveBroccoli);
-		
-		JButton btnAddCauliflower = new JButton("Add Cauliflower");
-		btnAddCauliflower.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				manager.addCauliflower();
+				manager.tendLand();
 				displayLbl.setForeground(Color.green);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText("Cauliflower has been added to cart!");
+				displayLbl.setText("");
 			}
 		});
-		btnAddCauliflower.setBounds(21, 444, 127, 23);
-		btnAddCauliflower.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnAddCauliflower);
+		tendLAndBtn.setBounds(55, 436, 182, 31);
+		tendLAndBtn.setBorder(raiseBorder);
+		performActionFrame.getContentPane().add(tendLAndBtn);
 		
-		JButton btnRemoveCauliflower = new JButton("Remove Cauliflower");
-		btnRemoveCauliflower.addActionListener(new ActionListener() {
+		JButton harvestBtn = new JButton("Harvest A Crop");
+		harvestBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String message = manager.removeCrop("Cauliflower");
-				displayLbl.setForeground(Color.red);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText(message);
-				
-			}
-		});
-		btnRemoveCauliflower.setBounds(158, 444, 130, 23);
-		btnRemoveCauliflower.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnRemoveCauliflower);
-		
-		JButton btnAddCapsicum = new JButton("Add Capsicum");
-		btnAddCapsicum.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				manager.addCapsicum();
+				manager.harvestCrops();
 				displayLbl.setForeground(Color.green);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText("Capsicum has been added to cart!");
+				displayLbl.setText("");
 			}
 		});
-		btnAddCapsicum.setBounds(339, 444, 120, 23);
-		btnAddCapsicum.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnAddCapsicum);
+		harvestBtn.setBounds(668, 436, 167, 31);
+		harvestBtn.setBorder(raiseBorder);
+		performActionFrame.getContentPane().add(harvestBtn);
 		
-		JButton btnRemoveCapsicum = new JButton("Remove Capsicum");
-		btnRemoveCapsicum.addActionListener(new ActionListener() {
+		JButton tendCropBtn = new JButton("Tend to a Crop");
+		tendCropBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String message = manager.removeCrop("Capsicum");
-				displayLbl.setForeground(Color.red);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText(message);
-				
-			}
-		});
-		btnRemoveCapsicum.setBounds(468, 444, 120, 23);
-		btnRemoveCapsicum.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnRemoveCapsicum);
-		
-		JButton btnAddAvocado = new JButton("Add Avocado");
-		btnAddAvocado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				manager.addAvocado();
+				manager.tendCrops();
 				displayLbl.setForeground(Color.green);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText("Avocado has been added to cart!");
-			}
-		});
-		btnAddAvocado.setBounds(623, 444, 120, 23);
-		btnAddAvocado.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnAddAvocado);
-		
-		JButton btnRemoveAvocado = new JButton("Remove Avocado");
-		btnRemoveAvocado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String message = manager.removeCrop("Avocado");
-				displayLbl.setForeground(Color.red);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText(message);
+				displayLbl.setText("");
 				
 			}
 		});
-		btnRemoveAvocado.setBounds(753, 444, 120, 23);
-		btnRemoveAvocado.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnRemoveAvocado);
+		tendCropBtn.setBounds(668, 279, 167, 33);
+		tendCropBtn.setBorder(raiseBorder);
+		performActionFrame.getContentPane().add(tendCropBtn);
 		
-		JButton btnAddPotatoes = new JButton("Add Potatoes");
-		btnAddPotatoes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				manager.addPotato();
-				displayLbl.setForeground(Color.green);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText("Potato has been added to cart!");
-				
-			}
-		});
-		btnAddPotatoes.setBounds(623, 289, 120, 23);
-		btnAddPotatoes.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnAddPotatoes);
+		JLabel feedAnimalBorder = new JLabel("");
+		feedAnimalBorder.setBounds(10, 182, 291, 145);
+		feedAnimalBorder.setBorder(border);
+		performActionFrame.getContentPane().add(feedAnimalBorder);
 		
-		JButton btnRemovePotatoes = new JButton("Remove Potatoes");
-		btnRemovePotatoes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String message = manager.removeCrop("Potato");
-				displayLbl.setForeground(Color.red);
-				cartCost.setText("Current Cart Total: $" + manager.getCartCost());
-				displayLbl.setText(message);
-				
-			}
-		});
-		btnRemovePotatoes.setBounds(753, 289, 120, 23);
-		btnRemovePotatoes.setBorder(raiseBorder);
-		performActionFrame.getContentPane().add(btnRemovePotatoes);
-		
-		JLabel carrotBorder = new JLabel("");
-		carrotBorder.setBounds(10, 182, 291, 145);
-		carrotBorder.setBorder(border);
-		performActionFrame.getContentPane().add(carrotBorder);
-		
-		JLabel carrotImage = new JLabel("");
-		carrotImage.setIcon(new ImageIcon(MarketCrops.class.getResource("/Images/cropImages/carrot.png")));
-		carrotImage.setBounds(25, 196, 55, 44);
-		performActionFrame.getContentPane().add(carrotImage);
-		
-		JLabel brocBorder = new JLabel("");
-		brocBorder.setFont(new Font("Tahoma", Font.BOLD, 13));
-		brocBorder.setBounds(327, 182, 278, 145);
-		brocBorder.setBorder(border);
-		performActionFrame.getContentPane().add(brocBorder);
+		JLabel happyAnimalBorder = new JLabel("");
+		happyAnimalBorder.setFont(new Font("Tahoma", Font.BOLD, 13));
+		happyAnimalBorder.setBounds(311, 243, 294, 161);
+		happyAnimalBorder.setBorder(border);
+		performActionFrame.getContentPane().add(happyAnimalBorder);
 		
 		JLabel cauliBorder = new JLabel();
 		cauliBorder.setBounds(10, 338, 291, 145);
 		cauliBorder.setBorder(border);
 		performActionFrame.getContentPane().add(cauliBorder);
 		
-		JLabel broccoliImage = new JLabel();
-		broccoliImage.setIcon(new ImageIcon(MarketCrops.class.getResource("/Images/cropImages/broccoli.png")));
-		broccoliImage.setBounds(339, 196, 55, 44);
-		performActionFrame.getContentPane().add(broccoliImage);
+		JLabel tendCropBorder = new JLabel("");
+		tendCropBorder.setBounds(617, 182, 272, 145);
+		tendCropBorder.setBorder(border);
+		performActionFrame.getContentPane().add(tendCropBorder);
 		
-		JLabel potatoBorder = new JLabel("");
-		potatoBorder.setBounds(617, 182, 272, 145);
-		potatoBorder.setBorder(border);
-		performActionFrame.getContentPane().add(potatoBorder);
+		JLabel harvestCropBorder = new JLabel("");
+		harvestCropBorder.setBounds(617, 338, 267, 145);
+		harvestCropBorder.setBorder(border);
+		performActionFrame.getContentPane().add(harvestCropBorder);
 		
-		JLabel capsBorder = new JLabel("");
-		capsBorder.setBounds(323, 338, 278, 145);
-		capsBorder.setBorder(border);
-		performActionFrame.getContentPane().add(capsBorder);
+		JLabel feedAnimalStat = new JLabel("Increases the animals healthiness");
+		feedAnimalStat.setHorizontalAlignment(SwingConstants.CENTER);
+		feedAnimalStat.setFont(new Font("Tahoma", Font.BOLD, 13));
+		feedAnimalStat.setBounds(21, 196, 267, 72);
+		performActionFrame.getContentPane().add(feedAnimalStat);
 		
-		JLabel avoBorder = new JLabel("");
-		avoBorder.setBounds(617, 338, 272, 145);
-		avoBorder.setBorder(border);
-		performActionFrame.getContentPane().add(avoBorder);
+		JLabel playWithAnimalStat = new JLabel("Increases the animals happiness");
+		playWithAnimalStat.setHorizontalAlignment(SwingConstants.CENTER);
+		playWithAnimalStat.setFont(new Font("Tahoma", Font.BOLD, 13));
+		playWithAnimalStat.setBounds(349, 266, 239, 72);
+		performActionFrame.getContentPane().add(playWithAnimalStat);
 		
-		JLabel potato = new JLabel();
-		potato.setIcon(new ImageIcon(MarketCrops.class.getResource("/Images/cropImages/potato.png")));
-		potato.setBounds(623, 196, 55, 44);
-		performActionFrame.getContentPane().add(potato);
+		JLabel tendToCropStat = new JLabel("<html>Decreases the time until it can be harvested</html>");
+		tendToCropStat.setHorizontalAlignment(SwingConstants.CENTER);
+		tendToCropStat.setFont(new Font("Tahoma", Font.BOLD, 13));
+		tendToCropStat.setBounds(626, 196, 248, 72);
+		performActionFrame.getContentPane().add(tendToCropStat);
 		
-		JLabel avocadoImage = new JLabel();
-		avocadoImage.setIcon(new ImageIcon(MarketCrops.class.getResource("/Images/cropImages/avocado.png")));
-		avocadoImage.setBounds(623, 351, 55, 44);
-		performActionFrame.getContentPane().add(avocadoImage);
+		JLabel tendLandStat = new JLabel("Allows more crops to be grown");
+		tendLandStat.setHorizontalAlignment(SwingConstants.CENTER);
+		tendLandStat.setFont(new Font("Tahoma", Font.BOLD, 13));
+		tendLandStat.setBounds(28, 351, 260, 82);
+		performActionFrame.getContentPane().add(tendLandStat);
 		
-		JLabel capsicumImage = new JLabel();
-		capsicumImage.setIcon(new ImageIcon(MarketCrops.class.getResource("/Images/cropImages/capsicum.jpg")));
-		capsicumImage.setBounds(339, 351, 55, 44);
-		performActionFrame.getContentPane().add(capsicumImage);
-		
-		JLabel cauliImage = new JLabel();
-		cauliImage.setIcon(new ImageIcon(MarketCrops.class.getResource("/Images/cropImages/Cauliflower.png")));
-		cauliImage.setBounds(18, 351, 55, 44);
-		performActionFrame.getContentPane().add(cauliImage);
-		
-		JLabel carrotStat = new JLabel("<html>Cost: $" + manager.carrot.getPrice() 
-		+ "<br>State: " + manager.carrot.getState() 
-		+ "<br>Sell Price: $" + manager.carrot.getSellPrice() 
-		+ "<br>Days To Harvest: " + manager.carrot.getDaysToHarvest() + "</html>");
-		carrotStat.setFont(new Font("Tahoma", Font.BOLD, 13));
-		carrotStat.setBounds(106, 196, 182, 72);
-		performActionFrame.getContentPane().add(carrotStat);
-		
-		JLabel brocStat = new JLabel("<html>Cost: $" + manager.broccoli.getPrice() 
-		+ "<br>State: " + manager.broccoli.getState() 
-		+ "<br>Sell Price: $" + manager.broccoli.getSellPrice() 
-		+ "<br>Days To Harvest: " + manager.broccoli.getDaysToHarvest() + "</html>");
-		brocStat.setFont(new Font("Tahoma", Font.BOLD, 13));
-		brocStat.setBounds(404, 196, 197, 72);
-		performActionFrame.getContentPane().add(brocStat);
-		
-		JLabel lblPostat = new JLabel("<html>Cost: $" + manager.potato.getPrice() 
-		+ "<br>State: " + manager.potato.getState() 
-		+ "<br>Sell Price: $" + manager.potato.getSellPrice() 
-		+ "<br>Days To Harvest: " + manager.potato.getDaysToHarvest() + "</html>");
-		lblPostat.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPostat.setBounds(685, 196, 189, 82);
-		performActionFrame.getContentPane().add(lblPostat);
-		
-		JLabel lblCaulistat = new JLabel("<html>Cost: $" + manager.cauliflower.getPrice() 
-		+ "<br>State: " + manager.cauliflower.getState() 
-		+ "<br>Sell Price: $" + manager.cauliflower.getSellPrice() 
-		+ "<br>Days To Harvest: " + manager.cauliflower.getDaysToHarvest() + "</html>");
-		lblCaulistat.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCaulistat.setBounds(91, 351, 197, 82);
-		performActionFrame.getContentPane().add(lblCaulistat);
-		
-		JLabel lblCapsstat = new JLabel("<html>Cost: $" + manager.capsicum.getPrice() 
-		+ "<br>State: " + manager.capsicum.getState() 
-		+ "<br>Sell Price: $" + manager.capsicum.getSellPrice() 
-		+ "<br>Days To Harvest: " + manager.capsicum.getDaysToHarvest() + "</html>");
-		lblCapsstat.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCapsstat.setBounds(400, 351, 189, 82);
-		performActionFrame.getContentPane().add(lblCapsstat);
-		
-		JLabel avocadoStats = new JLabel("<html>Cost: $" + manager.avocado.getPrice() 
-		+ "<br>State: " + manager.avocado.getState() 
-		+ "<br>Sell Price: $" + manager.avocado.getSellPrice() 
-		+ "<br>Days To Harvest: " + manager.avocado.getDaysToHarvest() + "</html>");
-		avocadoStats.setFont(new Font("Tahoma", Font.BOLD, 13));
-		avocadoStats.setBounds(0, 0, 434, 261);
-		performActionFrame.getContentPane().add(avocadoStats);
+		JLabel harvestCropStat = new JLabel("<html>Harvest and sell a fully grown crop</html>");
+		harvestCropStat.setHorizontalAlignment(SwingConstants.CENTER);
+		harvestCropStat.setFont(new Font("Tahoma", Font.BOLD, 13));
+		harvestCropStat.setBounds(626, 352, 248, 72);
+		performActionFrame.getContentPane().add(harvestCropStat);
 	}
 
 }

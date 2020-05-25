@@ -56,6 +56,10 @@ public class Animal {
 		return price;
 	}
 	
+	
+	/**
+	 * Increase the Health State Level of an animal
+	 */
 	public void addHealthBonus() {
 		healthTracker += 2;
 		emotionTracker += 2;
@@ -70,24 +74,43 @@ public class Animal {
 		return currentProfit;
 	}
 	
-	
+	/**
+	 * returns the current stateof a animal
+	 * @return
+	 */
 	public String getHealthState() {
 		return healthState;
-}
+	}
 
+	
+	/**
+	 * Sets the Emotional state of a animal
+	 * @param emotionalState
+	 */
 	public void setEmotionalState(String emotionalState) {
 		this.emotionalState = emotionalState;
 	}
 	
+	/**
+	 * returns the current Emotional tate of the animal
+	 * @return
+	 */
 	public String getEmotionalState() {
 		return emotionalState;
 	}
 	
+	/**
+	 * Sets the Health state of a animal
+	 * @param healthState
+	 */
 	public void setState(String healthState) {
 		this.healthState = healthState;
 	}
 	
-
+	/**
+	 * sets the name of an animal
+	 * @param newName
+	 */
 	public void setName(String newName) {
 		name = newName;
 	}

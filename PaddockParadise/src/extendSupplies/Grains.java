@@ -1,6 +1,12 @@
 package extendSupplies;
 import MainClassesPackage.*;
 
+
+/**
+ * This class creates a Grains object that extends Supplies
+ * @author Te WehengaJohnson
+ *
+ */
 public class Grains extends Supplies{
 	
 	public Grains() {

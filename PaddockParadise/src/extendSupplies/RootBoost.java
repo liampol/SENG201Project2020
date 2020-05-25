@@ -1,6 +1,12 @@
 package extendSupplies;
 import MainClassesPackage.*;
 
+
+/**
+ * This class creates a Root-Boost object that extends Supplies
+ * @author Te WehengaJohnson
+ *
+ */
 public class RootBoost extends Supplies{
 
 	public RootBoost() {

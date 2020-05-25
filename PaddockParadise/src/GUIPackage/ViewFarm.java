@@ -158,7 +158,7 @@ public class ViewFarm {
 			cropMessage ="Sorry you have no 'Crops' to view,";
 		}else {
 			for (Crop vegie : farm.getCrops()) {
-				cropMessage +="<html>" + vegie.getType() + ": " + "<br>State: " + vegie.getState() + "<br>Days Till Harvest: " + vegie.getDaysToHarvest() + "<br><br></html>"; 
+				cropMessage +=vegie.getType() + ": " + "\nState: " + vegie.getState() + "\nDays Till Harvest: " + vegie.getDaysToHarvest() + "\n\n"; 
 			}
 		}
 		cropsStatus.setText(cropMessage);
@@ -183,7 +183,7 @@ public class ViewFarm {
 			supplyMessage = "Sorry you have no 'Supplies' to view,";
 		}else {
 			for (Supplies tool: farm.getCurrentSupplies()) {
-				supplyMessage += "<html>" + tool.getName() + ": " + "<br>Attribute: " + tool.getBonus() + "<br><br></html>"; 
+				supplyMessage += tool.getName() + ": " + "Attribute: " + tool.getBonus() + "\n\n"; 
 			}
 		}
 		suppliesStatus.setText(supplyMessage);
